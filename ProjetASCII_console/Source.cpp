@@ -5,6 +5,9 @@
 
 LONG_PTR setConsoleWindowStyle(INT, LONG_PTR);
 
+template <size_t rows, size_t cols>
+void FillBuffer(CHAR_INFO(&buffer)[rows][cols], WCHAR character);
+
 int main()
 {
 	LONG_PTR new_style = WS_OVERLAPPEDWINDOW;
@@ -29,16 +32,8 @@ int main()
 	ReadConsoleOutput(hOutput, (CHAR_INFO*)buffer, dwBufferSize,
 		dwBufferCoord, &rcRegion);
 
-	// FILL buffer with T's
-	//for (int x = 0; x < SCREEN_WIDTH; x++)
-	//{
-	//	for (int y = 0; y < SCREEN_HEIGHT; y++)
-	//	{
-
-	//		buffer[x][y].Char.UnicodeChar = 'T';
-	//		buffer[x][y].Attributes = FOREGROUND_RED;
-	//	}
-	//}
+	// Empty buffer
+	FillBuffer(buffer, ' ');
 
 	// Make first frame
 	buffer[5][10].Char.UnicodeChar = 'H';
@@ -96,4 +91,16 @@ LONG_PTR setConsoleWindowStyle(INT n_index, LONG_PTR new_style)
 	ShowWindow(hwnd_console, SW_SHOW);
 
 	return style_ptr;
+}
+
+template <size_t rows, size_t cols>
+void FillBuffer(CHAR_INFO (&buffer)[rows][cols], WCHAR character) {
+	for (int x = 0; x < rows; x++)
+	{
+		for (int y = 0; y < cols; y++)
+		{
+			buffer[x][y].Char.UnicodeChar = character;
+			buffer[x][y].Attributes = FOREGROUND_RED;
+		}
+	}
 }
