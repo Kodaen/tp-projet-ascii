@@ -139,15 +139,21 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Level.cpp" />
     <ClCompile Include="BufferHandler.cpp" />
     <ClCompile Include="NYTimer.cpp" />
     <ClCompile Include="PlayerCharacter.cpp" />
     <ClCompile Include="Source.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Level.h" />
     <ClInclude Include="BufferHandler.h" />
     <ClInclude Include="NYTimer.h" />
     <ClInclude Include="PlayerCharacter.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="levels\level1.txt" />
+    <Text Include="levels\level2.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
