@@ -39,7 +39,7 @@ public :
 
 	// Moving functions
 	void moveRight(int val);
-	void moveTop(int val);
+	void moveDown(int val);
 	void moveDiagonaly(int valX, int valY);
 
 	// Attack and recieve damage functions
