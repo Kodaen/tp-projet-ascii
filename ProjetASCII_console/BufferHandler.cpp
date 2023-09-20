@@ -1,6 +1,9 @@
 #include <windows.h>
+#include <vector>
+#include <string>
 
 #include "BufferHandler.h"
+
 
 BufferHandler* BufferHandler::_bufferHandlerInstance = 0;
 
@@ -20,7 +23,6 @@ BufferHandler& BufferHandler::Instance()
 		_bufferHandlerInstance = new BufferHandler();
 	}
 	return *_bufferHandlerInstance;
-
 }
 
 
@@ -62,4 +64,35 @@ void BufferHandler::drawAtCoordinate(WCHAR character, WORD color, COORD coordina
 {
 	_buffer[coordinate.X][coordinate.Y].Char.UnicodeChar = character;
 	_buffer[coordinate.X][coordinate.Y].Attributes = color;
+}
+
+void BufferHandler::DrawMap(std::vector<std::string> map)
+{
+	for (short i = 0; i < map.size(); i++)
+	{
+		DrawMapRow(map[i], i);
+	}
+}
+
+void BufferHandler::DrawMapRow(std::string row, short x)
+{
+	for (short y = 0; y < row.size(); y++)
+	{
+		drawAtCoordinate(row[y],FOREGROUND_RED, {x, y});
+	}
+}
+
+
+void BufferHandler::changeColorAtCoordinate(WORD color, COORD coordinates)
+{
+}
+
+WCHAR& BufferHandler::getCharacterAtCoordinate(COORD coordinates)
+{
+	return _buffer[coordinates.X][coordinates.Y].Char.UnicodeChar;
+}
+
+WORD& BufferHandler::getColorAtCoordinate(COORD coordinates)
+{
+	return _buffer[coordinates.X][coordinates.Y].Attributes;
 }

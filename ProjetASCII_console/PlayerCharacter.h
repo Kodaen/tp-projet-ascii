@@ -4,16 +4,20 @@
 
 enum DIRECTION
 {
-	TOP,
-	RIGHT,
-	LEFT,
-	BOTTOM
+	TOP			= 1024,	
+	TOP_RIGHT	= 5120,	
+	RIGHT		= 4096,	
+	BOTTOM_RIGHT= 36864,	
+	BOTTOM		= 40960,	
+	BOTTOM_LEFT	= 34816,
+	LEFT		= 2048,		
+	TOP_LEFT	= 3072,		
 };
 
 class PlayerCharacter
 {
 public :
-	//Constructor
+	//Constructor (for loading save)
 	PlayerCharacter(COORD pos, int level, int hp, int damage);
 
 	//Default constructor
@@ -26,10 +30,11 @@ private:
 	//float _xp;
 	int _damage;
 
-	WCHAR _displayedSprite = 0x40; // @
+	WCHAR _displayedSprite = 0x40; // 0x40 : @ // 708 for arrow going to top
+	WORD _spriteColor = 0x02;
 
 	// Direction the character is looking (ENUM)
-	// DIRECTION _lookingDirection;
+	 DIRECTION _lookingDirection;
 
 	// Recieves input
 	// PLAYERCONTROLLER _playercontroller;
@@ -46,9 +51,8 @@ public :
 	void attack();
 	void recieveDamage();
 
-	void levelUp();
+	// void levelUp();
 	// void recieveXp(float xp);
-
 
 	// Getters and Setters
 public:
@@ -101,5 +105,11 @@ public:
 		_displayedSprite = newSprite;
 	}
 
+	WORD getSpriteColor() {
+		return _spriteColor;
+	}
 
+	void setSpriteColor(WORD newSpriteColor) {
+		_spriteColor = newSpriteColor;
+	}
 };

@@ -1,4 +1,5 @@
 #pragma once
+#include <vector>
 
 //#include <windows.h>
 
@@ -8,11 +9,12 @@
 
 class BufferHandler
 {
-	// Constructor and destructor
+	// Constructor
 private:
 	BufferHandler();
 	void initialize();
 
+	// Attributes
 private:
 
 	HANDLE _hOutput;
@@ -24,6 +26,7 @@ private:
 
 	static BufferHandler* _bufferHandlerInstance;
 
+	// Methods
 public:
 	~BufferHandler();
 
@@ -37,5 +40,13 @@ public:
 
 	void drawAtCoordinate(WCHAR character, WORD color, COORD coordinates);
 
+	void changeColorAtCoordinate(WORD color, COORD coordinates);
 
+	void DrawMap(std::vector<std::string> map);
+
+	void DrawMapRow(std::string row, short x);
+
+	WCHAR& getCharacterAtCoordinate(COORD coordinates);
+
+	WORD& getColorAtCoordinate(COORD coordinates);
 };

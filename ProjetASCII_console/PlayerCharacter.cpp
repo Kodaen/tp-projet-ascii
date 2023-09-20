@@ -38,6 +38,7 @@ void PlayerCharacter::update() {
 		break;
 	}
 
+
 	// ça marche aussi
 	//do {
 	//	std::cout << "waiting for input d" << std::endl;
@@ -45,7 +46,7 @@ void PlayerCharacter::update() {
 }
 
 void PlayerCharacter::moveDiagonaly(int valX, int valY) {
-	// TODO : Check if you can actually go to the right
+	// TODO : Check if you can actually go diagonaly
 	this->moveRight(valX);
 	this->moveDown(valY);
 
@@ -55,21 +56,57 @@ void PlayerCharacter::moveDiagonaly(int valX, int valY) {
 void PlayerCharacter::moveRight(int val) {
 	// TODO : Check if you can actually go to the right
 	
+	//val can take either 1 or -1
+	//1 means go to right
+	//-1 means go to left
+
 	//if (BufferHandler::Instance().getCharAtCoordinates(Coords) != mur) {
 		_pos.Y += val;
 	//}
-	// TODO : Change direction
+	
+		if (val == 1) {
+			_lookingDirection = RIGHT;
+		}
+		else {
+			_lookingDirection = LEFT;
+		}
+		_spriteColor = _lookingDirection + 2;
 }
 
 void PlayerCharacter::moveDown(int val) {
-	// TODO : Check if you can actually go to the right
+	//val can take either 1 or -1
+	//1 means go down
+	//-1 means go up
+
+	// TODO : Check if you can actually go Down or bottom
 	_pos.X += val;
 
-	// TODO : Change direction
+	if (val == 1) {
+		_lookingDirection = BOTTOM;
+		_spriteColor = BOTTOM;
+	}
+	else {
+		_lookingDirection = TOP;
+		_spriteColor = TOP;
+	}
+	_spriteColor = _lookingDirection + 2;
 }
 
 void PlayerCharacter::attack() {
 	// TODO : implementation
+
+	// switch case on the Direction the character is looking
+	// ie
+	// case : TOP
+	//	WCHAR target = BufferHandler::Instance().getCharAtCoordinates (_pos.X, _pos.Y+1)
+	//  if (target == enemy) {
+	//  target.recieveDamage() 
+	//  }
+	// break
+
+	// instead of making "BufferHandler::Instance().getCharAtCoordinates (_pos.X, _pos.Y+1)"
+	// it's better to loop on all enemies and if enemie._pos =  {this._pos.X, this_pos.Y+1}
+	// then enemie.recieveDamage
 };
 
 void PlayerCharacter::recieveDamage() {
