@@ -4,11 +4,16 @@
 #include <windows.h>
 
 #include "PlayerCharacter.h"
+#include "Level.h"
 
 LONG_PTR setConsoleWindowStyle(INT, LONG_PTR);
 
 template <size_t rows, size_t cols>
 void FillBuffer(CHAR_INFO(&buffer)[rows][cols], WCHAR character);
+template <size_t rows, size_t cols>
+void DrawMap(CHAR_INFO(&buffer)[rows][cols], std::vector<std::string> map);
+template <size_t rows, size_t cols>
+void DrawMapRow(CHAR_INFO(&buffer)[rows][cols], std::string row, int x);
 
 int main()
 {
@@ -77,10 +82,16 @@ int main()
 
 	PlayerCharacter MainChar;
 
+	Level level = Level("levels/level1.txt");
+	std::vector<std::string> map = level.getLevel();
+
 	while (true) {
 		FillBuffer(buffer, ' ');
+
+		DrawMap(buffer, map);
+
 		MainChar.update();
-		buffer[MainChar.getPos().X][MainChar.getPos().Y].Char.UnicodeChar = MainChar.getSprite() ;
+		buffer[MainChar.getPos().X][MainChar.getPos().Y].Char.UnicodeChar = MainChar.getSprite();
 		buffer[MainChar.getPos().X][MainChar.getPos().Y].Attributes = FOREGROUND_GREEN;
 
 		WriteConsoleOutput(hOutput, (CHAR_INFO*)buffer, dwBufferSize,
@@ -109,7 +120,7 @@ LONG_PTR setConsoleWindowStyle(INT n_index, LONG_PTR new_style)
 }
 
 template <size_t rows, size_t cols>
-void FillBuffer(CHAR_INFO (&buffer)[rows][cols], WCHAR character) {
+void FillBuffer(CHAR_INFO(&buffer)[rows][cols], WCHAR character) {
 	for (int x = 0; x < rows; x++)
 	{
 		for (int y = 0; y < cols; y++)
@@ -117,5 +128,23 @@ void FillBuffer(CHAR_INFO (&buffer)[rows][cols], WCHAR character) {
 			buffer[x][y].Char.UnicodeChar = character;
 			buffer[x][y].Attributes = FOREGROUND_RED;
 		}
+	}
+}
+
+// TODO: Move to bufferHandler class method when created.
+template <size_t rows, size_t cols>
+void DrawMap(CHAR_INFO(&buffer)[rows][cols], std::vector<std::string> map) {
+	for (int i = 0; i < map.size(); i++)
+	{
+		DrawMapRow(buffer, map[i], i);
+	}
+}
+
+template <size_t rows, size_t cols>
+void DrawMapRow(CHAR_INFO(&buffer)[rows][cols], std::string row, int x) {
+	for (int y = 0; y < row.size(); y++)
+	{
+		buffer[x][y].Char.UnicodeChar = row[y];
+		buffer[x][y].Attributes = FOREGROUND_RED;
 	}
 }
