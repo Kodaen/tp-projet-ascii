@@ -3,6 +3,8 @@
 #include <iostream>
 #include <windows.h>
 
+#include "PlayerCharacter.h"
+
 LONG_PTR setConsoleWindowStyle(INT, LONG_PTR);
 
 template <size_t rows, size_t cols>
@@ -17,7 +19,7 @@ int main()
 	const short SCREEN_WIDTH = 20;
 	const short SCREEN_HEIGHT = 100;
 
-	std::string nextStep;
+	//std::string nextStep;
 
 	// Initiate buffer and its data
 	HANDLE hOutput = (HANDLE)GetStdHandle(STD_OUTPUT_HANDLE);
@@ -39,16 +41,16 @@ int main()
 	buffer[5][10].Char.UnicodeChar = 'H';
 	buffer[5][10].Attributes = FOREGROUND_RED;
 
-	buffer[5][11].Char.AsciiChar = 'i';
+	buffer[5][11].Char.UnicodeChar = 'i';
 	buffer[5][11].Attributes = FOREGROUND_BLUE;
 
-	buffer[5][12].Char.AsciiChar = '!';
+	buffer[5][12].Char.UnicodeChar = '!';
 	buffer[5][12].Attributes = 0x05;
 
 	// Display first frame
 	WriteConsoleOutput(hOutput, (CHAR_INFO*)buffer, dwBufferSize,
 		dwBufferCoord, &rcRegion);
-	std::cin >> nextStep;
+	//std::cin >> nextStep;
 
 	// Make second frame
 	buffer[5][10].Char.AsciiChar = NULL;
@@ -67,11 +69,24 @@ int main()
 	WriteConsoleOutput(hOutput, (CHAR_INFO*)buffer, dwBufferSize,
 		dwBufferCoord, &rcRegion);
 
-	std::cin >> nextStep;
+	//std::cin >> nextStep;
 
 	// Cacher le curseur
 	//CONSOLEE_CURSOR_INFO cursorInfo;
 	//cursorInfo.bVisible = FALSE;
+
+	PlayerCharacter MainChar;
+
+	while (true) {
+		FillBuffer(buffer, ' ');
+		MainChar.update();
+		buffer[MainChar.getPos().X][MainChar.getPos().Y].Char.UnicodeChar = MainChar.getSprite() ;
+		buffer[MainChar.getPos().X][MainChar.getPos().Y].Attributes = FOREGROUND_GREEN;
+
+		WriteConsoleOutput(hOutput, (CHAR_INFO*)buffer, dwBufferSize,
+			dwBufferCoord, &rcRegion);
+	}
+
 
 	// fin du jeu
 	return EXIT_SUCCESS;
