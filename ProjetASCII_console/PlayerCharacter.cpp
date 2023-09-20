@@ -54,8 +54,10 @@ void PlayerCharacter::moveDiagonaly(int valX, int valY) {
 
 void PlayerCharacter::moveRight(int val) {
 	// TODO : Check if you can actually go to the right
-	_pos.Y += val;
-
+	
+	//if (BufferHandler::Instance().getCharAtCoordinates(Coords) != mur) {
+		_pos.Y += val;
+	//}
 	// TODO : Change direction
 }
 

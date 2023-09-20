@@ -1,0 +1,65 @@
+#include <windows.h>
+
+#include "BufferHandler.h"
+
+BufferHandler* BufferHandler::_bufferHandlerInstance = 0;
+
+BufferHandler::BufferHandler() {
+	initialize();
+}
+
+BufferHandler::~BufferHandler() {
+	_bufferHandlerInstance = nullptr;
+}
+
+
+BufferHandler& BufferHandler::Instance()
+{
+	if (!_bufferHandlerInstance)
+	{
+		_bufferHandlerInstance = new BufferHandler();
+	}
+	return *_bufferHandlerInstance;
+
+}
+
+
+void BufferHandler::initialize() {
+	const short SCREEN_WIDTH = WIDTH;
+	const short SCREEN_HEIGHT = HEIGHT;
+
+	_hOutput = (HANDLE)GetStdHandle(STD_OUTPUT_HANDLE);
+
+	_dwBufferSize = { SCREEN_WIDTH,SCREEN_HEIGHT };
+	_dwBufferCoord = { 0, 0 };
+	_rcRegion = { 0, 0, SCREEN_WIDTH - 1, SCREEN_HEIGHT - 1 };
+
+
+	ReadConsoleOutput(_hOutput, (CHAR_INFO*)_buffer, _dwBufferSize, _dwBufferCoord, &_rcRegion);
+
+}
+
+void BufferHandler::printBuffer() {
+	WriteConsoleOutput(_hOutput, (CHAR_INFO*)_buffer, _dwBufferSize,
+		_dwBufferCoord, &_rcRegion);
+}
+
+void BufferHandler::emptyBuffer() {
+	fillBuffer(' ');
+}
+
+void BufferHandler::fillBuffer(WCHAR character) {
+	for (short x = 0; x < WIDTH; x++)
+	{
+		for (short y = 0; y < HEIGHT; y++)
+		{
+			drawAtCoordinate(character, FOREGROUND_RED, { x,y });
+		}
+	}
+}
+
+void BufferHandler::drawAtCoordinate(WCHAR character, WORD color, COORD coordinate)
+{
+	_buffer[coordinate.X][coordinate.Y].Char.UnicodeChar = character;
+	_buffer[coordinate.X][coordinate.Y].Attributes = color;
+}
