@@ -19,15 +19,19 @@ void PlayerCharacter::update() {
 	switch (ch)
 	{
 	case 'd':
-		//std::cout << "moving to right" << std::endl;
 		this->moveRight(1);
-		//std::cout << "x :" << this->getPos().X << std::endl << "y :" << this->getPos().Y << std::endl;
 		break;
 
 	case 'q':
-		//std::cout << "moving to left" << std::endl;
 		this->moveRight(-1);
-		//std::cout << "x :" << this->getPos().X << std::endl << "y :" << this->getPos().Y << std::endl;
+		break;
+
+	case 'z':
+		this->moveDown(-1);
+		break;
+
+	case 's':
+		this->moveDown(1);
 		break;
 
 	default:
@@ -43,7 +47,7 @@ void PlayerCharacter::update() {
 void PlayerCharacter::moveDiagonaly(int valX, int valY) {
 	// TODO : Check if you can actually go to the right
 	this->moveRight(valX);
-	this->moveTop(valY);
+	this->moveDown(valY);
 
 	// TODO : Change direction
 }
@@ -55,7 +59,7 @@ void PlayerCharacter::moveRight(int val) {
 	// TODO : Change direction
 }
 
-void PlayerCharacter::moveTop(int val) {
+void PlayerCharacter::moveDown(int val) {
 	// TODO : Check if you can actually go to the right
 	_pos.X += val;
 
