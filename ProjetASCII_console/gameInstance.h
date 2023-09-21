@@ -26,8 +26,6 @@ private:
 public:
 	static GameInstance* _gameInstance;
 
-	// Functions
-	bool CanGoToTile(COORD coordinates);
 
 private:
 

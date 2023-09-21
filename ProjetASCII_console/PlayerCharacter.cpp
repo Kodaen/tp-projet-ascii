@@ -2,7 +2,10 @@
 #include <conio.h>
 #include <windows.h>
 
+#include "Level.h"
 #include "PlayerCharacter.h"
+#include "GameInstance.h"
+
 
 PlayerCharacter::PlayerCharacter()
 {
@@ -11,6 +14,7 @@ PlayerCharacter::PlayerCharacter()
 	//_xp = 0.0f;
 	_hp = 1;
 	_damage = 1;
+	_lookingDirection = TOP;
 }
 
 void PlayerCharacter::update() {
@@ -45,7 +49,7 @@ void PlayerCharacter::update() {
 	//} while (!GetAsyncKeyState(0x44));
 }
 
-void PlayerCharacter::moveDiagonaly(int valX, int valY) {
+void PlayerCharacter::moveDiagonaly(short valX, short valY) {
 	// TODO : Check if you can actually go diagonaly
 	this->moveRight(valX);
 	this->moveDown(valY);
@@ -53,35 +57,42 @@ void PlayerCharacter::moveDiagonaly(int valX, int valY) {
 	// TODO : Change direction
 }
 
-void PlayerCharacter::moveRight(int val) {
+void PlayerCharacter::moveRight(short val) {
 	// TODO : Check if you can actually go to the right
 
 	//val can take either 1 or -1
 	//1 means go to right
 	//-1 means go to left
-
-
+	
+	if (GameInstance::Instance().getcurrentLevel().isTileWalkable({ _pos.X ,val + _pos.Y }))
+	{
 		_pos.Y += val;
+	}
 
 	
-		if (val == 1) {
-			_lookingDirection = RIGHT;
-		}
-		else {
-			_lookingDirection = LEFT;
-		}
-		_spriteColor = _lookingDirection + 2;
+
+
+	if (val == 1) {
+		_lookingDirection = RIGHT;
+	}
+	else {
+		_lookingDirection = LEFT;
+	}
+	_spriteColor = _lookingDirection + 2;
 }
 
-void PlayerCharacter::moveDown(int val) {
+void PlayerCharacter::moveDown(short val) {
 	//val can take either 1 or -1
 	//1 means go down
 	//-1 means go up
 
 	// TODO : Check if you can actually go Down or bottom
+	if (GameInstance::Instance().getcurrentLevel().isTileWalkable({ val + _pos.X ,_pos.Y }))
+	{
+		_pos.X += val;
+	}
 	
-	
-	_pos.X += val;
+
 
 	if (val == 1) {
 		_lookingDirection = BOTTOM;

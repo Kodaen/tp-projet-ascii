@@ -1,11 +1,15 @@
-#include "Level.h"
-
 #include <iostream>
 #include <sstream>
 #include <string>
 #include <fstream>
 #include <stdio.h>
 #include <vector>
+#include <windows.h>
+
+#include "BufferHandler.h"
+#include "Level.h"
+
+
 
 Level::Level(std::string levelName)
 {
@@ -34,5 +38,12 @@ void Level::readFile(std::string fileName)
 void Level::readLine(std::string line)
 {
 	_level.push_back(line);
+}
+
+bool Level::isTileWalkable(COORD coordinates)
+{
+	return BufferHandler::Instance().getCharacterAtCoordinate(coordinates) == '.' ||
+		BufferHandler::Instance().getCharacterAtCoordinate(coordinates) == '+' ||
+		BufferHandler::Instance().getCharacterAtCoordinate(coordinates) == '#';
 }
 

@@ -1,8 +1,9 @@
+#include <windows.h>
 #include "Level.h"
 #include "PlayerCharacter.h"
 
-#include "gameInstance.h"
 #include "BufferHandler.h"
+#include "gameInstance.h"
 
 GameInstance* GameInstance::_gameInstance = 0;
 

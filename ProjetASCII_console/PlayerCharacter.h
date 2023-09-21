@@ -46,9 +46,9 @@ public :
 	void update();
 
 	// Moving functions
-	void moveRight(int val);
-	void moveDown(int val);
-	void moveDiagonaly(int valX, int valY);
+	void moveRight(short val);
+	void moveDown(short val);
+	void moveDiagonaly(short valX, short valY);
 
 	// Attack and recieve damage functions
 	void attack();

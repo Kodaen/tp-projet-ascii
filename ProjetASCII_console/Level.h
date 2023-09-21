@@ -2,6 +2,7 @@
 
 #include <vector>
 #include <string>
+#include <wincontypes.h>
 
 class Level
 {
@@ -16,6 +17,8 @@ public:
 		return _levelName;
 	}
 
+	bool isTileWalkable(COORD coordinates);
+
 private:
 	std::vector<std::string> _level;
 	std::string _levelName;
@@ -23,5 +26,6 @@ private:
 	void readFile(std::string fileName);
 
 	void readLine(std::string line);
+
 };
 
