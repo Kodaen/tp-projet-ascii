@@ -6,6 +6,7 @@
 #include "PlayerCharacter.h"
 #include "BufferHandler.h"
 #include "Level.h"
+#include "gameInstance.h"
 
 LONG_PTR setConsoleWindowStyle(INT, LONG_PTR);
 
@@ -15,10 +16,9 @@ int main()
 	LONG_PTR new_style = WS_OVERLAPPEDWINDOW;
 	setConsoleWindowStyle(GWL_STYLE, new_style);
 	
-	BufferHandler bufferHandler = BufferHandler::Instance();
+	BufferHandler &bufferHandler = BufferHandler::Instance();
 
 	bufferHandler.emptyBuffer();
-
 
 		// Make first frame
 	bufferHandler.emptyBuffer();
@@ -38,27 +38,26 @@ int main()
 	// Display first frame
 	bufferHandler.printBuffer();
 
-	PlayerCharacter MainChar;
-
+	// Initiate GameInstance
+	GameInstance &gameInstance = GameInstance::Instance();
 	Level level = Level("levels/level1.txt");
-	std::vector<std::string> map = level.getLevel();
+	gameInstance.setCurrentLevel(level);
 
+	std::vector<std::string> map = gameInstance.getcurrentLevel().getLevel();
+
+	// Game loop
 	while (true) {
 		// Empty the buffer
 		bufferHandler.emptyBuffer();
-
+		
 		// Draw the map
 		bufferHandler.DrawMap(map);
 
-		// Update all characters (TODO : make a vector of all entities (PlayerCharacter is a subclass of Entity, Ennemy is also one). 
-		// And for each entities call their udpate method)
-		MainChar.update();
-
-		// TODO : Should it be moved at the end of MainChar.update() ?
-		bufferHandler.drawAtCoordinate(MainChar.getSprite(), MainChar.getSpriteColor(), {MainChar.getPos().X, MainChar.getPos().Y});
+		gameInstance.update();
 
 		// Print the buffer on the screen
 		bufferHandler.printBuffer();
+
 	}
 
 	// fin du jeu

@@ -1,6 +1,9 @@
 #pragma once
 
 //#include <windows.h>
+#include <stdio.h>
+#include <iostream>
+#include <windows.h>
 
 enum DIRECTION
 {

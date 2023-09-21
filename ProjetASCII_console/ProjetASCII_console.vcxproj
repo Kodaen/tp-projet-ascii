@@ -139,6 +139,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="gameInstance.cpp" />
     <ClCompile Include="Level.cpp" />
     <ClCompile Include="BufferHandler.cpp" />
     <ClCompile Include="NYTimer.cpp" />
@@ -146,6 +147,7 @@
     <ClCompile Include="Source.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="gameInstance.h" />
     <ClInclude Include="Level.h" />
     <ClInclude Include="BufferHandler.h" />
     <ClInclude Include="NYTimer.h" />
