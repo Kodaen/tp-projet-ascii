@@ -1,9 +1,14 @@
 #pragma once
 
+//#include <conio.h>
 //#include <windows.h>
-#include <stdio.h>
-#include <iostream>
-#include <windows.h>
+//#include <vector>
+//#include <sstream>
+//
+//#include "BufferHandler.h"
+//#include "Level.h"
+//#include "PlayerCharacter.h"
+//#include "GameInstance.h"
 
 enum DIRECTION
 {

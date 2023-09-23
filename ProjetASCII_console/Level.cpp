@@ -1,15 +1,11 @@
 #include <iostream>
-#include <sstream>
-#include <string>
 #include <fstream>
-#include <stdio.h>
 #include <vector>
 #include <windows.h>
+#include <sstream>
 
 #include "BufferHandler.h"
 #include "Level.h"
-
-
 
 Level::Level(std::string levelName)
 {

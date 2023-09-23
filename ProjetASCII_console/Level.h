@@ -1,8 +1,11 @@
 #pragma once
 
-#include <vector>
-#include <string>
-#include <wincontypes.h>
+//#include <iostream>
+//#include <fstream>
+//#include <vector>
+//#include <windows.h>
+//#include <sstream>
+//#include "BufferHandler.h"
 
 class Level
 {

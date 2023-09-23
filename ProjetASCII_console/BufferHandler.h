@@ -1,7 +1,8 @@
 #pragma once
-#include <vector>
 
 //#include <windows.h>
+//#include <vector>
+//#include <string>
 
 #define HEIGHT 20 //MAX VALUE = 32,767
 #define WIDTH 20  //MAX VALUE = 32,767

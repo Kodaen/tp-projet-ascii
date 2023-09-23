@@ -1,7 +1,9 @@
 #define _WIN32_WINNT 0x0501
 #include <stdio.h>
 #include <iostream>
+#include <vector>
 #include <windows.h>
+#include <fstream>
 
 #include "PlayerCharacter.h"
 #include "BufferHandler.h"
@@ -50,7 +52,7 @@ int main()
 		// Empty the buffer
 		bufferHandler.emptyBuffer();
 		
-		// Draw the map
+		// Put the map into the buffer
 		bufferHandler.DrawMap(map);
 
 		gameInstance.update();

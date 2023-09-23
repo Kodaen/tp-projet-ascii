@@ -1,7 +1,10 @@
-#include <iostream>
 #include <conio.h>
 #include <windows.h>
+#include <iostream>
+#include <fstream>
+#include <vector>
 
+#include "BufferHandler.h"
 #include "Level.h"
 #include "PlayerCharacter.h"
 #include "GameInstance.h"
@@ -18,7 +21,13 @@ PlayerCharacter::PlayerCharacter()
 }
 
 void PlayerCharacter::update() {
-	//Get input and make action accordingly
+	// TODO : change _getch to getasynckey
+	// Have an input class that get the keys
+	// and control player accordingly
+	// Axel also said that with the input
+	// class I can try to have frames that
+	// last the same time, or atleast
+	// have a limit of frame
 	char ch = _getch();
 	switch (ch)
 	{
@@ -58,8 +67,6 @@ void PlayerCharacter::moveDiagonaly(short valX, short valY) {
 }
 
 void PlayerCharacter::moveRight(short val) {
-	// TODO : Check if you can actually go to the right
-
 	//val can take either 1 or -1
 	//1 means go to right
 	//-1 means go to left
@@ -68,9 +75,6 @@ void PlayerCharacter::moveRight(short val) {
 	{
 		_pos.Y += val;
 	}
-
-	
-
 
 	if (val == 1) {
 		_lookingDirection = RIGHT;
@@ -92,15 +96,11 @@ void PlayerCharacter::moveDown(short val) {
 		_pos.X += val;
 	}
 	
-
-
 	if (val == 1) {
 		_lookingDirection = BOTTOM;
-		_spriteColor = BOTTOM;
 	}
 	else {
 		_lookingDirection = TOP;
-		_spriteColor = TOP;
 	}
 	_spriteColor = _lookingDirection + 2;
 }
