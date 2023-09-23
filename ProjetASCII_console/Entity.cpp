@@ -19,7 +19,7 @@ Entity::Entity()
 	_pos = { 11,11 };
 	_hp = 1;
 	_damage = 1;
-	_lookingDirection = TOP;
+	_originalSpriteColor = 0x07;
 }
 
 void Entity::update() {
@@ -50,7 +50,7 @@ void Entity::moveRight(short val) {
 	else {
 		_lookingDirection = LEFT;
 	}
-	_spriteColor = _lookingDirection + 2;
+	_displayedColor = _lookingDirection + _originalSpriteColor;
 }
 
 void Entity::moveDown(short val) {
@@ -70,7 +70,7 @@ void Entity::moveDown(short val) {
 	else {
 		_lookingDirection = TOP;
 	}
-	_spriteColor = _lookingDirection + 2;
+	_displayedColor = _lookingDirection + _originalSpriteColor;
 }
 
 void Entity::attack() {

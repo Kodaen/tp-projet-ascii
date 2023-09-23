@@ -17,8 +17,10 @@ protected:
 	int _hp;
 	int _damage;
 
+	WORD _originalSpriteColor = 0x07;
+	WORD _displayedColor;
 	WCHAR _displayedSprite = 0x40; // 0x40 : @ // 708 for arrow going to top
-	WORD _spriteColor = 0x07;
+	
 
 	// Direction the character is looking (ENUM)
 	DIRECTION _lookingDirection;
@@ -70,11 +72,19 @@ public:
 		_displayedSprite = newSprite;
 	}
 
-	WORD getSpriteColor() {
-		return _spriteColor;
+	WORD getOriginalSpriteColor() {
+		return _originalSpriteColor;
 	}
 
-	void setSpriteColor(WORD newSpriteColor) {
-		_spriteColor = newSpriteColor;
+	void setOriginalSpriteColor(WORD newSpriteColor) {
+		_originalSpriteColor = newSpriteColor;
+	}
+
+	WORD getDisplayedSpriteColor() {
+		return _displayedColor;
+	}
+
+	void setDisplayedSpriteColor(WORD newDisplayedColor) {
+		_displayedColor = newDisplayedColor;
 	}
 };

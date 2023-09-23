@@ -21,9 +21,9 @@ PlayerCharacter::PlayerCharacter()
 	_pos = { 10,10 };
 	_level = 1;
 	//_xp = 0.0f;
+	_originalSpriteColor = 0x02;
 	_hp = 1;
 	_damage = 1;
-	_lookingDirection = TOP;
 }
 
 void PlayerCharacter::update() {

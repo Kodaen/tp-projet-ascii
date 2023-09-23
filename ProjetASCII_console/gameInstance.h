@@ -2,6 +2,7 @@
 
 //#include <windows.h>
 //#include "PlayerCharacter.h"
+//#include "vector.h"
 
 class GameInstance
 {
@@ -23,6 +24,8 @@ private:
 	Level _currentLevel;
 
 	PlayerCharacter _playerCharacter;
+
+	std::vector<Entity> _entities;
  
 public:
 	static GameInstance* _gameInstance;
@@ -49,5 +52,13 @@ public:
 	void setPlayerCharacter(PlayerCharacter &newPlayerCharacter) {
 		_playerCharacter = newPlayerCharacter;
 	};
+
+	std::vector<Entity>& getEntites() {
+		return _entities;
+	}
+
+	void setEntities(std::vector<Entity> newEntities){
+		_entities = newEntities;
+	}
 };
 

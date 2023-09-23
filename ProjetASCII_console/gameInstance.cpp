@@ -38,10 +38,20 @@ void GameInstance::update() {
 	// Update player
 	_playerCharacter.update();
 
-
 	// Update buffer to display player
 	BufferHandler::Instance().drawAtCoordinate(_playerCharacter.getSprite(),
-		_playerCharacter.getSpriteColor(),
+		_playerCharacter.getDisplayedSpriteColor(),
 		{ _playerCharacter.getPos().X, _playerCharacter.getPos().Y });
+
+	for (short i = 0; i < _entities.size(); i++)
+	{
+		_entities[i].update();
+
+		BufferHandler::Instance().drawAtCoordinate(_entities[i].getSprite(),
+			_entities[i].getDisplayedSpriteColor(),
+			{ _entities[i].getPos().X, _entities[i].getPos().Y });
+	}
+
+
 }
 
