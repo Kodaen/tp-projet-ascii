@@ -1,13 +1,17 @@
 #define _WIN32_WINNT 0x0501
 #include <stdio.h>
-#include <iostream>
+#include <string>
 #include <vector>
 #include <windows.h>
-#include <fstream>
 
+#include "Direction.h"
+#include "Entity.h"
 #include "PlayerCharacter.h"
+
 #include "BufferHandler.h"
+
 #include "Level.h"
+
 #include "gameInstance.h"
 
 LONG_PTR setConsoleWindowStyle(INT, LONG_PTR);

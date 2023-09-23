@@ -1,13 +1,17 @@
 #include <windows.h>
-#include <iostream>
-#include <fstream>
 #include <vector>
 #include <string>
 
 #include "Level.h"
+
+#include "Direction.h"
+#include <wincontypes.h>
+#include "Entity.h"
+
 #include "PlayerCharacter.h"
 
 #include "BufferHandler.h"
+
 #include "gameInstance.h"
 
 GameInstance* GameInstance::_gameInstance = 0;

@@ -1,12 +1,18 @@
 #include <conio.h>
-#include <windows.h>
-#include <iostream>
-#include <fstream>
-#include <vector>
 
+#include <windows.h>
+#include "Direction.h"
+#include "Entity.h"
+
+#include <vector>
+#include <string>
 #include "BufferHandler.h"
+
 #include "Level.h"
+
+
 #include "PlayerCharacter.h"
+
 #include "GameInstance.h"
 
 
@@ -57,59 +63,3 @@ void PlayerCharacter::update() {
 	//	std::cout << "waiting for input d" << std::endl;
 	//} while (!GetAsyncKeyState(0x44));
 }
-
-void PlayerCharacter::moveDiagonaly(short valX, short valY) {
-	// TODO : Check if you can actually go diagonaly
-	this->moveRight(valX);
-	this->moveDown(valY);
-
-	// TODO : Change direction
-}
-
-void PlayerCharacter::moveRight(short val) {
-	//val can take either 1 or -1
-	//1 means go to right
-	//-1 means go to left
-	
-	if (GameInstance::Instance().getcurrentLevel().isTileWalkable({ _pos.X ,val + _pos.Y }))
-	{
-		_pos.Y += val;
-	}
-
-	if (val == 1) {
-		_lookingDirection = RIGHT;
-	}
-	else {
-		_lookingDirection = LEFT;
-	}
-	_spriteColor = _lookingDirection + 2;
-}
-
-void PlayerCharacter::moveDown(short val) {
-	//val can take either 1 or -1
-	//1 means go down
-	//-1 means go up
-
-	// TODO : Check if you can actually go Down or bottom
-	if (GameInstance::Instance().getcurrentLevel().isTileWalkable({ val + _pos.X ,_pos.Y }))
-	{
-		_pos.X += val;
-	}
-	
-	if (val == 1) {
-		_lookingDirection = BOTTOM;
-	}
-	else {
-		_lookingDirection = TOP;
-	}
-	_spriteColor = _lookingDirection + 2;
-}
-
-void PlayerCharacter::attack() {
-	// TODO : implementation
-
-};
-
-void PlayerCharacter::recieveDamage() {
-	// TODO : implementation
-};
