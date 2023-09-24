@@ -17,6 +17,7 @@
 GameInstance* GameInstance::_gameInstance = 0;
 
 GameInstance::GameInstance(PlayerCharacter mainChar) : _currentLevel("levels/level1.txt"), _playerCharacter(mainChar){
+	_entities = std::vector<Entity>();
 }
 
 GameInstance::~GameInstance() {
@@ -45,6 +46,11 @@ void GameInstance::update() {
 
 	for (short i = 0; i < _entities.size(); i++)
 	{
+		if (_entities[i].isPendingDestruction())
+		{
+			_entities.erase(_entities.begin() + i);
+			continue;
+		}
 		_entities[i].update();
 
 		BufferHandler::Instance().drawAtCoordinate(_entities[i].getSprite(),

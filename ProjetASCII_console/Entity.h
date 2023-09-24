@@ -16,6 +16,7 @@ protected:
 	COORD _pos;
 	int _hp;
 	int _damage;
+	bool _pendingDestruction;
 
 	WORD _originalSpriteColor = 0x07;
 	WORD _displayedColor;
@@ -37,7 +38,7 @@ public:
 	void attack();
 	void recieveDamage(int Damage);
 
-	void die();
+	virtual void die();
 
 	// Getters and Setters
 public:
@@ -88,5 +89,9 @@ public:
 
 	void setDisplayedSpriteColor(WORD newDisplayedColor) {
 		_displayedColor = newDisplayedColor;
+	}
+
+	bool isPendingDestruction() {
+		return _pendingDestruction;
 	}
 };

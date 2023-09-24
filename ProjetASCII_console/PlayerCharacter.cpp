@@ -69,3 +69,8 @@ void PlayerCharacter::update() {
 	//	std::cout << "waiting for input d" << std::endl;
 	//} while (!GetAsyncKeyState(0x44));
 }
+
+void PlayerCharacter::die() {
+	// TODO : End of the game ?
+	return;
+}

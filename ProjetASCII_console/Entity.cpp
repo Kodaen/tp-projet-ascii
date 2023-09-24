@@ -22,6 +22,7 @@ Entity::Entity()
 	_originalSpriteColor = 0x07;
 	_lookingDirection = BOTTOM_LEFT;
 	_displayedColor = 0x07;
+	_pendingDestruction = false;
 }
 
 void Entity::update() {
@@ -134,13 +135,6 @@ void Entity::recieveDamage(int Damage) {
 };
 
 void Entity::die(){
-	// set attribute to "pendingDestruction" to true
-	// then at the and of the tick, the gameInstance
-	// will remove it from the vector ?
-	// to avoid trying to remove every pendingDestruction
-	// entity, we could send a notification to the 
-	// GameObject to actually check if there is something
-	// to destroy first.
-
-	// setDisplayedSpriteColor(0x01 + _lookingDirection);
+	_pendingDestruction = true;
+	_originalSpriteColor = 0x08;
 }

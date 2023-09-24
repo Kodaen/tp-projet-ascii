@@ -17,13 +17,15 @@ private:
 	//float _xp;
 
 	// Recieves input
-	// PLAYERCONTROLLER _playercontroller;
+	// PlayerController _playercontroller;
 
 public :
 	void update();
 
 	// void levelUp();
 	// void recieveXp(float xp);
+
+	void die();
 
 	// Getters and Setters
 public:

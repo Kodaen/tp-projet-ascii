@@ -30,12 +30,14 @@ private:
 public:
 	static GameInstance* _gameInstance;
 
-
+	// Functions
 private:
 
 
 public:
 	void update();
+
+	// Getters and Setters
 
 	Level& getcurrentLevel() {
 		return _currentLevel;
