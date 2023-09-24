@@ -24,6 +24,8 @@ PlayerCharacter::PlayerCharacter()
 	_originalSpriteColor = 0x02;
 	_hp = 1;
 	_damage = 1;
+	_lookingDirection = BOTTOM_LEFT;
+	_displayedColor = 0x02;
 }
 
 void PlayerCharacter::update() {
@@ -51,6 +53,10 @@ void PlayerCharacter::update() {
 
 	case 's':
 		this->moveDown(1);
+		break;
+
+	case 'e':
+		this->attack();
 		break;
 
 	default:

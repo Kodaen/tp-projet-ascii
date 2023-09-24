@@ -35,7 +35,9 @@ public:
 
 	// Attack and recieve damage functions
 	void attack();
-	void recieveDamage();
+	void recieveDamage(int Damage);
+
+	void die();
 
 	// Getters and Setters
 public:

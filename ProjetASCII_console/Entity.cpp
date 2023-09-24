@@ -20,6 +20,8 @@ Entity::Entity()
 	_hp = 1;
 	_damage = 1;
 	_originalSpriteColor = 0x07;
+	_lookingDirection = BOTTOM_LEFT;
+	_displayedColor = 0x07;
 }
 
 void Entity::update() {
@@ -74,10 +76,71 @@ void Entity::moveDown(short val) {
 }
 
 void Entity::attack() {
-	// TODO : implementation
+	// Get tile in front of character
+	COORD tileInFront = _pos;
+	switch (_lookingDirection)
+	{
+	case TOP:
+		--tileInFront.X;
+		break;
+	case TOP_RIGHT:
+		--tileInFront.X;
+		++tileInFront.Y;
+		break;
+	case RIGHT:
+		++tileInFront.Y;
+		break;
+	case BOTTOM_RIGHT:
+		++tileInFront.Y;
+		++tileInFront.X;
+		break;
+	case BOTTOM:
+		++tileInFront.X;
+		break;
+	case BOTTOM_LEFT:
+		--tileInFront.Y;
+		++tileInFront.X;
+		break;
+	case LEFT:
+		--tileInFront.Y;
+		break;
+	case TOP_LEFT:
+		--tileInFront.Y;
+		--tileInFront.X;
+		break;
+	default:
+		return;
+	}
+
+	// Search among all entities which one is on the tile (if there is one)
+	std::vector<Entity>& entities = GameInstance::Instance().getEntites();
+
+	for (short i = 0; i < entities.size(); i++)
+	{
+		if (entities[i].getPos().Y == tileInFront.Y && entities[i].getPos().X == tileInFront.X) {
+			entities[i].recieveDamage(_damage);
+			return;
+		}
+	}
 
 };
 
-void Entity::recieveDamage() {
-	// TODO : implementation
+void Entity::recieveDamage(int Damage) {
+	--_hp;
+	if (_hp <= 0)
+	{
+		die();
+	}
 };
+
+void Entity::die(){
+	// set attribute to "pendingDestruction" to true
+	// then at the and of the tick, the gameInstance
+	// will remove it from the vector ?
+	// to avoid trying to remove every pendingDestruction
+	// entity, we could send a notification to the 
+	// GameObject to actually check if there is something
+	// to destroy first.
+
+	// setDisplayedSpriteColor(0x01 + _lookingDirection);
+}
