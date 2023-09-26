@@ -4,6 +4,10 @@
 #include <vector>
 #include <windows.h>
 
+#include <set>
+#include "NYTimer.h"
+#include "PlayerController.h"
+
 #include "Direction.h"
 #include "Entity.h"
 #include "PlayerCharacter.h"
@@ -13,6 +17,11 @@
 #include "Level.h"
 
 #include "gameInstance.h"
+
+#include "NYTimer.h"
+#include <iostream>
+
+
 
 LONG_PTR setConsoleWindowStyle(INT, LONG_PTR);
 
@@ -51,8 +60,12 @@ int main()
 
 	std::vector<std::string> map = gameInstance.getcurrentLevel().getLevel();
 
+	NYTimer nyTimer;
+
+	
 	// Game loop
 	while (true) {
+		nyTimer.start();
 		// Empty the buffer
 		bufferHandler.emptyBuffer();
 		
@@ -61,8 +74,13 @@ int main()
 
 		gameInstance.update();
 
+		// TODO : Sleep is very innacurate, ask what other people
+		// use instead
+		Sleep(max((16 - nyTimer.getElapsedMs()), 0));
+
 		// Print the buffer on the screen
 		bufferHandler.printBuffer();
+
 
 	}
 

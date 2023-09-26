@@ -2,6 +2,7 @@
 
 //#include "Direction.h"
 //#include "Entity.h"
+//#include "PlayerController.h"
 
 class PlayerCharacter : public Entity
 {
@@ -17,7 +18,7 @@ private:
 	//float _xp;
 
 	// Recieves input
-	// PlayerController _playercontroller;
+	PlayerController _playercontroller;
 
 public :
 	void update();

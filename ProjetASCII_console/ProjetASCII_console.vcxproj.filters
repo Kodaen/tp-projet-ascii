@@ -36,6 +36,9 @@
     <ClCompile Include="Entity.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
+    <ClCompile Include="PlayerController.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="NYTimer.h">
@@ -58,6 +61,9 @@
     </ClInclude>
     <ClInclude Include="Direction.h">
       <Filter>Fichiers sources</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerController.h">
+      <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

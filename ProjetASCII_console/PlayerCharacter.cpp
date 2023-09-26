@@ -10,6 +10,9 @@
 
 #include "Level.h"
 
+#include <set>
+#include "NYTimer.h"
+#include "PlayerController.h"
 
 #include "PlayerCharacter.h"
 
@@ -29,45 +32,70 @@ PlayerCharacter::PlayerCharacter()
 }
 
 void PlayerCharacter::update() {
-	// TODO : change _getch to getasynckey
-	// Have an input class that get the keys
-	// and control player accordingly
-	// Axel also said that with the input
-	// class I can try to have frames that
-	// last the same time, or atleast
-	// have a limit of frame
-	char ch = _getch();
-	switch (ch)
-	{
-	case 'd':
-		this->moveRight(1);
-		break;
+	_playercontroller.registerPressedKeys();
 
-	case 'q':
-		this->moveRight(-1);
-		break;
+	std::set<char> inputKeys = _playercontroller.getPressedKeys();
 
-	case 'z':
-		this->moveDown(-1);
-		break;
+	// if played didn't press any key, then just return
+	if (inputKeys.size() == 0) return;
 
-	case 's':
-		this->moveDown(1);
-		break;
+	// otherwise switch on which key he pressed
+	if (inputKeys.size() == 1) {
+		std::set<char>::iterator it = inputKeys.begin();
 
-	case 'e':
-		this->attack();
-		break;
+		switch (*it)
+		{
+		case 'd':
+			this->moveRight(1);
+			break;
 
-	default:
-		break;
+		case 'q':
+			this->moveRight(-1);
+			break;
+
+		case 'z':
+			this->moveDown(-1);
+			break;
+
+		case 's':
+			this->moveDown(1);
+			break;
+
+		case 'e':
+			this->attack();
+			break;
+
+		default:
+			break;
+		}
 	}
+	
+	//char ch = _getch();
+	//switch (ch)
+	//{
+	//case 'd':
+	//	this->moveRight(1);
+	//	break;
 
+	//case 'q':
+	//	this->moveRight(-1);
+	//	break;
 
-	// ça marche aussi
-	//do {
-	//	std::cout << "waiting for input d" << std::endl;
-	//} while (!GetAsyncKeyState(0x44));
+	//case 'z':
+	//	this->moveDown(-1);
+	//	break;
+
+	//case 's':
+	//	this->moveDown(1);
+	//	break;
+
+	//case 'e':
+	//	this->attack();
+	//	break;
+
+	//default:
+	//	break;
+	//}
 }
 
 void PlayerCharacter::die() {

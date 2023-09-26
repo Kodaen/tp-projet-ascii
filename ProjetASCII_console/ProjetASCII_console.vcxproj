@@ -145,6 +145,7 @@
     <ClCompile Include="BufferHandler.cpp" />
     <ClCompile Include="NYTimer.cpp" />
     <ClCompile Include="PlayerCharacter.cpp" />
+    <ClCompile Include="PlayerController.cpp" />
     <ClCompile Include="Source.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -155,6 +156,7 @@
     <ClInclude Include="BufferHandler.h" />
     <ClInclude Include="NYTimer.h" />
     <ClInclude Include="PlayerCharacter.h" />
+    <ClInclude Include="PlayerController.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="levels\level1.txt" />

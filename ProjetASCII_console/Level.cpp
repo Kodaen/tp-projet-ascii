@@ -9,6 +9,9 @@
 
 #include "Direction.h"
 #include "Entity.h"
+#include <set>
+#include "NYTimer.h"
+#include "PlayerController.h"
 #include "PlayerCharacter.h"
 #include "GameInstance.h"
 
