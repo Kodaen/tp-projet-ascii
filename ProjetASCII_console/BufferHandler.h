@@ -4,8 +4,9 @@
 //#include <vector>
 //#include <string>
 
-#define HEIGHT 20 //MAX VALUE = 32,767
-#define WIDTH 20  //MAX VALUE = 32,767
+// HEIGHT must be greater or equal to WIDTH.
+#define HEIGHT 220 //MAX VALUE = (to be tested)
+#define WIDTH 200  //MAX VALUE = (to be tested)
 
 
 class BufferHandler

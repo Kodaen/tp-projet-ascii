@@ -24,7 +24,9 @@ GameUI::GameUI()
 void GameUI::displayStats()
 {
 	BufferHandler& bufferHandler = BufferHandler::Instance();
-	bufferHandler.DrawMapRow(_stats, HEIGHT - 1);
+	// Hard coded value because HEIGHT can't be used now that it's greater than the console's height.
+	// TODO: find how to retrieve it instead.
+	bufferHandler.DrawMapRow(_stats, 29);
 }
 
 void GameUI::createStats()
@@ -35,11 +37,12 @@ void GameUI::createStats()
 
 	// Can't display more info with current buffer width.
 	// TODO: fix the bug for different buffer HEIGHT and WIDTH.
-	//_stats.append("-- Player -- ");
-	//_stats.append("Hp: ");
-	//_stats.append(std::to_string(gameInstance.getPlayerCharacter().getHP()));
-	//_stats.append("Damage: ");
-	//_stats.append(std::to_string(gameInstance.getPlayerCharacter().getDamage()));
-	//_stats.append("Level: ");
-	//_stats.append(std::to_string(gameInstance.getPlayerCharacter().getDamage()));
+	_stats.append("-- Player -- ");
+	_stats.append("Hp: ");
+	_stats.append(std::to_string(gameInstance.getPlayerCharacter().getHP()));
+	_stats.append("Damage: ");
+	_stats.append(std::to_string(gameInstance.getPlayerCharacter().getDamage()));
+	_stats.append("Level: ");
+	_stats.append(std::to_string(gameInstance.getPlayerCharacter().getDamage()));
+
 }
