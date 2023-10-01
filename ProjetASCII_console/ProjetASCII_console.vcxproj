@@ -141,6 +141,7 @@
   <ItemGroup>
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="gameInstance.cpp" />
+    <ClCompile Include="GameUI.cpp" />
     <ClCompile Include="Level.cpp" />
     <ClCompile Include="BufferHandler.cpp" />
     <ClCompile Include="NYTimer.cpp" />
@@ -152,6 +153,7 @@
     <ClInclude Include="Direction.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="gameInstance.h" />
+    <ClInclude Include="GameUI.h" />
     <ClInclude Include="Level.h" />
     <ClInclude Include="BufferHandler.h" />
     <ClInclude Include="NYTimer.h" />

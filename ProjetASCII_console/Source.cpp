@@ -20,6 +20,7 @@
 
 #include "NYTimer.h"
 #include <iostream>
+#include "GameUI.h"
 
 
 
@@ -58,13 +59,15 @@ int main()
 
 	// TODO: setCurrentLevel can be useful to change levels when the player finds a stair.
 	//int currentLevelNumber = gameInstance.getcurrentLevel().getNumber();
-	//Level level = Level(currentLevelNumber++);
+	//currentLevelNumber++;
+	//Level level = Level(currentLevelNumber);
 	//gameInstance.setCurrentLevel(level);
 
 	std::vector<std::string> map = gameInstance.getcurrentLevel().getLevel();
 
 	NYTimer nyTimer;
 
+	GameUI gameUI;
 
 	// Game loop
 	while (true) {
@@ -76,6 +79,8 @@ int main()
 		bufferHandler.DrawMap(map);
 
 		gameInstance.update();
+
+		gameUI.displayStats();
 
 		// TODO : Sleep is very innacurate, ask what other people
 		// use instead
