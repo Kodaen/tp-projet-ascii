@@ -16,9 +16,11 @@
 #include "GameInstance.h"
 
 
-Level::Level(std::string levelName)
+Level::Level(int levelNumber)
 {
-	readFile(levelName);
+	_levelNumber = levelNumber;
+	std::string levelFileName = "levels/level" + std::to_string(levelNumber) + ".txt";
+	readFile(levelFileName);
 }
 
 void Level::readFile(std::string fileName)

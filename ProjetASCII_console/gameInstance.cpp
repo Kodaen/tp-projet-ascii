@@ -19,7 +19,7 @@
 
 GameInstance* GameInstance::_gameInstance = 0;
 
-GameInstance::GameInstance(PlayerCharacter mainChar) : _currentLevel("levels/level1.txt"), _playerCharacter(mainChar){
+GameInstance::GameInstance(PlayerCharacter mainChar) : _currentLevel(1), _playerCharacter(mainChar){
 	_entities = std::vector<Entity>();
 }
 

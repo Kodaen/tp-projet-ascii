@@ -1,8 +1,10 @@
 #pragma once
 
+//#include "Entity.h"
 //#include <windows.h>
 //#include "PlayerCharacter.h"
-//#include "vector.h"
+//#include "vector"
+//include "Level.h"
 
 class GameInstance
 {

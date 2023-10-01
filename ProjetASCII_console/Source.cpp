@@ -30,12 +30,12 @@ int main()
 	// Setup window
 	LONG_PTR new_style = WS_OVERLAPPEDWINDOW;
 	setConsoleWindowStyle(GWL_STYLE, new_style);
-	
-	BufferHandler &bufferHandler = BufferHandler::Instance();
+
+	BufferHandler& bufferHandler = BufferHandler::Instance();
 
 	bufferHandler.emptyBuffer();
 
-		// Make first frame
+	// Make first frame
 	bufferHandler.emptyBuffer();
 
 	bufferHandler.drawAtCoordinate('H', FOREGROUND_RED, { 5,10 });
@@ -54,21 +54,24 @@ int main()
 	bufferHandler.printBuffer();
 
 	// Initiate GameInstance
-	GameInstance &gameInstance = GameInstance::Instance();
-	Level level = Level("levels/level1.txt");
-	gameInstance.setCurrentLevel(level);
+	GameInstance& gameInstance = GameInstance::Instance();
+
+	// TODO: setCurrentLevel can be useful to change levels when the player finds a stair.
+	//int currentLevelNumber = gameInstance.getcurrentLevel().getNumber();
+	//Level level = Level(currentLevelNumber++);
+	//gameInstance.setCurrentLevel(level);
 
 	std::vector<std::string> map = gameInstance.getcurrentLevel().getLevel();
 
 	NYTimer nyTimer;
 
-	
+
 	// Game loop
 	while (true) {
 		nyTimer.start();
 		// Empty the buffer
 		bufferHandler.emptyBuffer();
-		
+
 		// Put the map into the buffer
 		bufferHandler.DrawMap(map);
 
