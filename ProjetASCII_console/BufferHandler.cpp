@@ -42,7 +42,7 @@ void BufferHandler::initialize() {
 }
 
 void BufferHandler::printBuffer() {
-	WriteConsoleOutput(_hOutput, (CHAR_INFO*)_buffer, _dwBufferSize,
+	WriteConsoleOutputW(_hOutput, (CHAR_INFO*)_buffer, _dwBufferSize,
 		_dwBufferCoord, &_rcRegion);
 }
 
@@ -66,7 +66,7 @@ void BufferHandler::drawAtCoordinate(WCHAR character, WORD color, COORD coordina
 	_buffer[coordinate.X][coordinate.Y].Attributes = color;
 }
 
-void BufferHandler::DrawMap(std::vector<std::string> map)
+void BufferHandler::DrawMap(std::vector<std::wstring> map)
 {
 	for (short i = 0; i < map.size(); i++)
 	{
@@ -78,7 +78,16 @@ void BufferHandler::DrawMapRow(std::string row, short x)
 {
 	for (short y = 0; y < row.size(); y++)
 	{
-		drawAtCoordinate(row[y],FOREGROUND_RED, {x, y});
+		drawAtCoordinate(row[y], FOREGROUND_RED, { x, y });
+	}
+}
+
+// TODO: Make it work with templates.
+void BufferHandler::DrawMapRow(std::wstring row, short x)
+{
+	for (short y = 0; y < row.size(); y++)
+	{
+		drawAtCoordinate(row[y], FOREGROUND_RED, { x, y });
 	}
 }
 

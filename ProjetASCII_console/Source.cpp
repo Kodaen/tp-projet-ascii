@@ -1,4 +1,4 @@
-#define _WIN32_WINNT 0x0501
+ï»¿#define _WIN32_WINNT 0x0501
 #include <stdio.h>
 #include <string>
 #include <vector>
@@ -63,7 +63,7 @@ int main()
 	//Level level = Level(currentLevelNumber);
 	//gameInstance.setCurrentLevel(level);
 
-	std::vector<std::string> map = gameInstance.getcurrentLevel().getLevel();
+	std::vector<std::wstring> map = gameInstance.getcurrentLevel().getLevel();
 
 	NYTimer nyTimer;
 
@@ -96,7 +96,7 @@ int main()
 	return EXIT_SUCCESS;
 }
 
-//Si le new style est à 0, la fenetre n'a absolument rien à part son contenu
+//Si le new style est Ã  0, la fenetre n'a absolument rien Ã  part son contenu
 LONG_PTR setConsoleWindowStyle(INT n_index, LONG_PTR new_style)
 {
 	/*The function does not clear the last error information. if last value was zero.*/

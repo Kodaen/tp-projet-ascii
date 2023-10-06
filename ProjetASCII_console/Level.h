@@ -9,7 +9,7 @@ class Level
 public:
 	Level(int levelNumber);
 
-	std::vector<std::string> getLevel() {
+	std::vector<std::wstring> getLevel() {
 		return _level;
 	}
 
@@ -20,13 +20,13 @@ public:
 	bool isTileWalkable(COORD coordinates);
 
 private:
-	std::vector<std::string> _level;
+	std::vector<std::wstring> _level;
 
 	int _levelNumber;
 
 	void readFile(std::string fileName);
 
-	void readLine(std::string line);
+	void readLine(std::wstring line);
 
 };
 

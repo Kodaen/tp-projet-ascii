@@ -44,7 +44,9 @@ public:
 
 	void changeColorAtCoordinate(WORD color, COORD coordinates);
 
-	void DrawMap(std::vector<std::string> map);
+	void DrawMap(std::vector<std::wstring> map);
+
+	void DrawMapRow(std::wstring row, short x);
 
 	void DrawMapRow(std::string row, short x);
 

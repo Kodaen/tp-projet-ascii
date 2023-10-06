@@ -1,4 +1,5 @@
-  
+﻿
+TODO: delete when the final map is ready ▓
 
      ___________
     |...........|

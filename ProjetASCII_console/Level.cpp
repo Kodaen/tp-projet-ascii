@@ -3,6 +3,9 @@
 #include <vector>
 #include <windows.h>
 #include <sstream>
+#include <string>
+#include <locale>
+#include <codecvt>
 
 #include "BufferHandler.h"
 #include "Level.h"
@@ -25,12 +28,17 @@ Level::Level(int levelNumber)
 
 void Level::readFile(std::string fileName)
 {
-	std::ifstream myfile(fileName, std::ifstream::in);
+	// To read Unicode characters.
+	// Source: https://stackoverflow.com/a/9903304.
+	const std::locale utf8Locale = std::locale(std::locale(), new std::codecvt_utf8<wchar_t>());
+	std::wifstream myfile(fileName);
+	myfile.imbue(utf8Locale);
+
 	if (myfile.is_open())
 	{
 		while (myfile.good())
 		{
-			for (std::string line; std::getline(myfile, line); ) {
+			for (std::wstring line; std::getline(myfile, line); ) {
 				readLine(line);
 			}
 		}
@@ -42,7 +50,7 @@ void Level::readFile(std::string fileName)
 	}
 }
 
-void Level::readLine(std::string line)
+void Level::readLine(std::wstring line)
 {
 	_level.push_back(line);
 }
