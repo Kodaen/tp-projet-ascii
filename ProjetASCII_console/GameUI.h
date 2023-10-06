@@ -9,7 +9,7 @@ public:
 	void displayStats();
 
 private:
-	std::string _stats;
+	std::wstring _stats;
 	void createStats();
 };
 

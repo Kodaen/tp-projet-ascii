@@ -2,6 +2,7 @@
 #include "vector"
 #include <set>
 #include <string>
+#include <sstream>
 
 #include "NYTimer.h"
 #include "GameUI.h"
@@ -32,17 +33,16 @@ void GameUI::displayStats()
 void GameUI::createStats()
 {
 	GameInstance& gameInstance = GameInstance::Instance();
-	_stats.append("Level: ");
-	_stats.append(std::to_string(gameInstance.getcurrentLevel().getNumber()));
+	std::wstringstream wstats;
+	wstats << "Étage : ";
+	wstats << gameInstance.getcurrentLevel().getNumber();
 
-	// Can't display more info with current buffer width.
-	// TODO: fix the bug for different buffer HEIGHT and WIDTH.
-	_stats.append(" -- Player --");
-	_stats.append(" Hp: ");
-	_stats.append(std::to_string(gameInstance.getPlayerCharacter().getHP()));
-	_stats.append(" Damage: ");
-	_stats.append(std::to_string(gameInstance.getPlayerCharacter().getDamage()));
-	_stats.append(" Level: ");
-	_stats.append(std::to_string(gameInstance.getPlayerCharacter().getDamage()));
-
+	wstats << "            -- Joueur --";
+	wstats << " Pv : ";
+	wstats << gameInstance.getPlayerCharacter().getHP();
+	wstats << " Dégâts : ";
+	wstats << gameInstance.getPlayerCharacter().getDamage();
+	wstats << " Niveau : ";
+	wstats << gameInstance.getPlayerCharacter().getDamage();
+	_stats.append(wstats.str());
 }

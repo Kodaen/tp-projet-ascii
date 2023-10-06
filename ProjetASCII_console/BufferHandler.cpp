@@ -74,15 +74,6 @@ void BufferHandler::DrawMap(std::vector<std::wstring> map)
 	}
 }
 
-void BufferHandler::DrawMapRow(std::string row, short x)
-{
-	for (short y = 0; y < row.size(); y++)
-	{
-		drawAtCoordinate(row[y], FOREGROUND_RED, { x, y });
-	}
-}
-
-// TODO: Make it work with templates.
 void BufferHandler::DrawMapRow(std::wstring row, short x)
 {
 	for (short y = 0; y < row.size(); y++)
