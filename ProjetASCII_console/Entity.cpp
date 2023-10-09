@@ -20,6 +20,7 @@
 #include "GameObject.h"
 
 #include "GameInstance.h"
+#pragma comment(lib,"winmm.lib")
 
 Entity::Entity() : GameObject()
 {
@@ -113,6 +114,7 @@ void Entity::moveDown(short val) {
 }
 
 void Entity::attack() {
+	PlaySound(TEXT("SFX/Normal-Attack.wav"), NULL, SND_FILENAME | SND_ASYNC);
 	// Get tile in front of character
 	COORD tileInFront = _pos;
 	switch (_lookingDirection)

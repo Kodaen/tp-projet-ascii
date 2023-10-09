@@ -24,6 +24,8 @@
 #include "GameUI.h"
 #include "Projectile.h"
 
+#pragma comment(lib,"winmm.lib")
+
 
 LONG_PTR setConsoleWindowStyle(INT, LONG_PTR);
 
@@ -71,7 +73,6 @@ int main()
 	NYTimer nyTimer;
 
 	GameUI gameUI;
-
 	// Game loop
 	while (true) {
 		nyTimer.start();
