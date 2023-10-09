@@ -1,6 +1,7 @@
 #pragma once
 
 //#include "Direction.h"
+//#include "GameObject.h"
 //#include "Entity.h"
 //#include "PlayerController.h"
 
@@ -19,6 +20,7 @@ private:
 
 	// Recieves input
 	PlayerController _playercontroller;
+	bool _playerActed;
 
 public :
 	void update();
@@ -37,6 +39,10 @@ public:
 
 	int setLevel(int newLevel) {
 		_level = newLevel;
+	}
+
+	bool hasPlayerActed() {
+		return _playerActed;
 	}
 
 	//float getXP() {

@@ -8,6 +8,7 @@
 #include "Level.h"
 
 #include "Direction.h"
+#include "GameObject.h"
 #include "Entity.h"
 #include <set>
 #include "NYTimer.h"
@@ -53,10 +54,10 @@ bool Level::isTileWalkable(COORD coordinates)
 
 	// Is there an ennemy on the Tile ?
 	bool ennemyOnTile = false;
-	std::vector<Entity>& entites = GameInstance::Instance().getEntites();
+	std::vector<Entity*>& entites = GameInstance::Instance().getEntites();
 	for (short i = 0; i < entites.size(); i++)
 	{
-		if (entites[i].getPos().X == coordinates.X && entites[i].getPos().Y == coordinates.Y)
+		if (entites[i]->getPos().X == coordinates.X && entites[i]->getPos().Y == coordinates.Y)
 		{
 			ennemyOnTile = true;
 			break;

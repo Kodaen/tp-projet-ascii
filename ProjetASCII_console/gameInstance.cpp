@@ -6,7 +6,11 @@
 
 #include "Direction.h"
 #include <wincontypes.h>
+#include "GameObject.h"
 #include "Entity.h"
+
+
+#include "GameObject.h"
 
 #include <set>
 #include "NYTimer.h"
@@ -20,7 +24,7 @@
 GameInstance* GameInstance::_gameInstance = 0;
 
 GameInstance::GameInstance(PlayerCharacter mainChar) : _currentLevel(1), _playerCharacter(mainChar){
-	_entities = std::vector<Entity>();
+	_gameObjects = std::vector<GameObject*>();
 }
 
 GameInstance::~GameInstance() {
@@ -47,20 +51,27 @@ void GameInstance::update() {
 		_playerCharacter.getDisplayedSpriteColor(),
 		{ _playerCharacter.getPos().X, _playerCharacter.getPos().Y });
 
-	for (short i = 0; i < _entities.size(); i++)
+	// Update all gameObjects
+	for (short i = 0; i < _gameObjects.size(); i++)
 	{
-		if (_entities[i].isPendingDestruction())
+		// Check if the gameObject died during the frame
+		if (_gameObjects[i]->isPendingDestruction())
 		{
-			_entities.erase(_entities.begin() + i);
+			_gameObjects.erase(_gameObjects.begin() + i);
 			continue;
 		}
-		_entities[i].update();
 
-		BufferHandler::Instance().drawAtCoordinate(_entities[i].getSprite(),
-			_entities[i].getDisplayedSpriteColor(),
-			{ _entities[i].getPos().X, _entities[i].getPos().Y });
+		// Only update gameObject if player acted (i.e. moved/attacked)
+		// since it's a turn based game
+		if (_playerCharacter.hasPlayerActed()) {
+			_gameObjects[i]->update();
+		}
+
+		// Update buffer to display gameObject
+		BufferHandler::Instance().drawAtCoordinate(_gameObjects[i]->getSprite(),
+			_gameObjects[i]->getDisplayedSpriteColor(),
+			{ _gameObjects[i]->getPos().X, _gameObjects[i]->getPos().Y });
 	}
 
 
 }
-

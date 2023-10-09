@@ -9,6 +9,7 @@
 #include "PlayerController.h"
 
 #include "Direction.h"
+#include "GameObject.h"
 #include "Entity.h"
 #include "PlayerCharacter.h"
 
@@ -21,7 +22,7 @@
 #include "NYTimer.h"
 #include <iostream>
 #include "GameUI.h"
-
+#include "Projectile.h"
 
 
 LONG_PTR setConsoleWindowStyle(INT, LONG_PTR);
@@ -38,19 +39,10 @@ int main()
 
 	// Make first frame
 	bufferHandler.emptyBuffer();
-
 	bufferHandler.drawAtCoordinate('H', FOREGROUND_RED, { 5,10 });
-	//buffer[5][10].Char.UnicodeChar = 'H';
-	//buffer[5][10].Attributes = FOREGROUND_RED;
-
 	bufferHandler.drawAtCoordinate('i', FOREGROUND_RED, { 5,11 });
-	//buffer[5][11].Char.UnicodeChar = 'i';
-	//buffer[5][11].Attributes = FOREGROUND_BLUE;
-
 	bufferHandler.drawAtCoordinate('!', FOREGROUND_RED, { 5,12 });
-	//buffer[5][12].Char.UnicodeChar = '!';
-	//buffer[5][12].Attributes = 0x05;
-
+	
 	// Display first frame
 	bufferHandler.printBuffer();
 
@@ -62,6 +54,17 @@ int main()
 	//currentLevelNumber++;
 	//Level level = Level(currentLevelNumber);
 	//gameInstance.setCurrentLevel(level);
+
+	// Spawn a basic entity and a basic projectile
+	std::vector<GameObject*> gameObjects;
+	Entity e;
+	e.setPos({ 13,10 });
+	Projectile p;
+
+	gameObjects.push_back(&e);
+	gameObjects.push_back(&p);
+
+	gameInstance.setGameObjects(gameObjects);
 
 	std::vector<std::string> map = gameInstance.getcurrentLevel().getLevel();
 
@@ -88,7 +91,6 @@ int main()
 
 		// Print the buffer on the screen
 		bufferHandler.printBuffer();
-
 
 	}
 

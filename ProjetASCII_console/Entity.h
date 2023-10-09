@@ -2,8 +2,9 @@
 
 //#include <wincontypes.h>
 //#include "Direction.h"
+//#include "GameObject.h"
 
-class Entity
+class Entity : public GameObject
 {
 public:
 	//Constructor (for loading save)
@@ -13,16 +14,9 @@ public:
 	Entity();
 
 protected:
-	COORD _pos;
 	int _hp;
 	int _damage;
-	bool _pendingDestruction;
-
-	WORD _originalSpriteColor = 0x07;
-	WORD _displayedColor;
-	WCHAR _displayedSprite = 0x40; // 0x40 : @ // 708 for arrow going to top
 	
-
 	// Direction the character is looking (ENUM)
 	DIRECTION _lookingDirection;
 
@@ -42,14 +36,6 @@ public:
 
 	// Getters and Setters
 public:
-	COORD getPos() {
-		return _pos;
-	}
-
-	void setPos(COORD newPos) {
-		_pos = newPos;
-	}
-
 	int getHP() {
 		return _hp;
 	}
@@ -64,34 +50,5 @@ public:
 
 	void setDamage(int newDamage) {
 		_damage = newDamage;
-	}
-
-
-	WCHAR getSprite() {
-		return _displayedSprite;
-	}
-
-	void setSprite(int newSprite) {
-		_displayedSprite = newSprite;
-	}
-
-	WORD getOriginalSpriteColor() {
-		return _originalSpriteColor;
-	}
-
-	void setOriginalSpriteColor(WORD newSpriteColor) {
-		_originalSpriteColor = newSpriteColor;
-	}
-
-	WORD getDisplayedSpriteColor() {
-		return _displayedColor;
-	}
-
-	void setDisplayedSpriteColor(WORD newDisplayedColor) {
-		_displayedColor = newDisplayedColor;
-	}
-
-	bool isPendingDestruction() {
-		return _pendingDestruction;
 	}
 };

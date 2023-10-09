@@ -2,6 +2,7 @@
 
 #include "Direction.h"
 #include <wincontypes.h>
+#include "GameObject.h"
 #include "Entity.h"
 
 #include <vector>
@@ -15,16 +16,20 @@
 #include "PlayerController.h"
 #include "PlayerCharacter.h"
 
+#include "Projectile.h"
+#include "GameObject.h"
+
 #include "GameInstance.h"
 
-Entity::Entity()
+Entity::Entity() : GameObject()
 {
 	_pos = { 11,11 };
 	_hp = 1;
 	_damage = 1;
 	_originalSpriteColor = 0x07;
-	_lookingDirection = BOTTOM_LEFT;
+	_lookingDirection = BOTTOM;
 	_displayedColor = 0x07;
+	_displayedSprite = 0x40;
 	_pendingDestruction = false;
 }
 
@@ -33,17 +38,42 @@ void Entity::update() {
 }
 
 void Entity::moveDiagonaly(short valX, short valY) {
-	// TODO : Check if you can actually go diagonaly
+	if (valX == 0 && valY == 0) {
+		return;
+	}
+
 	this->moveRight(valX);
 	this->moveDown(valY);
 
-	// TODO : Change direction
+	if (!(valX == 0 && valY == 0)) {
+		if (_lookingDirection == TOP) {
+			if (valX == 1) {
+				_lookingDirection = TOP_RIGHT;
+			}
+			else {
+				_lookingDirection = TOP_LEFT;
+			}
+		}
+		else {
+			if (valX == 1) {
+				_lookingDirection = BOTTOM_RIGHT;
+			}
+			else {
+				_lookingDirection = BOTTOM_LEFT;
+			}
+		}
+	}
+	_displayedColor = _lookingDirection + _originalSpriteColor;
 }
 
 void Entity::moveRight(short val) {
 	//val can take either 1 or -1
 	//1 means go to right
 	//-1 means go to left
+
+	if (val == 0) {
+		return;
+	}
 
 	if (GameInstance::Instance().getcurrentLevel().isTileWalkable({ _pos.X ,val + _pos.Y }))
 	{
@@ -64,7 +94,10 @@ void Entity::moveDown(short val) {
 	//1 means go down
 	//-1 means go up
 
-	// TODO : Check if you can actually go Down or bottom
+	if (val == 0) {
+		return;
+	}
+
 	if (GameInstance::Instance().getcurrentLevel().isTileWalkable({ val + _pos.X ,_pos.Y }))
 	{
 		_pos.X += val;
@@ -116,21 +149,21 @@ void Entity::attack() {
 		return;
 	}
 
-	// Search among all entities which one is on the tile (if there is one)
-	std::vector<Entity>& entities = GameInstance::Instance().getEntites();
+	// Search among all gameObjects which one is on the tile (if there is one)
+	std::vector<GameObject*>& gameObjects = GameInstance::Instance().getGameObject();
 
-	for (short i = 0; i < entities.size(); i++)
+	for (short i = 0; i < gameObjects.size(); i++)
 	{
-		if (entities[i].getPos().Y == tileInFront.Y && entities[i].getPos().X == tileInFront.X) {
-			entities[i].recieveDamage(_damage);
+		if (gameObjects[i]->getPos().Y == tileInFront.Y && gameObjects[i]->getPos().X == tileInFront.X) {
+			gameObjects[i]->recieveDamage(_damage);
 			return;
 		}
 	}
 
 };
 
-void Entity::recieveDamage(int Damage) {
-	--_hp;
+void Entity::recieveDamage(int damage) {
+	_hp -= damage;
 	if (_hp <= 0)
 	{
 		die();

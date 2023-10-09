@@ -2,6 +2,7 @@
 
 #include <windows.h>
 #include "Direction.h"
+#include "GameObject.h"
 #include "Entity.h"
 
 #include <vector>
@@ -29,10 +30,12 @@ PlayerCharacter::PlayerCharacter()
 	_damage = 1;
 	_lookingDirection = BOTTOM_LEFT;
 	_displayedColor = 0x02;
+	_playerActed = false;
 }
 
 void PlayerCharacter::update() {
 	_playercontroller.registerPressedKeys();
+	_playerActed = false;
 
 	std::set<char> inputKeys = _playercontroller.getPressedKeys();
 
@@ -47,58 +50,38 @@ void PlayerCharacter::update() {
 		{
 		case 'd':
 			this->moveRight(1);
+			_playerActed = true;
 			break;
 
 		case 'q':
 			this->moveRight(-1);
+			_playerActed = true;
 			break;
 
 		case 'z':
 			this->moveDown(-1);
+			_playerActed = true;
 			break;
 
 		case 's':
 			this->moveDown(1);
+			_playerActed = true;
 			break;
 
 		case 'e':
 			this->attack();
+			_playerActed = true;
 			break;
 
 		default:
 			break;
 		}
 	}
-	
-	//char ch = _getch();
-	//switch (ch)
-	//{
-	//case 'd':
-	//	this->moveRight(1);
-	//	break;
-
-	//case 'q':
-	//	this->moveRight(-1);
-	//	break;
-
-	//case 'z':
-	//	this->moveDown(-1);
-	//	break;
-
-	//case 's':
-	//	this->moveDown(1);
-	//	break;
-
-	//case 'e':
-	//	this->attack();
-	//	break;
-
-	//default:
-	//	break;
-	//}
 }
 
 void PlayerCharacter::die() {
 	// TODO : End of the game ?
 	return;
 }
+
+// TODO : override recieveDamage to update UI when getting hit
