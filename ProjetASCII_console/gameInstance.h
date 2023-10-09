@@ -1,6 +1,6 @@
 #pragma once
 
-//#include "Entity.h"
+//#include "GameObject.h"
 //#include <windows.h>
 //#include "PlayerCharacter.h"
 //#include "vector"
@@ -14,7 +14,7 @@ private:
 
 public :
 	~GameInstance();
-	
+
 	// Get Instance
 
 	static GameInstance& Instance();
@@ -27,15 +27,12 @@ private:
 
 	PlayerCharacter _playerCharacter;
 
-	std::vector<Entity> _entities;
- 
+	std::vector<GameObject*> _gameObjects;
+
 public:
 	static GameInstance* _gameInstance;
 
 	// Functions
-private:
-
-
 public:
 	void update();
 
@@ -57,12 +54,25 @@ public:
 		_playerCharacter = newPlayerCharacter;
 	};
 
-	std::vector<Entity>& getEntites() {
-		return _entities;
+	std::vector<GameObject*>& getGameObject() {
+		return _gameObjects;
 	}
 
-	void setEntities(std::vector<Entity> newEntities){
-		_entities = newEntities;
+	std::vector<Entity*>& getEntites() {
+		std::vector<Entity*> *entities = new std::vector<Entity*>();
+
+		for (size_t i = 0; i < _gameObjects.size(); i++)
+		{
+			Entity* entity = dynamic_cast<Entity*>(_gameObjects[i]);
+			if (entity) {
+				entities->push_back(entity);
+			}
+		}
+
+		return *(entities);
+	}
+
+	void setGameObjects(std::vector<GameObject*> newGameObjects){
+		_gameObjects = newGameObjects;
 	}
 };
-

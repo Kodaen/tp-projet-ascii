@@ -8,6 +8,7 @@
 #include "GameUI.h"
 #include "Level.h"
 #include "Direction.h"
+#include "GameObject.h"
 #include "Entity.h"
 #include "PlayerController.h"
 #include "PlayerCharacter.h"
