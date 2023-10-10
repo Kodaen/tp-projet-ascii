@@ -29,6 +29,7 @@ PlayerCharacter::PlayerCharacter()
 	_hp = 1;
 	_damage = 1;
 	_lookingDirection = BOTTOM_LEFT;
+	_displayedSprite = 0x40; // The @ character. It is reserved for the player.
 	_displayedColor = 0x02;
 	_playerActed = false;
 }
