@@ -13,6 +13,7 @@
 #include "GameObject.h"
 #include "Entity.h"
 #include "PlayerCharacter.h"
+#include "Croquecaille.h"
 
 #include "BufferHandler.h"
 
@@ -44,7 +45,7 @@ int main()
 	GameInstance* gameInstance = &GameInstance::Instance();
 	GameUI* gameUI = &GameUI::Instance();
 
-	// Spawn a basic entity and a basic projectile
+	// Spawn a basic entity
 	std::vector<GameObject*> gameObjects;
 	Entity* e = new Entity();
 	e->setPos({ 13,10 });
@@ -52,6 +53,10 @@ int main()
 
 	gameObjects.push_back(e);
 	gameObjects.push_back(p);
+
+	// Spawn a basic croquecaille
+	Croquecaille c({ 5,6 }, RIGHT);
+	gameObjects.push_back(&c);
 
 
 	gameInstance->setGameObjects(gameObjects);
@@ -62,7 +67,8 @@ int main()
 	PlayerCharacter& player = gameInstance->getPlayerCharacter();
 	player.setOriginalSpriteColor(colors[L"player"] | colors[L"groundBg"]); // TODO: Or default.
 	player.setDisplayedSpriteColor(colors[L"player"] | colors[L"groundBg"]);
-	for (auto gameObject : gameObjects) {
+	std::vector<GameObject*> allGameObjects = GameInstance::Instance().getGameObject();
+	for (auto gameObject : allGameObjects) {
 		gameObject->setDisplayedSpriteColor(colors[L"gameObjects"] | colors[L"groundBg"]);
 	}
 
@@ -79,7 +85,7 @@ int main()
 			colors = gameInstance->getcurrentLevel().getColors();
 
 			gameInstance->getPlayerCharacter().setIsOnStairs(false);
-			gameInstance->resetLevel();			
+			gameInstance->resetLevel();
 		}
 
 		// Put the map into the buffer

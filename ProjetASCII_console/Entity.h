@@ -7,11 +7,10 @@
 class Entity : public GameObject
 {
 public:
-	//Constructor (for loading save)
-	Entity(COORD pos, int hp, int damage);
-
-	//Default constructor
+	//Constructors
 	Entity();
+
+	Entity(COORD pos, DIRECTION lookingDirection);
 
 protected:
 	int _hp;

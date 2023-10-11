@@ -25,6 +25,12 @@ Projectile::Projectile() : _movingDirection({ 1,0 }), GameObject() {
 	_damage = 1;
 }
 
+
+Projectile::Projectile(COORD pos, COORD movingDirection) : Projectile() {
+	_movingDirection = movingDirection;
+	_pos = pos;
+}
+
 void Projectile::update() {
 	moveToDirection();
 }

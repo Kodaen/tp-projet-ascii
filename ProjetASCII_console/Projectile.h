@@ -5,8 +5,9 @@
 class Projectile : public GameObject
 {
 public:
-	//Default Constructor 
+	//Constructors 
 	Projectile();
+	Projectile(COORD pos, COORD movingDirection);
 
 	//Attributes
 protected :

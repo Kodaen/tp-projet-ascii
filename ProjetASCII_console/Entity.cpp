@@ -33,6 +33,16 @@ Entity::Entity() : GameObject()
 	_displayedColor = 0x07;
 	_displayedSprite = 0x45; // The 'E' character. It matches both generic "Enemi" or "Entity".
 	_pendingDestruction = false;
+
+	_displayedColor = _lookingDirection + _originalSpriteColor;
+}
+
+Entity::Entity(COORD pos, DIRECTION lookingDirection) : Entity()
+{
+	_pos = pos;
+	_lookingDirection = lookingDirection;
+
+	_displayedColor = _lookingDirection + _originalSpriteColor;
 }
 
 void Entity::update() {
