@@ -3,6 +3,7 @@
 #include <string>
 #include <vector>
 #include <windows.h>
+#include <map>
 
 #include <set>
 #include "NYTimer.h"
@@ -61,6 +62,9 @@ int main()
 	NYTimer nyTimer;
 	GameUI gameUI;
 
+	// Temporary until colors retrieved from a file.
+	std::map<std::string, WORD> colors{ {"walls", 0x22}, {"ground", 0xEA}, {"background", 0xAA} };
+
 	// Game loop
 	while (!gameInstance->isGameFinished()) {
 		// Start timer to calculate the frame's duration
@@ -69,7 +73,7 @@ int main()
 		// Put the map into the buffer
 		// TODO : unstead of using map variable, get the current map
 		// of the game instance : gameInstance->getcurrentLevel()
-		bufferHandler->DrawMap(map);
+		bufferHandler->DrawMap(map, colors);
 
 		gameInstance->update();
 
@@ -78,7 +82,7 @@ int main()
 		// Print the buffer on the screen
 		bufferHandler->printBuffer();
 		// Use timer to cap to 60 fps
-		Sleep(max((16 - (long) nyTimer.getElapsedMs()), 0));
+		Sleep(max((16 - (long)nyTimer.getElapsedMs()), 0));
 	}
 
 	delete bufferHandler;
@@ -102,7 +106,7 @@ LONG_PTR setConsoleWindowStyle(INT n_index, LONG_PTR new_style)
 
 	LONG_PTR style_ptr = SetWindowLongPtr(hwnd_console, n_index, new_style);
 	SetWindowPos(hwnd_console, 0, 0, 0, 0, 0, SWP_NOZORDER | SWP_NOMOVE | SWP_NOSIZE | SWP_NOACTIVATE | SWP_DRAWFRAME);
-	
+
 	//show window after updating
 	ShowWindow(hwnd_console, SW_SHOW);
 

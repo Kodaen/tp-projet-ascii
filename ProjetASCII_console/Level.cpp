@@ -6,6 +6,7 @@
 #include <string>
 #include <locale>
 #include <codecvt>
+#include <map>
 
 #include "BufferHandler.h"
 #include "Level.h"

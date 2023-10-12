@@ -1,6 +1,7 @@
 #include <windows.h>
 #include <vector>
 #include <string>
+#include <map>
 
 #include "Level.h"
 
@@ -23,7 +24,7 @@
 
 GameInstance* GameInstance::_gameInstance = 0;
 
-GameInstance::GameInstance(PlayerCharacter mainChar) : _currentLevel(1), _playerCharacter(mainChar), _gameEnd(false){
+GameInstance::GameInstance(PlayerCharacter mainChar) : _currentLevel(1), _playerCharacter(mainChar), _gameEnd(false) {
 	_gameObjects = std::vector<GameObject*>();
 }
 

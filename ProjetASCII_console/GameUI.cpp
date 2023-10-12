@@ -3,6 +3,7 @@
 #include <set>
 #include <string>
 #include <sstream>
+#include <map>
 
 #include "NYTimer.h"
 #include "GameUI.h"
