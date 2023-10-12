@@ -60,6 +60,9 @@
     <ClCompile Include="Cabulosaurus.cpp">
       <Filter>Fichiers sources\Enemy</Filter>
     </ClCompile>
+    <ClCompile Include="Sertrail.cpp">
+      <Filter>Fichiers sources\Enemy</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="NYTimer.h">
@@ -99,6 +102,9 @@
       <Filter>Fichiers d%27en-tête\Enemy</Filter>
     </ClInclude>
     <ClInclude Include="Cabulosaurus.h">
+      <Filter>Fichiers d%27en-tête\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Sertrail.h">
       <Filter>Fichiers d%27en-tête\Enemy</Filter>
     </ClInclude>
   </ItemGroup>

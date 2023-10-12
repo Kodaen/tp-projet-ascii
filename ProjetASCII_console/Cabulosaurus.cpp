@@ -53,12 +53,12 @@ void Cabulosaurus::update()
 	_currentStep = (1 + _currentStep) % 6;
 }
 
-// Shoot a basic projectile in front of the Croquecaille
+// Shoot a basic projectile in front of the Cabulosaurus
 void Cabulosaurus::shootBubles()
 {
 
 	// Calculate the moving direction of the projectile using the looking
-	// direction on the croquecaille
+	// direction on the Cabulosaurus
 	COORD direction = { 0,0 };
 	switch (_lookingDirection)
 	{
@@ -94,12 +94,14 @@ void Cabulosaurus::shootBubles()
 		// If for some reason we don't have a looking direction
 		return;
 	}
+	// Make a perpendicular vector to the one where the Cabulausorus is looking
+	// This way we can spawn 3 projectiles next to each others in his looking
+	// direction
 	COORD perpendicularDirection = {0,0};
 	perpendicularDirection.X = -direction.Y;
 	perpendicularDirection.Y = direction.X;
 
-	// TODO : perpendicularDirection is wrong, doesn't work for diagonals.
-
+	// TODO : using new but delete is never called
 	Projectile* p1 = new Projectile({ (_pos.X + perpendicularDirection.X), (_pos.Y + perpendicularDirection.Y)}, direction);
 	Projectile* p2 = new Projectile({ _pos.X, _pos.Y }, direction);
 	Projectile* p3 = new Projectile({ (_pos.X - perpendicularDirection.X), (_pos.Y - perpendicularDirection.Y) }, direction);

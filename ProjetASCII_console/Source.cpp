@@ -13,8 +13,11 @@
 #include "GameObject.h"
 #include "Entity.h"
 #include "PlayerCharacter.h"
+
+// TODO : remove those when done testing
 #include "Cabulosaurus.h"
 #include "Croquecaille.h"
+#include "Sertrail.h"
 
 #include "BufferHandler.h"
 
@@ -52,11 +55,16 @@ int main()
 	e->setPos({ 13,10 });
 	Projectile* p = new Projectile();
 
-	gameObjects.push_back(e);
-	gameObjects.push_back(p);
+	// Spawn a Sertrail
+	Sertrail s({ 6,12}, TOP);
+	gameObjects.push_back(&s);
 
-	// Spawn a basic cabulosaurus
-	Cabulosaurus c({ 6,12}, TOP_LEFT);
+	// Spawn a Cabulosaurus
+	Cabulosaurus b({ 4,6 }, BOTTOM);
+	gameObjects.push_back(&b);
+
+	// Spawn a Croquecaille
+	Croquecaille c({ 14,5 }, TOP_RIGHT);
 	gameObjects.push_back(&c);
 
 

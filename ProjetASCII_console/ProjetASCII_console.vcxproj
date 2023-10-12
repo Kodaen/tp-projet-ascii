@@ -150,6 +150,7 @@
     <ClCompile Include="NYTimer.cpp" />
     <ClCompile Include="PlayerCharacter.cpp" />
     <ClCompile Include="PlayerController.cpp" />
+    <ClCompile Include="Sertrail.cpp" />
     <ClCompile Include="Source.cpp" />
     <ClCompile Include="Projectile.cpp" />
   </ItemGroup>
@@ -168,6 +169,7 @@
     <ClInclude Include="PlayerController.h" />
     <ClInclude Include="Projectile.h" />
     <ClInclude Include="UIWindow.h" />
+    <ClInclude Include="Sertrail.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="levels\level1.txt" />

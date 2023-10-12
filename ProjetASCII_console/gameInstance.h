@@ -10,7 +10,7 @@ class GameInstance
 {
 	// Constructor and Destructor
 private:
-	GameInstance(PlayerCharacter mainChar);
+	GameInstance();
 
 public :
 	~GameInstance();

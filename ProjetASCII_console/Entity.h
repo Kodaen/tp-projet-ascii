@@ -23,9 +23,13 @@ public:
 	virtual void update();
 
 	// Moving functions
-	void moveRight(short val);
-	void moveDown(short val);
-	void moveDiagonaly(short valX, short valY);
+	bool moveRight(short val);
+	bool moveDown(short val);
+	bool moveDiagonaly(short valX, short valY);
+	bool moveForward();
+
+	// Direction functions
+	void turnToDirection(DIRECTION newDirection);
 
 	// Attack and recieve damage functions
 	void attack();

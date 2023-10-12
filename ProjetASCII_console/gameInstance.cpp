@@ -27,7 +27,9 @@
 
 GameInstance* GameInstance::_gameInstance = 0;
 
-GameInstance::GameInstance(PlayerCharacter mainChar) : _currentLevel(1), _playerCharacter(mainChar), _gameEnd(false) {
+GameInstance::GameInstance() : _currentLevel(1), _gameEnd(false) {
+	PlayerCharacter* playerCharacter = new PlayerCharacter();
+	_playerCharacter = *playerCharacter;
 	_gameObjects = std::vector<GameObject*>();
 }
 
@@ -44,8 +46,7 @@ GameInstance& GameInstance::Instance()
 {
 	if (!_gameInstance)
 	{
-		PlayerCharacter MainChar;
-		_gameInstance = new GameInstance(MainChar);
+		_gameInstance = new GameInstance();
 	}
 	return *_gameInstance;
 }
