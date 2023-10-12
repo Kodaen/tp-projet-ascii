@@ -69,6 +69,7 @@ void Projectile::attackAtPos(COORD pos) {
 	if (pos.X == playerCharacter.getPos().X && pos.Y == playerCharacter.getPos().Y) {
 		playerCharacter.recieveDamage(_damage);
 	}
+	// TODO : projectiles kill each other, is this a desired behavior ?
 	else {
 		for (short i = 0; i < entities.size(); i++)
 		{

@@ -5,7 +5,7 @@
 #include "GameObject.h"
 #include "Entity.h"
 
-#include "Croquecaille.h"
+#include "Cabulosaurus.h"
 
 #include <set>
 #include "NYTimer.h"
@@ -19,17 +19,17 @@
 
 #include "Projectile.h"
 
-Croquecaille::Croquecaille() : _currentStep(0), Entity()
+Cabulosaurus::Cabulosaurus() : _currentStep(0), Entity()
 {
 	_lookingDirection = TOP;
-	_displayedSprite = 0x43; // Letter C, matches Croquecaille
+	_displayedSprite = 0x42; // Letter B, matches caBulosaurus
 	_originalSpriteColor = 0x0C; // Pink
 
 
 	_displayedColor = _lookingDirection + _originalSpriteColor;
 }
 
-Croquecaille::Croquecaille(COORD pos, DIRECTION lookingDirection) : Croquecaille()
+Cabulosaurus::Cabulosaurus(COORD pos, DIRECTION lookingDirection) : Cabulosaurus()
 {
 	_pos = pos;
 	_lookingDirection = lookingDirection;
@@ -37,29 +37,29 @@ Croquecaille::Croquecaille(COORD pos, DIRECTION lookingDirection) : Croquecaille
 	_displayedColor = _lookingDirection + _originalSpriteColor;
 }
 
-void Croquecaille::update()
+void Cabulosaurus::update()
 {
 	switch (_currentStep)
 	{
 	case 0:
-		shootBuble();
+		shootBubles();
 		break;
 
 	default:
 		break;
 	}
 
-	// repeat pattern every 3 "playerActed" frames
-	_currentStep = (1 + _currentStep) % 3;
+	// repeat pattern every 6 "playerActed" frames
+	_currentStep = (1 + _currentStep) % 6;
 }
 
 // Shoot a basic projectile in front of the Croquecaille
-void Croquecaille::shootBuble()
+void Cabulosaurus::shootBubles()
 {
-	
+
 	// Calculate the moving direction of the projectile using the looking
 	// direction on the croquecaille
-	COORD direction = {0,0};
+	COORD direction = { 0,0 };
 	switch (_lookingDirection)
 	{
 	case TOP:
@@ -94,9 +94,18 @@ void Croquecaille::shootBuble()
 		// If for some reason we don't have a looking direction
 		return;
 	}
+	COORD perpendicularDirection = {0,0};
+	perpendicularDirection.X = -direction.Y;
+	perpendicularDirection.Y = direction.X;
 
-	Projectile* p = new Projectile({ _pos.X, _pos.Y }, direction);
-	
+	// TODO : perpendicularDirection is wrong, doesn't work for diagonals.
+
+	Projectile* p1 = new Projectile({ (_pos.X + perpendicularDirection.X), (_pos.Y + perpendicularDirection.Y)}, direction);
+	Projectile* p2 = new Projectile({ _pos.X, _pos.Y }, direction);
+	Projectile* p3 = new Projectile({ (_pos.X - perpendicularDirection.X), (_pos.Y - perpendicularDirection.Y) }, direction);
+
 	//Spawn projectile
-	GameInstance::Instance().getGameObject().push_back(p);
+	GameInstance::Instance().getGameObject().push_back(p1);
+	GameInstance::Instance().getGameObject().push_back(p2);
+	GameInstance::Instance().getGameObject().push_back(p3);
 }

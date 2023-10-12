@@ -57,6 +57,9 @@
     <ClCompile Include="Croquecaille.cpp">
       <Filter>Fichiers sources\Enemy</Filter>
     </ClCompile>
+    <ClCompile Include="Cabulosaurus.cpp">
+      <Filter>Fichiers sources\Enemy</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="NYTimer.h">
@@ -93,6 +96,9 @@
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
     <ClInclude Include="Croquecaille.h">
+      <Filter>Fichiers d%27en-tête\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Cabulosaurus.h">
       <Filter>Fichiers d%27en-tête\Enemy</Filter>
     </ClInclude>
   </ItemGroup>

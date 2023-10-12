@@ -65,11 +65,23 @@ void GameInstance::update() {
 	for (short i = 0; i < _gameObjects.size(); i++)
 	{
 		// Check if the gameObject died during the frame
-		if (_gameObjects[i]->isPendingDestruction())
+		while (_gameObjects[i]->isPendingDestruction())
 		{
 			delete _gameObjects[i];
 			_gameObjects.erase(_gameObjects.begin() + i);
-			continue;
+
+			// We decrease by 1 the index because erasing _gameObjects[i]
+			// means that the new _gameObjects[i] is the former _gameObjects[i+1]
+			// It avoids skipping a gameobject during the frame
+			if (i >= 1) {
+				--i;
+			}
+
+			// If we don't have any gameObjects in the scene because they all died
+			// during the frame, we simply return
+			if (_gameObjects.empty()) {
+				return;
+			}
 		}
 
 		// Only update gameObject if player acted (i.e. moved/attacked)

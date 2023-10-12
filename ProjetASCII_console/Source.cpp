@@ -13,6 +13,7 @@
 #include "GameObject.h"
 #include "Entity.h"
 #include "PlayerCharacter.h"
+#include "Cabulosaurus.h"
 #include "Croquecaille.h"
 
 #include "BufferHandler.h"
@@ -54,8 +55,8 @@ int main()
 	gameObjects.push_back(e);
 	gameObjects.push_back(p);
 
-	// Spawn a basic croquecaille
-	Croquecaille c({ 5,6 }, RIGHT);
+	// Spawn a basic cabulosaurus
+	Cabulosaurus c({ 6,12}, TOP_LEFT);
 	gameObjects.push_back(&c);
 
 
