@@ -81,7 +81,8 @@ void PlayerCharacter::update() {
 }
 
 void PlayerCharacter::die() {
-	// TODO : End of the game ?
+	// TODO : End game screen or something
+	GameInstance::Instance().restartGame();
 	return;
 }
 

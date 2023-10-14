@@ -28,7 +28,11 @@ GameInstance::GameInstance(PlayerCharacter mainChar) : _currentLevel(1), _player
 }
 
 GameInstance::~GameInstance() {
-	_gameInstance = nullptr;
+	for (size_t i = 0; i < _gameObjects.size(); i++)
+	{
+		delete _gameObjects[i];
+	}
+	_gameObjects.clear();
 }
 
 
@@ -36,8 +40,8 @@ GameInstance& GameInstance::Instance()
 {
 	if (!_gameInstance)
 	{
-		PlayerCharacter* MainChar = new PlayerCharacter();
-		_gameInstance = new GameInstance(*MainChar);
+		PlayerCharacter MainChar;
+		_gameInstance = new GameInstance(MainChar);
 	}
 	return *_gameInstance;
 }
@@ -57,6 +61,7 @@ void GameInstance::update() {
 		// Check if the gameObject died during the frame
 		if (_gameObjects[i]->isPendingDestruction())
 		{
+			delete _gameObjects[i];
 			_gameObjects.erase(_gameObjects.begin() + i);
 			continue;
 		}
@@ -73,5 +78,17 @@ void GameInstance::update() {
 			{ _gameObjects[i]->getPos().X, _gameObjects[i]->getPos().Y });
 	}
 
+
+}
+
+void GameInstance::restartGame()
+{
+	for (size_t i = 0; i < _gameObjects.size(); i++)
+	{
+		_gameObjects[i]->setPendingDestruction(true);
+	}
+	_playerCharacter = PlayerCharacter();
+
+	_currentLevel = Level(1);
 
 }

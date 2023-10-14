@@ -35,6 +35,7 @@ public:
 	// Functions
 public:
 	void update();
+	void restartGame();
 
 	// Getters and Setters
 

@@ -61,4 +61,8 @@ public :
 		return _pendingDestruction;
 	}
 
+	void setPendingDestruction(bool boolean) {
+		_pendingDestruction = boolean;
+	}
+
 };

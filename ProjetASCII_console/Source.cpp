@@ -59,12 +59,13 @@ int main()
 
 	// Spawn a basic entity and a basic projectile
 	std::vector<GameObject*> gameObjects;
-	Entity e;
-	e.setPos({ 13,10 });
-	Projectile p;
+	Entity* e = new Entity();
+	e->setPos({ 13,10 });
+	Projectile* p = new Projectile();
 
-	gameObjects.push_back(&e);
-	gameObjects.push_back(&p);
+	gameObjects.push_back(e);
+	gameObjects.push_back(p);
+
 
 	gameInstance.setGameObjects(gameObjects);
 
