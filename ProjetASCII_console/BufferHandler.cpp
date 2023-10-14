@@ -85,7 +85,7 @@ void BufferHandler::DrawMapRow(std::wstring row, short x, std::map<std::wstring,
 {
 	if (areDefaultColorsNeeded(colors)) {
 		// Apply default black and white theme.
-		colors = { {L"walls", 0x00F}, { L"ground", 0x00F }, { L"background", 0x000 } };
+		colors = { {L"walls", 0x0F}, { L"groundBg", 0x00 }, { L"groundFg", 0x0F }, { L"background", 0x00 } };
 	}
 
 	for (short y = 0; y < row.size(); y++)
@@ -94,7 +94,7 @@ void BufferHandler::DrawMapRow(std::wstring row, short x, std::map<std::wstring,
 			drawAtCoordinate(row[y], colors[L"walls"], { x, y });
 		}
 		else if (isGround(row[y])) {
-			drawAtCoordinate(row[y], colors[L"ground"], { x, y });
+			drawAtCoordinate(row[y], colors[L"groundBg"] | colors[L"groundFg"], { x, y });
 		}
 		else if (isBackground(row[y])) {
 			// Left part of the background or in between ground or walls.
@@ -108,7 +108,8 @@ void BufferHandler::DrawMapRow(std::wstring row, short x, std::map<std::wstring,
 }
 
 bool BufferHandler::areDefaultColorsNeeded(std::map<std::wstring, WORD> colors) {
-	return (colors.size() == 0 || (colors.count(L"walls") == 0 || colors.count(L"ground") == 0 || colors.count(L"background") == 0));
+	return (colors.size() == 0 || (colors.count(L"walls") == 0 || colors.count(L"groundBg") == 0 || colors.count(L"groundFg") == 0
+		|| colors.count(L"background") == 0));
 }
 
 bool BufferHandler::isGroundTile(COORD coordinates) {

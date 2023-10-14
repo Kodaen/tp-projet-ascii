@@ -60,6 +60,9 @@ int main()
 	// Prepare resources for the map.
 	std::vector<std::wstring> map = gameInstance->getcurrentLevel().getLevel();
 	std::map<std::wstring, WORD> colors = gameInstance->getcurrentLevel().getColors();
+	PlayerCharacter& player = gameInstance->getPlayerCharacter();
+	player.setOriginalSpriteColor(colors[L"player"] | colors[L"groundBg"]); // TODO: Or default.
+	player.setDisplayedSpriteColor(colors[L"player"] | colors[L"groundBg"]);
 
 	NYTimer nyTimer;
 	GameUI gameUI;
