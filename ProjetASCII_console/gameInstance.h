@@ -29,6 +29,8 @@ private:
 
 	std::vector<GameObject*> _gameObjects;
 
+	bool _gameEnd;
+
 public:
 	static GameInstance* _gameInstance;
 
@@ -75,5 +77,13 @@ public:
 
 	void setGameObjects(std::vector<GameObject*> newGameObjects){
 		_gameObjects = newGameObjects;
+	}
+
+	void finishGame() {
+		_gameEnd = true;
+	}
+
+	bool isGameFinished() {
+		return _gameEnd;
 	}
 };

@@ -32,24 +32,11 @@ LONG_PTR setConsoleWindowStyle(INT, LONG_PTR);
 int main()
 {
 	// Setup window
-	LONG_PTR new_style = WS_OVERLAPPEDWINDOW;
+	LONG_PTR new_style = WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU | WS_MINIMIZEBOX;
 	setConsoleWindowStyle(GWL_STYLE, new_style);
 
-	BufferHandler& bufferHandler = BufferHandler::Instance();
-
-	bufferHandler.emptyBuffer();
-
-	// Make first frame
-	bufferHandler.emptyBuffer();
-	bufferHandler.drawAtCoordinate('H', FOREGROUND_RED, { 5,10 });
-	bufferHandler.drawAtCoordinate('i', FOREGROUND_RED, { 5,11 });
-	bufferHandler.drawAtCoordinate('!', FOREGROUND_RED, { 5,12 });
-	
-	// Display first frame
-	bufferHandler.printBuffer();
-
-	// Initiate GameInstance
-	GameInstance& gameInstance = GameInstance::Instance();
+	BufferHandler* bufferHandler = &BufferHandler::Instance();
+	GameInstance* gameInstance = &GameInstance::Instance();
 
 	// TODO: setCurrentLevel can be useful to change levels when the player finds a stair.
 	//int currentLevelNumber = gameInstance.getcurrentLevel().getNumber();
@@ -67,36 +54,37 @@ int main()
 	gameObjects.push_back(p);
 
 
-	gameInstance.setGameObjects(gameObjects);
+	gameInstance->setGameObjects(gameObjects);
 
-	std::vector<std::wstring> map = gameInstance.getcurrentLevel().getLevel();
+	std::vector<std::wstring> map = gameInstance->getcurrentLevel().getLevel();
 
 	NYTimer nyTimer;
-
 	GameUI gameUI;
+
 	// Game loop
-	while (true) {
+	while (!gameInstance->isGameFinished()) {
+		// Start timer to calculate the frame's duration
 		nyTimer.start();
-		// Empty the buffer
-		bufferHandler.emptyBuffer();
 
 		// Put the map into the buffer
-		bufferHandler.DrawMap(map);
+		// TODO : unstead of using map variable, get the current map
+		// of the game instance : gameInstance->getcurrentLevel()
+		bufferHandler->DrawMap(map);
 
-		gameInstance.update();
+		gameInstance->update();
 
 		gameUI.displayStats();
 
-		// TODO : Sleep is very innacurate, ask what other people
-		// use instead
-		Sleep(max((16 - nyTimer.getElapsedMs()), 0));
-
 		// Print the buffer on the screen
-		bufferHandler.printBuffer();
-
+		bufferHandler->printBuffer();
+		// Use timer to cap to 60 fps
+		Sleep(max((16 - (long) nyTimer.getElapsedMs()), 0));
 	}
 
-	// fin du jeu
+	delete bufferHandler;
+	delete gameInstance;
+
+	// End of the game
 	return EXIT_SUCCESS;
 }
 
@@ -107,9 +95,14 @@ LONG_PTR setConsoleWindowStyle(INT n_index, LONG_PTR new_style)
 	SetLastError(NO_ERROR);
 
 	HWND hwnd_console = GetConsoleWindow();
+
+	// TODO : Set window's WIDTH and HEIGHT, for HEIGHT >= 29 or Width >= 114, no noticeable changes
+	//SMALL_RECT windowRect = { 0, 0, static_cast<SHORT>(114 - 1), static_cast<SHORT>(30 - 1) };
+	//SetConsoleWindowInfo(GetStdHandle(STD_OUTPUT_HANDLE), TRUE, &windowRect);
+
 	LONG_PTR style_ptr = SetWindowLongPtr(hwnd_console, n_index, new_style);
 	SetWindowPos(hwnd_console, 0, 0, 0, 0, 0, SWP_NOZORDER | SWP_NOMOVE | SWP_NOSIZE | SWP_NOACTIVATE | SWP_DRAWFRAME);
-
+	
 	//show window after updating
 	ShowWindow(hwnd_console, SW_SHOW);
 

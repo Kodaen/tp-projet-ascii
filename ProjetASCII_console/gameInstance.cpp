@@ -23,7 +23,7 @@
 
 GameInstance* GameInstance::_gameInstance = 0;
 
-GameInstance::GameInstance(PlayerCharacter mainChar) : _currentLevel(1), _playerCharacter(mainChar){
+GameInstance::GameInstance(PlayerCharacter mainChar) : _currentLevel(1), _playerCharacter(mainChar), _gameEnd(false){
 	_gameObjects = std::vector<GameObject*>();
 }
 

@@ -82,8 +82,9 @@ void PlayerCharacter::update() {
 
 void PlayerCharacter::die() {
 	// TODO : End game screen or something
+	// For now, just restart the game
 	GameInstance::Instance().restartGame();
-	return;
+	//GameInstance::Instance().finishGame();
 }
 
 // TODO : override recieveDamage to update UI when getting hit

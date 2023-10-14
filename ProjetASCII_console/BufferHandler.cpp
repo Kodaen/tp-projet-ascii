@@ -12,7 +12,7 @@ BufferHandler::BufferHandler() {
 }
 
 BufferHandler::~BufferHandler() {
-	_bufferHandlerInstance = nullptr;
+
 }
 
 
