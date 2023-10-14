@@ -57,13 +57,12 @@ int main()
 
 	gameInstance->setGameObjects(gameObjects);
 
+	// Prepare resources for the map.
 	std::vector<std::wstring> map = gameInstance->getcurrentLevel().getLevel();
+	std::map<std::wstring, WORD> colors = gameInstance->getcurrentLevel().getColors();
 
 	NYTimer nyTimer;
 	GameUI gameUI;
-
-	// Temporary until colors retrieved from a file.
-	std::map<std::string, WORD> colors{ {"walls", 0x22}, {"ground", 0xEA}, {"background", 0xAA} };
 
 	// Game loop
 	while (!gameInstance->isGameFinished()) {

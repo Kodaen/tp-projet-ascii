@@ -68,11 +68,11 @@ void BufferHandler::drawAtCoordinate(WCHAR character, WORD color, COORD coordina
 	_buffer[coordinate.X][coordinate.Y].Attributes = color;
 }
 
-void BufferHandler::DrawMap(std::vector<std::wstring> map, std::map<std::string, WORD> colors)
+void BufferHandler::DrawMap(std::vector<std::wstring> map, std::map<std::wstring, WORD> colors)
 {
 	// Right part of the background.
-	if (colors.count("background") > 0) {
-		fillBuffer(L' ', colors["background"]);
+	if (!areDefaultColorsNeeded(colors)) {
+		fillBuffer(L' ', colors[L"background"]);
 	}
 
 	for (short i = 0; i < map.size(); i++)
@@ -81,30 +81,34 @@ void BufferHandler::DrawMap(std::vector<std::wstring> map, std::map<std::string,
 	}
 }
 
-void BufferHandler::DrawMapRow(std::wstring row, short x, std::map<std::string, WORD> colors)
+void BufferHandler::DrawMapRow(std::wstring row, short x, std::map<std::wstring, WORD> colors)
 {
-	if (colors.size() == 0 || (colors.count("walls") == 0 || colors.count("ground") == 0 || colors.count("background") == 0)) {
+	if (areDefaultColorsNeeded(colors)) {
 		// Apply default black and white theme.
-		colors = { {"walls", 0x00F}, { "ground", 0x00F }, { "background", 0x000 } };
+		colors = { {L"walls", 0x00F}, { L"ground", 0x00F }, { L"background", 0x000 } };
 	}
 
 	for (short y = 0; y < row.size(); y++)
 	{
 		if (isWall(row[y])) {
-			drawAtCoordinate(row[y], colors["walls"], { x, y });
+			drawAtCoordinate(row[y], colors[L"walls"], { x, y });
 		}
 		else if (isGround(row[y])) {
-			drawAtCoordinate(row[y], colors["ground"], { x, y });
+			drawAtCoordinate(row[y], colors[L"ground"], { x, y });
 		}
 		else if (isBackground(row[y])) {
 			// Left part of the background or in between ground or walls.
-			drawAtCoordinate(row[y], colors["background"], { x, y });
+			drawAtCoordinate(row[y], colors[L"background"], { x, y });
 		}
 		else {
 			// Draw UI, always white on black for now.
 			drawAtCoordinate(row[y], 0x00F, { x, y });
 		}
 	}
+}
+
+bool BufferHandler::areDefaultColorsNeeded(std::map<std::wstring, WORD> colors) {
+	return (colors.size() == 0 || (colors.count(L"walls") == 0 || colors.count(L"ground") == 0 || colors.count(L"background") == 0));
 }
 
 bool BufferHandler::isGroundTile(COORD coordinates) {

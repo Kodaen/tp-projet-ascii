@@ -17,6 +17,10 @@ public:
 		return _levelNumber;
 	}
 
+	std::map<std::wstring, WORD> getColors() {
+		return _levelColors;
+	}
+
 	bool isTileWalkable(COORD coordinates);
 
 private:
@@ -24,9 +28,13 @@ private:
 
 	int _levelNumber;
 
+	std::map<std::wstring, WORD> _levelColors;
+
 	void readFile(std::string fileName);
 
 	void readLine(std::wstring line);
+
+	void parseColors(std::wstring line, std::vector<std::wstring>& colorsKeys, std::vector<WORD>& colorsValues);
 
 };
 

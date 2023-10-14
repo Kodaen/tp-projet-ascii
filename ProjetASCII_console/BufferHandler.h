@@ -45,9 +45,11 @@ public:
 
 	void changeColorAtCoordinate(WORD color, COORD coordinates);
 
-	void DrawMap(std::vector<std::wstring> map, std::map<std::string, WORD> colors = {});
+	void DrawMap(std::vector<std::wstring> map, std::map<std::wstring, WORD> colors = {});
 
-	void DrawMapRow(std::wstring row, short x, std::map<std::string, WORD> colors = {});
+	void DrawMapRow(std::wstring row, short x, std::map<std::wstring, WORD> colors = {});
+
+	bool areDefaultColorsNeeded(std::map<std::wstring, WORD> colors);
 
 	bool isGroundTile(COORD coordinates);
 

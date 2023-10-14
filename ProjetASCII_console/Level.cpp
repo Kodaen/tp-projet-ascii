@@ -38,13 +38,31 @@ void Level::readFile(std::string fileName)
 
 	if (myfile.is_open())
 	{
+		std::vector<std::wstring> colorsKeys;
+		std::vector<WORD> colorsValues;
 		while (myfile.good())
 		{
+			int i = 0;
 			for (std::wstring line; std::getline(myfile, line); ) {
-				readLine(line);
+				// Colors are always on the first line of the file.
+				if (i == 0) {
+					i++;
+
+					parseColors(line, colorsKeys, colorsValues);
+				}
+				else {
+					// Map is the rest of the file.
+					readLine(line);
+				}
 			}
+
 		}
 		myfile.close();
+
+		// Build the colors property.
+		for (int i = 0; i < colorsKeys.size(); i++) {
+			_levelColors.insert(std::pair < std::wstring, WORD >(colorsKeys[i], colorsValues[i]));
+		}
 	}
 	else
 	{
@@ -55,6 +73,30 @@ void Level::readFile(std::string fileName)
 void Level::readLine(std::wstring line)
 {
 	_level.push_back(line);
+}
+
+void Level::parseColors(std::wstring line, std::vector<std::wstring>& colorsKeys, std::vector<WORD>& colorsValues) {
+	std::wstring pair;
+	std::wstring item;
+	std::wstringstream lineStream(line);
+
+	while (std::getline(lineStream, pair, L',')) {
+		std::wstringstream lineStream(pair);
+		int i = 0;
+		while (std::getline(lineStream, item, L':')) {
+			if (i == 0) {
+				colorsKeys.push_back(item);
+				i++;
+			}
+			else if (i == 1) {
+				std::wstringstream stream(item);
+				WORD word;
+				stream >> std::hex >> word;
+
+				colorsValues.push_back(word);
+			}
+		}
+	}
 }
 
 bool Level::isTileWalkable(COORD coordinates)
