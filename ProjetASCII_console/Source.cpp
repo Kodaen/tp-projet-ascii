@@ -63,6 +63,9 @@ int main()
 	PlayerCharacter& player = gameInstance->getPlayerCharacter();
 	player.setOriginalSpriteColor(colors[L"player"] | colors[L"groundBg"]); // TODO: Or default.
 	player.setDisplayedSpriteColor(colors[L"player"] | colors[L"groundBg"]);
+	for (auto gameObject : gameObjects) {
+		gameObject->setDisplayedSpriteColor(colors[L"gameObjects"] | colors[L"groundBg"]);
+	}
 
 	NYTimer nyTimer;
 	GameUI gameUI;
