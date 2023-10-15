@@ -101,30 +101,25 @@ void Level::parseColors(std::wstring line, std::vector<std::wstring>& colorsKeys
 
 bool Level::isTileWalkable(COORD coordinates)
 {
-	// TODO : Not optimal
+	BufferHandler& bufferHandler = BufferHandler::Instance();
+	return !isEnemyOnTile(coordinates) && bufferHandler.isTileWalkable(coordinates);
+}
 
-	// Is there an ennemy on the Tile ?
-	bool ennemyOnTile = false;
+bool Level::isEnemyOnTile(COORD coordinates)
+{
+	// TODO: Not optimal but required as the enemies update after the player.
+
+	// Is there an enemy on the tile?
+	bool enemyOnTile = false;
 	std::vector<Entity*>& entites = GameInstance::Instance().getEntites();
 	for (short i = 0; i < entites.size(); i++)
 	{
 		if (entites[i]->getPos().X == coordinates.X && entites[i]->getPos().Y == coordinates.Y)
 		{
-			ennemyOnTile = true;
+			enemyOnTile = true;
 			break;
 		}
 	}
 
-	// Is there ground on this tile ?
-	BufferHandler& bufferHandler = BufferHandler::Instance();
-	bool tileIsGround = false;
-
-	tileIsGround = bufferHandler.getCharacterAtCoordinate(coordinates) == '.' ||
-		bufferHandler.getCharacterAtCoordinate(coordinates) == '+' ||
-		bufferHandler.getCharacterAtCoordinate(coordinates) == '#';
-
-	// Result
-	return !ennemyOnTile && tileIsGround;
-
+	return enemyOnTile;
 }
-

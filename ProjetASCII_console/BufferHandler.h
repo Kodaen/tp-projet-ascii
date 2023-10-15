@@ -53,7 +53,7 @@ public:
 
 	bool areDefaultColorsNeeded(std::map<std::wstring, WORD> colors);
 
-	bool isGroundTile(COORD coordinates);
+	bool isTileWalkable(COORD coordinates);
 
 	bool isGround(WCHAR wchar);
 

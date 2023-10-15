@@ -115,17 +115,14 @@ bool BufferHandler::areDefaultColorsNeeded(std::map<std::wstring, WORD> colors) 
 		|| colors.count(L"background") == 0));
 }
 
-bool BufferHandler::isGroundTile(COORD coordinates) {
-	// Is there ground on this tile?
-	bool isGroundTile = false;
-
-	isGroundTile = isGround(getCharacterAtCoordinate(coordinates));
-
-	return  isGroundTile;
+bool BufferHandler::isTileWalkable(COORD coordinates) {
+	bool isTileWalkable = false;
+	isTileWalkable = isGround(getCharacterAtCoordinate(coordinates)) || isStair(getCharacterAtCoordinate(coordinates));
+	return  isTileWalkable;
 }
 
 bool BufferHandler::isGround(WCHAR wchar) {
-	return wchar == L'.' || wchar == L',';
+	return wchar == L'.' || wchar == L','; // ,  is unused for now. TODO: Delete?
 }
 
 bool BufferHandler::isWall(WCHAR wchar) {
