@@ -7,6 +7,7 @@
 
 #include <vector>
 #include <string>
+#include <map>
 #include "BufferHandler.h"
 
 #include "Level.h"

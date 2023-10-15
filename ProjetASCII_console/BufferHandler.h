@@ -3,6 +3,7 @@
 //#include <windows.h>
 //#include <vector>
 //#include <string>
+//#include <map>
 
 // HEIGHT must be greater or equal to WIDTH.
 #define HEIGHT 220 //MAX VALUE = (to be tested)
@@ -34,7 +35,7 @@ public:
 
 	static BufferHandler& Instance();
 
-	void fillBuffer(WCHAR character);
+	void fillBuffer(WCHAR character, WORD color = FOREGROUND_RED);
 
 	void emptyBuffer();
 
@@ -44,11 +45,21 @@ public:
 
 	void changeColorAtCoordinate(WORD color, COORD coordinates);
 
-	void DrawMap(std::vector<std::wstring> map);
+	void DrawMap(std::vector<std::wstring> map, std::map<std::wstring, WORD> colors = {});
 
-	void DrawMapRow(std::wstring row, short x);
+	void DrawMapRow(std::wstring row, short x, std::map<std::wstring, WORD> colors = {});
 
-	void DrawMapRow(std::string row, short x);
+	bool areDefaultColorsNeeded(std::map<std::wstring, WORD> colors);
+
+	bool isGroundTile(COORD coordinates);
+
+	bool isGround(WCHAR wchar);
+
+	bool isWall(WCHAR wchar);
+
+	bool isBackground(WCHAR wchar);
+
+	bool isStair(WCHAR wchar);
 
 	WCHAR& getCharacterAtCoordinate(COORD coordinates);
 
