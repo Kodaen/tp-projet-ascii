@@ -53,8 +53,10 @@ void GameInstance::update() {
 	// Update player
 	_playerCharacter.update();
 
+	BufferHandler& bufferHandler = BufferHandler::Instance();
+
 	// Update buffer to display player
-	BufferHandler::Instance().drawAtCoordinate(_playerCharacter.getSprite(),
+	bufferHandler.drawAtCoordinate(_playerCharacter.getSprite(),
 		_playerCharacter.getDisplayedSpriteColor(),
 		{ _playerCharacter.getPos().X, _playerCharacter.getPos().Y });
 
@@ -76,12 +78,17 @@ void GameInstance::update() {
 		}
 
 		// Update buffer to display gameObject
-		BufferHandler::Instance().drawAtCoordinate(_gameObjects[i]->getSprite(),
+		bufferHandler.drawAtCoordinate(_gameObjects[i]->getSprite(),
 			_gameObjects[i]->getDisplayedSpriteColor(),
 			{ _gameObjects[i]->getPos().X, _gameObjects[i]->getPos().Y });
 	}
 
-
+	// Change floor when the player chooses to use the stairs.
+	if (_playerCharacter.isOnStairs()) {
+		int currentLevelNumber = _currentLevel.getNumber();
+		currentLevelNumber++;
+		_currentLevel = Level(currentLevelNumber);
+	}
 }
 
 void GameInstance::restartGame()
@@ -96,4 +103,17 @@ void GameInstance::restartGame()
 
 	GameUI::Instance().activateGameOverScreen(false);
 
+}
+
+void GameInstance::resetLevel()
+{
+	for (size_t i = 0; i < _gameObjects.size(); i++)
+	{
+		_gameObjects[i]->setPendingDestruction(true);
+	}
+
+	std::map<std::wstring, WORD> colors = getcurrentLevel().getColors();
+	_playerCharacter.setOriginalSpriteColor(colors[L"player"] | colors[L"groundBg"]);
+	_playerCharacter.setDisplayedSpriteColor(colors[L"player"] | colors[L"groundBg"]);
+	// TODO: gameObjects colors.
 }

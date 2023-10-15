@@ -39,6 +39,8 @@ public:
 	void update();
 	void restartGame();
 
+	void resetLevel();
+
 	// Getters and Setters
 
 	Level& getcurrentLevel() {

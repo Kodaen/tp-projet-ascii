@@ -35,6 +35,8 @@ PlayerCharacter::PlayerCharacter()
 	_displayedSprite = 0x40; // The @ character. It is reserved for the player.
 	_displayedColor = 0x02;
 	_playerActed = false;
+	_isOnStairs = false;
+	_nextTile = _pos;
 }
 
 void PlayerCharacter::update() {
@@ -54,6 +56,13 @@ void PlayerCharacter::update() {
 	if (inputKeys.size() == 1) {
 		std::set<char>::iterator it = inputKeys.begin();
 
+		// Check if the next tile is a stair before moving the player.
+		setNextTile(it);
+		BufferHandler& bufferHandler = BufferHandler::Instance();
+		WCHAR nextTileChar = bufferHandler.getCharacterAtCoordinate(_nextTile);
+		_isOnStairs = bufferHandler.isStair(nextTileChar);
+
+		// Update player position.
 		switch (*it)
 		{
 		case 'd':
@@ -84,6 +93,26 @@ void PlayerCharacter::update() {
 		default:
 			break;
 		}
+	}
+}
+
+void PlayerCharacter::setNextTile(std::set<char>::iterator& it) {
+	switch (*it)
+	{
+	case 'd':
+		_nextTile = { _pos.X ,1 + _pos.Y };
+		break;
+	case 'q':
+		_nextTile = { _pos.X ,-1 + _pos.Y };
+		break;
+	case 'z':
+		_nextTile = { -1 + _pos.X ,_pos.Y };
+		break;
+	case 's':
+		_nextTile = { 1 + _pos.X ,_pos.Y };
+		break;
+	default:
+		break;
 	}
 }
 
