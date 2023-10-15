@@ -20,6 +20,8 @@
 
 #include "BufferHandler.h"
 
+#include "GameUI.h"
+
 #include "gameInstance.h"
 
 GameInstance* GameInstance::_gameInstance = 0;
@@ -91,5 +93,7 @@ void GameInstance::restartGame()
 	_playerCharacter = PlayerCharacter();
 
 	_currentLevel = Level(1);
+
+	GameUI::Instance().activateGameOverScreen(false);
 
 }

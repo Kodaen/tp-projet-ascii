@@ -18,11 +18,14 @@
 
 #include "Level.h"
 
-#include "gameInstance.h"
-
 #include "NYTimer.h"
 #include <iostream>
 #include "GameUI.h"
+#include "gameInstance.h"
+
+
+
+
 #include "Projectile.h"
 
 #pragma comment(lib,"winmm.lib")
@@ -38,6 +41,7 @@ int main()
 
 	BufferHandler* bufferHandler = &BufferHandler::Instance();
 	GameInstance* gameInstance = &GameInstance::Instance();
+	GameUI* gameUI = &GameUI::Instance();
 
 	// TODO: setCurrentLevel can be useful to change levels when the player finds a stair.
 	//int currentLevelNumber = gameInstance.getcurrentLevel().getNumber();
@@ -68,7 +72,6 @@ int main()
 	}
 
 	NYTimer nyTimer;
-	GameUI gameUI;
 
 	// Game loop
 	while (!gameInstance->isGameFinished()) {
@@ -82,7 +85,7 @@ int main()
 
 		gameInstance->update();
 
-		gameUI.displayStats();
+		gameUI->displayUI();
 
 		// Print the buffer on the screen
 		bufferHandler->printBuffer();
@@ -92,6 +95,7 @@ int main()
 
 	delete bufferHandler;
 	delete gameInstance;
+	delete gameUI;
 
 	// End of the game
 	return EXIT_SUCCESS;

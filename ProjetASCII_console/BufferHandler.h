@@ -16,6 +16,9 @@ class BufferHandler
 private:
 	BufferHandler();
 	void initialize();
+public:
+	~BufferHandler();
+
 
 	// Attributes
 private:
@@ -31,7 +34,6 @@ private:
 
 	// Methods
 public:
-	~BufferHandler();
 
 	static BufferHandler& Instance();
 

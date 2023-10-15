@@ -18,6 +18,8 @@
 
 #include "PlayerCharacter.h"
 
+#include "GameUI.h"
+
 #include "GameInstance.h"
 
 
@@ -36,6 +38,10 @@ PlayerCharacter::PlayerCharacter()
 }
 
 void PlayerCharacter::update() {
+	if (_pendingDestruction)
+	{
+		return;
+	}
 	_playercontroller.registerPressedKeys();
 	_playerActed = false;
 
@@ -82,10 +88,8 @@ void PlayerCharacter::update() {
 }
 
 void PlayerCharacter::die() {
-	// TODO : End game screen or something
-	// For now, just restart the game
-	GameInstance::Instance().restartGame();
-	//GameInstance::Instance().finishGame();
+	_pendingDestruction = true;
+	GameUI::Instance().activateGameOverScreen(true);
 }
 
 // TODO : override recieveDamage to update UI when getting hit
