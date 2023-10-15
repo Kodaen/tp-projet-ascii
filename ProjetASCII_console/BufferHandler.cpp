@@ -100,6 +100,9 @@ void BufferHandler::DrawMapRow(std::wstring row, short x, std::map<std::wstring,
 			// Left part of the background or in between ground or walls.
 			drawAtCoordinate(row[y], colors[L"background"], { x, y });
 		}
+		else if (isStair(row[y])) {
+			drawAtCoordinate(row[y], colors[L"groundBg"] | colors[L"stair"], { x, y });
+		}
 		else {
 			// Draw UI, always white on black for now.
 			drawAtCoordinate(row[y], 0x00F, { x, y });
@@ -122,7 +125,7 @@ bool BufferHandler::isGroundTile(COORD coordinates) {
 }
 
 bool BufferHandler::isGround(WCHAR wchar) {
-	return wchar == L'.' || wchar == L',' || wchar == L'#';
+	return wchar == L'.' || wchar == L',';
 }
 
 bool BufferHandler::isWall(WCHAR wchar) {
@@ -131,6 +134,10 @@ bool BufferHandler::isWall(WCHAR wchar) {
 
 bool BufferHandler::isBackground(WCHAR wchar) {
 	return wchar == L'§';
+}
+
+bool BufferHandler::isStair(WCHAR wchar) {
+	return wchar == L'#';
 }
 
 void BufferHandler::changeColorAtCoordinate(WORD color, COORD coordinates)

@@ -1,4 +1,4 @@
-﻿skip:1,groundBg:0xE0,groundFg:0x0A,background:0xAA,walls:0x22,player:0x01,gameObjects:0x04
+﻿skip:1,groundBg:0xE0,groundFg:0x0A,background:0xAA,walls:0x22,player:0x01,gameObjects:0x04,stair:0x09
 §§§§§§§
 §§§§█████████████§§§§§§§§§§§§§§§§█████████
 §§§§.............§§§§§§§§§§§§§§§§.........

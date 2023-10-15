@@ -59,6 +59,8 @@ public:
 
 	bool isBackground(WCHAR wchar);
 
+	bool isStair(WCHAR wchar);
+
 	WCHAR& getCharacterAtCoordinate(COORD coordinates);
 
 	WORD& getColorAtCoordinate(COORD coordinates);
