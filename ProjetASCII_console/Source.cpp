@@ -43,12 +43,6 @@ int main()
 	GameInstance* gameInstance = &GameInstance::Instance();
 	GameUI* gameUI = &GameUI::Instance();
 
-	// TODO: setCurrentLevel can be useful to change levels when the player finds a stair.
-	//int currentLevelNumber = gameInstance.getcurrentLevel().getNumber();
-	//currentLevelNumber++;
-	//Level level = Level(currentLevelNumber);
-	//gameInstance.setCurrentLevel(level);
-
 	// Spawn a basic entity and a basic projectile
 	std::vector<GameObject*> gameObjects;
 	Entity* e = new Entity();
@@ -78,6 +72,15 @@ int main()
 		// Start timer to calculate the frame's duration
 		nyTimer.start();
 
+		// Has to come before drawing the map.
+		if (gameInstance->getPlayerCharacter().isOnStairs()) {
+			map = gameInstance->getcurrentLevel().getLevel();
+			colors = gameInstance->getcurrentLevel().getColors();
+
+			gameInstance->getPlayerCharacter().setIsOnStairs(false);
+			gameInstance->resetLevel();			
+		}
+
 		// Put the map into the buffer
 		// TODO : unstead of using map variable, get the current map
 		// of the game instance : gameInstance->getcurrentLevel()
@@ -85,6 +88,8 @@ int main()
 
 		gameInstance->update();
 
+		// To keep stats updated in real time like HP and floor.
+		gameUI->createStats();
 		gameUI->displayUI();
 
 		// Print the buffer on the screen

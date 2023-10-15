@@ -7,7 +7,7 @@
 
 class PlayerCharacter : public Entity
 {
-public :
+public:
 	//Constructor (for loading save)
 	PlayerCharacter(COORD pos, int level, int hp, int damage);
 
@@ -18,15 +18,29 @@ private:
 	int _level;
 	//float _xp;
 
+	COORD _nextTile;
+
 	// Recieves input
 	PlayerController _playercontroller;
 	bool _playerActed;
+	bool _isOnStairs;
 
-public :
+
+	void setNextTile(std::set<char>::iterator& it);
+
+public:
 	void update();
 
 	// void levelUp();
 	// void recieveXp(float xp);
+
+	bool isOnStairs() {
+		return _isOnStairs;
+	}
+
+	void setIsOnStairs(bool isOnStairs) {
+		_isOnStairs = isOnStairs;
+	}
 
 	void die();
 

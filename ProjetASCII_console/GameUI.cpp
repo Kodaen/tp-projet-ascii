@@ -103,6 +103,7 @@ bool GameUI::updateSelectedChoice()
 
 void GameUI::createStats()
 {
+	_stats = L"";
 	GameInstance& gameInstance = GameInstance::Instance();
 	std::wstringstream wstats;
 	wstats << "Étage : ";

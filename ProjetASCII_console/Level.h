@@ -36,5 +36,6 @@ private:
 
 	void parseColors(std::wstring line, std::vector<std::wstring>& colorsKeys, std::vector<WORD>& colorsValues);
 
+	bool isEnemyOnTile(COORD coordinates);
 };
 

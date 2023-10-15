@@ -26,6 +26,8 @@ public:
 
 	void activateGameOverScreen(bool boolean);
 
+	void createStats();
+
 private:
 	short _selectedChoice;
 	std::wstring _choiceIndicator;
@@ -43,7 +45,6 @@ private:
 	static GameUI* _gameUIInstance;
 
 private:
-	void createStats();
 	void createEndGameScreen();
 
 
