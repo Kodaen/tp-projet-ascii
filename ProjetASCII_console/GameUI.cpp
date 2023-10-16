@@ -24,7 +24,7 @@
 
 GameUI* GameUI::_gameUIInstance = 0;
 
-GameUI::GameUI() : _showGameOverScreen(false)
+GameUI::GameUI() : _showGameOverScreen(false), _currentUIWindow(TITLE_SCREEN)
 {
 	_choiceIndicator = L">                     ";
 	createStats();
@@ -151,11 +151,11 @@ void GameUI::createMenuGameScreen()
 	switch (_currentUIWindow)
 	{
 	case TITLE_SCREEN:
-		endGameScreenTitleText.push_back(L"███ ███ ██ ██ ███   ███ ███ ███ █   ███");
-		endGameScreenTitleText.push_back(L"█   █ █ █ █ █ █      █   █   █  █   █  ");
-		endGameScreenTitleText.push_back(L"█ █ ███ █   █ ██     █   █   █  █   ██ ");
-		endGameScreenTitleText.push_back(L"█ █ █ █ █   █ █      █   █   █  █   █  ");
-		endGameScreenTitleText.push_back(L"███ █ █ █   █ ███    █  ███  █  ███ ███");
+		endGameScreenTitleText.push_back(L"███ ███ ███ ███ ███     ███ █   █ ███ ███ ███ █   █");
+		endGameScreenTitleText.push_back(L"█ █ █   █    █   █      █   ██  █ █    █  █ █ ██  █");
+		endGameScreenTitleText.push_back(L"███ ███ █    █   █  ███ ██  █ █ █ ███  █  █ █ █ █ █");
+		endGameScreenTitleText.push_back(L"█ █   █ █    █   █      █   █  ██   █  █  █ █ █  ██");
+		endGameScreenTitleText.push_back(L"█ █ ███ ███ ███ ███     ███ █   █ ███ ███ ███ █   █");
 
 		// Placeholder
 		messageText = L"Move : ZQSD - Attack : E - Confirm : [Enter]";
@@ -174,11 +174,11 @@ void GameUI::createMenuGameScreen()
 		quitButtonText = L" Quitter";
 		break;
 	case VICTORY:
-		endGameScreenTitleText.push_back(L"█   █ ███ █ █   █ █ █ ███ ██  █ █");
+		endGameScreenTitleText.push_back(L"█   █ ███ █ █   █ █ █ ███ █   █ █");
 		endGameScreenTitleText.push_back(L" █ █  █ █ █ █   █ █ █ █ █ ██  █ █");
 		endGameScreenTitleText.push_back(L"  █   █ █ █ █   █ █ █ █ █ █ █ █ █");
 		endGameScreenTitleText.push_back(L"  █   █ █ █ █   █ █ █ █ █ █  ██  ");
-		endGameScreenTitleText.push_back(L"  █   ███ ███   ██ ██ ███ █  ██ █");
+		endGameScreenTitleText.push_back(L"  █   ███ ███   ██ ██ ███ █   █ █");
 
 		// Placeholder
 		messageText = L"Bravo vous avez gagné la partie !";
@@ -277,6 +277,7 @@ void GameUI::activateUIWindow(UIWINDOW newUIWindow)
 {
 	_currentUIWindow = newUIWindow;
 	_showGameOverScreen = true;
+	createMenuGameScreen();
 }
 
 void GameUI::confirmButtonChoice() {
