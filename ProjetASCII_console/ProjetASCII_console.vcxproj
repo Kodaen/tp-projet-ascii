@@ -163,6 +163,7 @@
     <ClInclude Include="PlayerCharacter.h" />
     <ClInclude Include="PlayerController.h" />
     <ClInclude Include="Projectile.h" />
+    <ClInclude Include="UIWindow.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="levels\level1.txt" />

@@ -30,7 +30,7 @@ private:
 
 	std::map<std::wstring, WORD> _levelColors;
 
-	void readFile(std::string fileName);
+	void readFile(std::string fileName, int levelNumber = 1);
 
 	void readLine(std::wstring line);
 

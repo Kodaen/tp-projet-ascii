@@ -10,6 +10,7 @@
 #include <string>
 #include <set>
 #include "PlayerController.h"
+#include "UIWindow.h"
 #include "GameUI.h"
 #include "Level.h"
 #include "Direction.h"
@@ -19,6 +20,7 @@
 #include "PlayerCharacter.h"
 #include "gameInstance.h"
 #include "BufferHandler.h"
+#include "UIWindow.h"
 
 GameUI* GameUI::_gameUIInstance = 0;
 
@@ -48,8 +50,8 @@ void GameUI::displayUI() {
 	if (_showGameOverScreen)
 	{
 		updateSelectedChoice();
-		displayGameOverScreen();
-		confirmGameOverChoice();
+		displayUIWindow();
+		confirmButtonChoice();
 	}
 
 }
@@ -62,7 +64,7 @@ void GameUI::displayStats()
 	bufferHandler.DrawMapRow(_stats, 29);
 }
 
-void GameUI::displayGameOverScreen() {
+void GameUI::displayUIWindow() {
 	BufferHandler& bufferHandler = BufferHandler::Instance();
 
 	for (size_t i = 0; i < _menuScreen.size(); i++)
@@ -92,6 +94,7 @@ bool GameUI::updateSelectedChoice()
 			break;
 
 		default:
+			return false;
 			break;
 		}
 
@@ -129,16 +132,51 @@ void GameUI::createMenuGameScreen()
 
 	// Text initialisation
 	std::vector<std::wstring> endGameScreenTitleText;
+	std::wstring messageText;
+	std::wstring restartButtonText;
+	std::wstring quitButtonText;
 
-	endGameScreenTitleText.push_back(L"███ ███ ██ ██ ███   ███ █   █ ███ ███");
-	endGameScreenTitleText.push_back(L"█   █ █ █ █ █ █     █ █ █   █ █   █ █");
-	endGameScreenTitleText.push_back(L"█ █ ███ █   █ ██    █ █ █   █ ██  ██ ");
-	endGameScreenTitleText.push_back(L"█ █ █ █ █   █ █     █ █  █ █  █   █ █");
-	endGameScreenTitleText.push_back(L"███ █ █ █   █ ███   ███   █   ███ █ █");
+	switch (_currentUIWindow)
+	{
+	case TITLE_SCREEN:
+		endGameScreenTitleText.push_back(L"███ ███ ██ ██ ███   ███ ███ ███ █   ███");
+		endGameScreenTitleText.push_back(L"█   █ █ █ █ █ █      █   █   █  █   █  ");
+		endGameScreenTitleText.push_back(L"█ █ ███ █   █ ██     █   █   █  █   ██ ");
+		endGameScreenTitleText.push_back(L"█ █ █ █ █   █ █      █   █   █  █   █  ");
+		endGameScreenTitleText.push_back(L"███ █ █ █   █ ███    █  ███  █  ███ ███");
 
-	std::wstring messageText = L"N'abandonnez pas...";
-	std::wstring restartButtonText = L" Recommencer";
-	std::wstring quitButtonText = L" Quitter";
+		// Placeholder
+		messageText = L"Move : ZQSD - Attack : E - Confirm : [Enter]";
+		restartButtonText = L" Jouer";
+		quitButtonText = L" Quitter";
+		break;
+	case GAMEOVER:
+		endGameScreenTitleText.push_back(L"███ ███ ██ ██ ███   ███ █   █ ███ ███");
+		endGameScreenTitleText.push_back(L"█   █ █ █ █ █ █     █ █ █   █ █   █ █");
+		endGameScreenTitleText.push_back(L"█ █ ███ █   █ ██    █ █ █   █ ██  ██ ");
+		endGameScreenTitleText.push_back(L"█ █ █ █ █   █ █     █ █  █ █  █   █ █");
+		endGameScreenTitleText.push_back(L"███ █ █ █   █ ███   ███   █   ███ █ █");
+
+		messageText = L"N'abandonnez pas...";
+		restartButtonText = L" Recommencer";
+		quitButtonText = L" Quitter";
+		break;
+	case VICTORY:
+		endGameScreenTitleText.push_back(L"█   █ ███ █ █   █ █ █ ███ ██  █ █");
+		endGameScreenTitleText.push_back(L" █ █  █ █ █ █   █ █ █ █ █ ██  █ █");
+		endGameScreenTitleText.push_back(L"  █   █ █ █ █   █ █ █ █ █ █ █ █ █");
+		endGameScreenTitleText.push_back(L"  █   █ █ █ █   █ █ █ █ █ █  ██  ");
+		endGameScreenTitleText.push_back(L"  █   ███ ███   ██ ██ ███ █  ██ █");
+
+		// Placeholder
+		messageText = L"Bravo vous avez gagné la partie !";
+		restartButtonText = L" Recommencer";
+		quitButtonText = L" Quitter";
+		break;
+	default:
+		return;
+		break;
+	}
 
 	// Put choice indicator arrow
 	if (_choiceIndicator.size() >= 2)
@@ -218,12 +256,18 @@ void GameUI::createMenuGameScreen()
 	}
 }
 
-void GameUI::activateGameOverScreen(bool boolean)
+void GameUI::deactivateUIWindow()
 {
-	_showGameOverScreen = boolean;
+	_showGameOverScreen = false;
 }
 
-void GameUI::confirmGameOverChoice() {
+void GameUI::activateUIWindow(UIWINDOW newUIWindow)
+{
+	_currentUIWindow = newUIWindow;
+	_showGameOverScreen = true;
+}
+
+void GameUI::confirmButtonChoice() {
 	std::set<char> inputKeys = _playercontroller.getPressedKeys();
 	if (inputKeys.size() > 0) {
 		std::set<char>::iterator it = inputKeys.begin();

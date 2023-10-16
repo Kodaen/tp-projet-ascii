@@ -25,10 +25,10 @@ Level::Level(int levelNumber)
 {
 	_levelNumber = levelNumber;
 	std::string levelFileName = "levels/level" + std::to_string(levelNumber) + ".txt";
-	readFile(levelFileName);
+	readFile(levelFileName, levelNumber);
 }
 
-void Level::readFile(std::string fileName)
+void Level::readFile(std::string fileName, int levelNumber)
 {
 	// To read Unicode characters.
 	// Source: https://stackoverflow.com/a/9903304.
@@ -65,8 +65,19 @@ void Level::readFile(std::string fileName)
 		}
 	}
 	else
-	{
-		std::cout << "Unable to open file";
+	{	
+		//std::cout << "Unable to open file";
+
+		// If we couldn't open the file and it wasn't the first file.
+		// Then it means it's the end of the game
+		// We open the previous level(which is technically the current one) to
+		// avoid weird display bugs 
+		if (levelNumber > 1)
+		{
+			GameInstance::Instance().endOfGame();
+			std::string levelFileName = "levels/level" + std::to_string(levelNumber-1) + ".txt";
+			readFile(levelFileName, levelNumber);
+		}
 	}
 }
 

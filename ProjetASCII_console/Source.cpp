@@ -20,6 +20,7 @@
 
 #include "NYTimer.h"
 #include <iostream>
+#include "UIWindow.h"
 #include "GameUI.h"
 #include "gameInstance.h"
 

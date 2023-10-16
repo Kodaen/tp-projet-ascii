@@ -18,6 +18,7 @@
 
 #include "PlayerCharacter.h"
 
+#include "UIWindow.h"
 #include "GameUI.h"
 
 #include "GameInstance.h"
@@ -118,7 +119,7 @@ void PlayerCharacter::setNextTile(std::set<char>::iterator& it) {
 
 void PlayerCharacter::die() {
 	_pendingDestruction = true;
-	GameUI::Instance().activateGameOverScreen(true);
+	GameUI::Instance().activateUIWindow(GAMEOVER);
 }
 
 // TODO : override recieveDamage to update UI when getting hit

@@ -20,6 +20,7 @@
 
 #include "BufferHandler.h"
 
+#include "UIWindow.h"
 #include "GameUI.h"
 
 #include "gameInstance.h"
@@ -101,8 +102,14 @@ void GameInstance::restartGame()
 
 	_currentLevel = Level(1);
 
-	GameUI::Instance().activateGameOverScreen(false);
+	GameUI::Instance().deactivateUIWindow();
 
+}
+
+void GameInstance::endOfGame()
+{
+	_playerCharacter.setPendingDestruction(true);
+	GameUI::Instance().activateUIWindow(VICTORY);
 }
 
 void GameInstance::resetLevel()

@@ -41,6 +41,8 @@ public:
 
 	void resetLevel();
 
+	void endOfGame();
+
 	// Getters and Setters
 
 	Level& getcurrentLevel() {

@@ -4,6 +4,7 @@
 //#include "NYTimer.h"
 //#include <set>
 //#include "PlayerController.h"
+//#include "UIWindow.h"
 
 class GameUI
 {
@@ -19,12 +20,13 @@ public:
 
 	void displayStats();
 	
-	void displayGameOverScreen();
+	void displayUIWindow();
 
 	bool updateSelectedChoice();
-	void confirmGameOverChoice();
+	void confirmButtonChoice();
 
-	void activateGameOverScreen(bool boolean);
+	void deactivateUIWindow();
+	void activateUIWindow(UIWINDOW test);
 
 	void createStats();
 
@@ -37,8 +39,7 @@ private:
 	std::wstring _stats;
 	std::vector<std::wstring> _menuScreen;
 
-	// TODO : Replace with ENUM if we get other UI later
-	std::wstring _focusedUI;
+	UIWINDOW _currentUIWindow;
 
 	bool _showGameOverScreen = false;
 
