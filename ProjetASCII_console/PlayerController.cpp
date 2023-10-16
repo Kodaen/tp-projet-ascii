@@ -45,6 +45,7 @@ void PlayerController::registerPressedKeys()
 	if (GetAsyncKeyState(0x53)) _pressedKeys.insert('s');
 	if (GetAsyncKeyState(0x44)) _pressedKeys.insert('d');
 	if (GetAsyncKeyState(0x45)) _pressedKeys.insert('e');
+	if (GetAsyncKeyState(VK_RETURN)) _pressedKeys.insert('*'); // Will represent the enter key because we can only use a char.
 
 	// Just Quality of life
 	// If the previous registered input are the same as the current one

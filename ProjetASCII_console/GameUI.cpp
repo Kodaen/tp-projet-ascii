@@ -147,7 +147,7 @@ void GameUI::confirmGameOverChoice() {
 	std::set<char> inputKeys = _playercontroller.getPressedKeys();
 	if (inputKeys.size() > 0) {
 		std::set<char>::iterator it = inputKeys.begin();
-		if (*it == 'e') {
+		if (*it == '*') {
 			if (_selectedChoice == 0)
 			{
 				GameInstance::Instance().restartGame();
