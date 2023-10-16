@@ -29,7 +29,7 @@ GameUI::GameUI() : _showGameOverScreen(false)
 	_choiceIndicator = L">                     ";
 	createStats();
 	createMenuGameScreen();
-	_actionsLog.push_back(L"Vous devriez essayer de trouver la sortie");
+	appendToActionsLog(L"Vous devriez essayer de trouver la sortie");
 }
 
 GameUI::~GameUI()
@@ -127,10 +127,12 @@ void GameUI::createStats()
 	wstats << " Niveau : ";
 	wstats << gameInstance.getPlayerCharacter().getDamage();
 	_stats.append(wstats.str());
+	_stats += std::wstring(WIDTH - _stats.size(), L' ');
 }
 
 void GameUI::appendToActionsLog(std::wstring action)
 {
+	action += std::wstring(WIDTH - action.size(), L' ');
 	_actionsLog.push_back(action);
 }
 
