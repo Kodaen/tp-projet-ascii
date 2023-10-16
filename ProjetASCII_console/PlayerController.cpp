@@ -15,7 +15,7 @@ PlayerController::PlayerController() :
 	_timerBetweenRepetitiveKeys(),
 	_timerKeyBuffer(),
 	_minDelayBetweenKeys(50),
-	_minDelayBetweenRepetitiveKeys(400),
+	_minDelayBetweenRepetitiveKeys(250),
 	_bufferDuration(25)
 {
 	_timerBetweenKeys.start();
