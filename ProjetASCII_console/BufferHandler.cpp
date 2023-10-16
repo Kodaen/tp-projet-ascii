@@ -103,6 +103,17 @@ void BufferHandler::DrawMapRow(std::wstring row, short x, std::map<std::wstring,
 		else if (isStair(row[y])) {
 			drawAtCoordinate(row[y], colors[L"groundBg"] | colors[L"stair"], { x, y });
 		}
+		else if (isWater(row[y])) {
+			// makes checkerboard pattern
+			if ((y+x)%2 == 0)
+			{
+				drawAtCoordinate(row[y], colors[L"liquidBg"] | colors[L"liquidFg"], { x, y });
+			}
+			else {
+				drawAtCoordinate(L' ', colors[L"liquidBg"] | colors[L"liquidFg"], {x, y});
+			}
+			
+		}
 		else {
 			// Draw UI, always white on black for now.
 			drawAtCoordinate(row[y], 0x00F, { x, y });
@@ -135,6 +146,11 @@ bool BufferHandler::isBackground(WCHAR wchar) {
 
 bool BufferHandler::isStair(WCHAR wchar) {
 	return wchar == L'#';
+}
+
+bool BufferHandler::isWater(WCHAR wchar)
+{
+	return wchar == L'~';
 }
 
 void BufferHandler::changeColorAtCoordinate(WORD color, COORD coordinates)

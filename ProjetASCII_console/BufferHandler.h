@@ -63,6 +63,8 @@ public:
 
 	bool isStair(WCHAR wchar);
 
+	bool isWater(WCHAR wchar);
+
 	WCHAR& getCharacterAtCoordinate(COORD coordinates);
 
 	WORD& getColorAtCoordinate(COORD coordinates);
