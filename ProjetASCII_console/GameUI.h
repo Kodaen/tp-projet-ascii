@@ -19,6 +19,8 @@ public:
 	void displayUI();
 
 	void displayStats();
+
+	void displayActionsLog();
 	
 	void displayUIWindow();
 
@@ -30,6 +32,8 @@ public:
 
 	void createStats();
 
+	void appendToActionsLog(std::wstring action);
+
 private:
 	short _selectedChoice;
 	std::wstring _choiceIndicator;
@@ -37,6 +41,9 @@ private:
 	PlayerController _playercontroller;
 
 	std::wstring _stats;
+
+	std::vector<std::wstring> _actionsLog;
+
 	std::vector<std::wstring> _menuScreen;
 
 	UIWINDOW _currentUIWindow;

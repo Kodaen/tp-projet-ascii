@@ -92,6 +92,7 @@ int main()
 		// To keep stats updated in real time like HP and floor.
 		gameUI->createStats();
 		gameUI->displayUI();
+		gameUI->displayActionsLog();
 
 		// Print the buffer on the screen
 		bufferHandler->printBuffer();

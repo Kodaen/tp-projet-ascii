@@ -29,6 +29,7 @@ GameUI::GameUI() : _showGameOverScreen(false)
 	_choiceIndicator = L">                     ";
 	createStats();
 	createMenuGameScreen();
+	_actionsLog.push_back(L"Vous devriez essayer de trouver la sortie");
 }
 
 GameUI::~GameUI()
@@ -62,6 +63,12 @@ void GameUI::displayStats()
 	// Hard coded value because HEIGHT can't be used now that it's greater than the console's height.
 	// TODO: find how to retrieve it instead.
 	bufferHandler.DrawMapRow(_stats, 29);
+}
+
+void GameUI::displayActionsLog()
+{
+	BufferHandler& bufferHandler = BufferHandler::Instance();
+	bufferHandler.DrawMapRow(_actionsLog.back(), 0);
 }
 
 void GameUI::displayUIWindow() {
@@ -120,6 +127,11 @@ void GameUI::createStats()
 	wstats << " Niveau : ";
 	wstats << gameInstance.getPlayerCharacter().getDamage();
 	_stats.append(wstats.str());
+}
+
+void GameUI::appendToActionsLog(std::wstring action)
+{
+	_actionsLog.push_back(action);
 }
 
 void GameUI::createMenuGameScreen()
