@@ -35,7 +35,7 @@ private:
 	PlayerController _playercontroller;
 
 	std::wstring _stats;
-	std::vector<std::wstring> _gameOverScreen;
+	std::vector<std::wstring> _menuScreen;
 
 	// TODO : Replace with ENUM if we get other UI later
 	std::wstring _focusedUI;
@@ -45,8 +45,7 @@ private:
 	static GameUI* _gameUIInstance;
 
 private:
-	void createEndGameScreen();
-
+	void createMenuGameScreen();
 
 };
 

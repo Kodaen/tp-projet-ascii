@@ -1,4 +1,4 @@
-#include <windows.h>
+﻿#include <windows.h>
 #include "vector"
 #include <set>
 #include <string>
@@ -26,7 +26,7 @@ GameUI::GameUI() : _showGameOverScreen(false)
 {
 	_choiceIndicator = L">                     ";
 	createStats();
-	createEndGameScreen();
+	createMenuGameScreen();
 }
 
 GameUI::~GameUI()
@@ -65,9 +65,9 @@ void GameUI::displayStats()
 void GameUI::displayGameOverScreen() {
 	BufferHandler& bufferHandler = BufferHandler::Instance();
 
-	for (size_t i = 0; i < _gameOverScreen.size(); i++)
+	for (size_t i = 0; i < _menuScreen.size(); i++)
 	{
-		bufferHandler.DrawMapRow(_gameOverScreen[i], 1 + i);
+		bufferHandler.DrawMapRow(_menuScreen[i], 7 + i);
 	}
 }
 
@@ -95,7 +95,7 @@ bool GameUI::updateSelectedChoice()
 			break;
 		}
 
-		createEndGameScreen();
+		createMenuGameScreen();
 		return true;
 	}
 	return false;
@@ -106,36 +106,116 @@ void GameUI::createStats()
 	_stats = L"";
 	GameInstance& gameInstance = GameInstance::Instance();
 	std::wstringstream wstats;
-	wstats << "�tage : ";
+	wstats << "Étage : ";
 	wstats << gameInstance.getcurrentLevel().getNumber();
 
 	wstats << "            -- Joueur --";
 	wstats << " Pv : ";
 	wstats << gameInstance.getPlayerCharacter().getHP();
-	wstats << " D�g�ts : ";
+	wstats << " Dégâts : ";
 	wstats << gameInstance.getPlayerCharacter().getDamage();
 	wstats << " Niveau : ";
 	wstats << gameInstance.getPlayerCharacter().getDamage();
 	_stats.append(wstats.str());
 }
 
-void GameUI::createEndGameScreen()
+void GameUI::createMenuGameScreen()
 {
-	_gameOverScreen.clear();
+	_menuScreen.clear();
 
-	std::wstring EndGameScreenTitle = L"   GAME OVER   ";
-	std::wstring restartButton = L" Recommencer  ";
-	std::wstring quitButton = L" Quitter      ";
+	// Tools initialisation
+	std::wstring emptyLine(WIDTH, L' ');
+	std::wstring buttonPaddingLeft(52, L' ');
 
+	// Text initialisation
+	std::vector<std::wstring> endGameScreenTitleText;
+
+	endGameScreenTitleText.push_back(L"███ ███ ██ ██ ███   ███ █   █ ███ ███");
+	endGameScreenTitleText.push_back(L"█   █ █ █ █ █ █     █ █ █   █ █   █ █");
+	endGameScreenTitleText.push_back(L"█ █ ███ █   █ ██    █ █ █   █ ██  ██ ");
+	endGameScreenTitleText.push_back(L"█ █ █ █ █   █ █     █ █  █ █  █   █ █");
+	endGameScreenTitleText.push_back(L"███ █ █ █   █ ███   ███   █   ███ █ █");
+
+	std::wstring messageText = L"N'abandonnez pas...";
+	std::wstring restartButtonText = L" Recommencer";
+	std::wstring quitButtonText = L" Quitter";
+
+	// Put choice indicator arrow
 	if (_choiceIndicator.size() >= 2)
 	{
-		restartButton.insert(0, _choiceIndicator, 0, 1);
-		quitButton.insert(0, _choiceIndicator, 1, 1);
+		restartButtonText.insert(0, _choiceIndicator, 0, 1);
+		quitButtonText.insert(0, _choiceIndicator, 1, 1);
 	}
 
-	_gameOverScreen.push_back(EndGameScreenTitle);
-	_gameOverScreen.push_back(restartButton);
-	_gameOverScreen.push_back(quitButton);
+	// Assemble strings to create UI
+	std::wstring restartButton;
+	std::wstring quitButton;
+	std::wstring message;
+	std::vector<std::wstring> endGameScreenTitle;
+
+	// Center screen title
+	std::wstring tempPaddingTitle(((WIDTH - 81) / 2) - (endGameScreenTitleText[0].size() / 2), L' ');
+	std::wstring tempEndGameScreenTitle;
+	for (size_t i = 0; i < endGameScreenTitleText.size(); i++)
+	{
+		tempEndGameScreenTitle = tempPaddingTitle;
+		tempEndGameScreenTitle += endGameScreenTitleText[i];
+		tempEndGameScreenTitle += tempPaddingTitle;
+		tempEndGameScreenTitle += std::wstring(WIDTH - tempEndGameScreenTitle.size(), L' ');
+
+		endGameScreenTitle.push_back(tempEndGameScreenTitle);
+	}
+
+	// Center message
+	std::wstring tempPaddingMessage(((WIDTH - 81) / 2) - (messageText.size() / 2), L' ');
+	message = tempPaddingMessage;
+	message += messageText;
+	message += tempPaddingMessage;
+	message += std::wstring(WIDTH - tempPaddingMessage.size(), L' ');
+
+	// Put padding left and right
+	restartButton = buttonPaddingLeft;
+	restartButton += restartButtonText;
+	restartButton += std::wstring(WIDTH - restartButton.size(), L' ');
+
+	// Put padding left and right
+	quitButton = buttonPaddingLeft;
+	quitButton += quitButtonText;
+	quitButton += std::wstring(WIDTH - quitButton.size(), L' ');
+
+	// Margin top
+	for (size_t i = 0; i < 3; i++)
+	{
+		_menuScreen.push_back(emptyLine);
+	}
+
+	for (size_t i = 0; i < endGameScreenTitle.size(); i++)
+	{
+		_menuScreen.push_back(endGameScreenTitle[i]);
+	}
+
+	// Margin between menu title and menu text
+	for (size_t i = 0; i < 2; i++)
+	{
+		_menuScreen.push_back(emptyLine);
+	}
+
+	_menuScreen.push_back(message);
+
+	// Margin between menu text and buttons
+	for (size_t i = 0; i < 2; i++)
+	{
+		_menuScreen.push_back(emptyLine);
+	}
+
+	_menuScreen.push_back(restartButton);
+	_menuScreen.push_back(quitButton);
+
+	// Margin bottom
+	for (size_t i = 0; i < 2; i++)
+	{
+		_menuScreen.push_back(emptyLine);
+	}
 }
 
 void GameUI::activateGameOverScreen(bool boolean)
