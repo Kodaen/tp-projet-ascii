@@ -123,6 +123,15 @@ void GameInstance::restartGame()
 
 	GameUI::Instance().deactivateUIWindow();
 
+	spawnLevelEnemies();
+
+	setPlayerColors();
+}
+
+void GameInstance::setPlayerColors() {
+	std::map<std::wstring, WORD> colors = _currentLevel.getColors();
+	_playerCharacter.setOriginalSpriteColor(colors[L"player"] | colors[L"groundBg"]); // TODO: Or default.
+	_playerCharacter.setDisplayedSpriteColor(colors[L"player"] | colors[L"groundBg"]);
 }
 
 void GameInstance::endOfGame()
@@ -181,7 +190,7 @@ void GameInstance::tryToSpawnEntityFromLevel(short x, short y)
 	{
 		// Lowercase for standard ennemis
 	case L'a':
-		c = new standardEnnemy({x,y}, TOP_LEFT);
+		c = new standardEnnemy({ x,y }, TOP_LEFT);
 		_gameObjects.push_back(c);
 		_currentLevel.hideSpawner({ x,y });
 		break;

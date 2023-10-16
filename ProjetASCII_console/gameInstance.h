@@ -39,12 +39,12 @@ public:
 public:
 	void update();
 	void restartGame();
+	void setPlayerColors();
 	void resetLevel();
 	void endOfGame();
 
 private :
 	void spawnLevelEnemies();
-
 
 	template <typename standardEnnemy, typename bossEnnemy>
 	void tryToSpawnEntityFromLevel(short x, short y);
