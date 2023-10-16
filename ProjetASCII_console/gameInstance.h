@@ -2,6 +2,7 @@
 
 //#include "GameObject.h"
 //#include <windows.h>
+//#include "Entity.h"
 //#include "PlayerCharacter.h"
 //#include "vector"
 //include "Level.h"
@@ -38,13 +39,18 @@ public:
 public:
 	void update();
 	void restartGame();
-
 	void resetLevel();
-
 	void endOfGame();
 
-	// Getters and Setters
+private :
+	void spawnLevelEnemies();
 
+
+	template <typename standardEnnemy, typename bossEnnemy>
+	void tryToSpawnEntityFromLevel(short x, short y);
+
+	// Getters and Setters
+public :
 	Level& getcurrentLevel() {
 		return _currentLevel;
 	};

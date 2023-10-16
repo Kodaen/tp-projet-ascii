@@ -24,6 +24,10 @@ public:
 
 	bool isTileWalkable(COORD coordinates);
 
+	void hideSpawners();
+
+	void hideSpawner(COORD coordinates);
+
 private:
 	std::vector<std::wstring> _level;
 

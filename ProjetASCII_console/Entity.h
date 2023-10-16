@@ -21,6 +21,7 @@ protected:
 
 public:
 	virtual void update();
+	void refreshDisplayedColor();
 
 	// Moving functions
 	bool moveRight(short val);

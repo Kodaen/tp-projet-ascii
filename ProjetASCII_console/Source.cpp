@@ -68,7 +68,7 @@ int main()
 	gameObjects.push_back(&c);
 
 
-	gameInstance->setGameObjects(gameObjects);
+	//gameInstance->setGameObjects(gameObjects);
 
 	// Prepare resources for the map.
 	std::vector<std::wstring> map = gameInstance->getcurrentLevel().getLevel();
@@ -76,9 +76,9 @@ int main()
 	PlayerCharacter& player = gameInstance->getPlayerCharacter();
 	player.setOriginalSpriteColor(colors[L"player"] | colors[L"groundBg"]); // TODO: Or default.
 	player.setDisplayedSpriteColor(colors[L"player"] | colors[L"groundBg"]);
-	std::vector<GameObject*> allGameObjects = GameInstance::Instance().getGameObject();
-	for (auto gameObject : allGameObjects) {
-		gameObject->setDisplayedSpriteColor(colors[L"gameObjects"] | colors[L"groundBg"]);
+	for (auto gameObject : gameObjects) {
+		gameObject->setOriginalSpriteColor(colors[L"gameObjects"] | colors[L"groundBg"]);
+		gameObject->refreshDisplayedColor();
 	}
 
 	NYTimer nyTimer;

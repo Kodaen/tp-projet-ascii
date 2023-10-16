@@ -34,7 +34,7 @@ Entity::Entity() : GameObject()
 	_displayedSprite = 0x45; // The 'E' character. It matches both generic "Enemi" or "Entity".
 	_pendingDestruction = false;
 
-	_displayedColor = _lookingDirection + _originalSpriteColor;
+	refreshDisplayedColor();
 }
 
 Entity::Entity(COORD pos, DIRECTION lookingDirection) : Entity()
@@ -42,10 +42,15 @@ Entity::Entity(COORD pos, DIRECTION lookingDirection) : Entity()
 	_pos = pos;
 	_lookingDirection = lookingDirection;
 
-	_displayedColor = _lookingDirection + _originalSpriteColor;
+	refreshDisplayedColor();
 }
 
 void Entity::update() {
+}
+
+void Entity::refreshDisplayedColor()
+{
+	_displayedColor = _lookingDirection + _originalSpriteColor;
 }
 
 bool Entity::moveDiagonaly(short valX, short valY) {
@@ -184,7 +189,7 @@ bool Entity::moveForward() {
 void Entity::turnToDirection(DIRECTION newDirection) {
 	_lookingDirection = newDirection;
 
-	_displayedColor = _lookingDirection + _originalSpriteColor;
+	refreshDisplayedColor();
 }
 
 void Entity::attack() {

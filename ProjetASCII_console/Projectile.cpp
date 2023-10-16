@@ -20,9 +20,13 @@
 Projectile::Projectile() : _movingDirection({ 1,0 }), GameObject() {
 	_pos = { 7,10 };
 	_displayedSprite = 0x6f;
-	_originalSpriteColor = 0x07;
-	_displayedColor = 0x07;
+	_originalSpriteColor = 0x0C;
+	_displayedColor = 0x0C;
 	_damage = 1;
+
+	std::map<std::wstring, WORD> colors = GameInstance::Instance().getcurrentLevel().getColors();
+	_displayedColor = _displayedColor | colors[L"groundBg"];
+	_originalSpriteColor = _originalSpriteColor | colors[L"groundBg"];
 }
 
 
