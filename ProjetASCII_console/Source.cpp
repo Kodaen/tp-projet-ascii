@@ -14,11 +14,6 @@
 #include "Entity.h"
 #include "PlayerCharacter.h"
 
-// TODO : remove those when done testing
-#include "Cabulosaurus.h"
-#include "Croquecaille.h"
-#include "Sertrail.h"
-
 #include "BufferHandler.h"
 
 #include "Level.h"
@@ -49,37 +44,12 @@ int main()
 	GameInstance* gameInstance = &GameInstance::Instance();
 	GameUI* gameUI = &GameUI::Instance();
 
-	// Spawn a basic entity
-	std::vector<GameObject*> gameObjects;
-	Entity* e = new Entity();
-	e->setPos({ 13,10 });
-	Projectile* p = new Projectile();
-
-	// Spawn a Sertrail
-	Sertrail s({ 6,12}, TOP);
-	gameObjects.push_back(&s);
-
-	// Spawn a Cabulosaurus
-	Cabulosaurus b({ 4,6 }, BOTTOM);
-	gameObjects.push_back(&b);
-
-	// Spawn a Croquecaille
-	Croquecaille c({ 14,5 }, TOP_RIGHT);
-	gameObjects.push_back(&c);
-
-
-	//gameInstance->setGameObjects(gameObjects);
-
 	// Prepare resources for the map.
 	std::vector<std::wstring> map = gameInstance->getcurrentLevel().getLevel();
 	std::map<std::wstring, WORD> colors = gameInstance->getcurrentLevel().getColors();
 	PlayerCharacter& player = gameInstance->getPlayerCharacter();
 	player.setOriginalSpriteColor(colors[L"player"] | colors[L"groundBg"]); // TODO: Or default.
 	player.setDisplayedSpriteColor(colors[L"player"] | colors[L"groundBg"]);
-	for (auto gameObject : gameObjects) {
-		gameObject->setOriginalSpriteColor(colors[L"gameObjects"] | colors[L"groundBg"]);
-		gameObject->refreshDisplayedColor();
-	}
 
 	NYTimer nyTimer;
 
