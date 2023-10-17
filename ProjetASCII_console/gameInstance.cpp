@@ -136,12 +136,13 @@ void GameInstance::restartGame()
 	pauseGame(false);
 }
 
- void GameInstance::resetLevel()
+void GameInstance::resetLevel()
 {
 	for (size_t i = 0; i < _gameObjects.size(); i++)
 	{
 		_gameObjects[i]->setPendingDestruction(true);
 	}
+	setPlayerColors();
 
 	pauseGame(false);
 	// TODO: gameObjects colors.
@@ -301,13 +302,13 @@ void GameInstance::tryToSpawnEntityFromLevel(short x, short y)
 	}
 }
 
- void GameInstance::setPlayerColors() {
+void GameInstance::setPlayerColors() {
 	std::map<std::wstring, WORD> colors = _currentLevel.getColors();
 	_playerCharacter.setOriginalSpriteColor(colors[L"player"] | colors[L"groundBg"]); // TODO: Or default.
 	_playerCharacter.setDisplayedSpriteColor(colors[L"player"] | colors[L"groundBg"]);
 }
 
- void GameInstance::setGameObjectsColors() {
+void GameInstance::setGameObjectsColors() {
 	std::map<std::wstring, WORD> colors = getCurrentLevel().getColors();
 
 	for (auto gameObject : _gameObjects) {
@@ -315,15 +316,3 @@ void GameInstance::tryToSpawnEntityFromLevel(short x, short y)
 		gameObject->refreshDisplayedColor();
 	}
 }
-
- void GameInstance::resetLevel()
- {
-	 for (size_t i = 0; i < _gameObjects.size(); i++)
-	 {
-		 _gameObjects[i]->setPendingDestruction(true);
-	 }
-	 setPlayerColors();
-
-	 pauseGame(false);
-	 // TODO: gameObjects colors.
- }
