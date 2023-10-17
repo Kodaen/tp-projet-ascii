@@ -103,6 +103,10 @@ void GameInstance::update() {
 			{ _gameObjects[i]->getPos().X, _gameObjects[i]->getPos().Y });
 	}
 
+	changeFloorIfNeeded();
+}
+
+void GameInstance::changeFloorIfNeeded() {
 	// Change floor when the player chooses to use the stairs.
 	if (_playerCharacter.isOnStairs()) {
 		int currentLevelNumber = _currentLevel.getNumber();

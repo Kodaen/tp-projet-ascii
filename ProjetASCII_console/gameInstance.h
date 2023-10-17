@@ -53,6 +53,7 @@ private:
 
 	template <typename standardEnnemy, typename bossEnnemy>
 	void tryToSpawnEntityFromLevel(short x, short y);
+	void changeFloorIfNeeded();
 
 	// Getters and Setters
 public:
