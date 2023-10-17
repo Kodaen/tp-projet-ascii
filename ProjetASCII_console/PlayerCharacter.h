@@ -7,10 +7,12 @@
 
 class PlayerCharacter : public Entity
 {
+	//////////////////////// Constructors ////////////////////////
 public:
-	//Default constructor
+
 	PlayerCharacter();
 
+	//////////////////////// Attributes ////////////////////////
 private:
 	int _level;
 
@@ -21,6 +23,7 @@ private:
 	bool _playerActed;
 	bool _isOnStairs;
 
+	//////////////////////// Methods ////////////////////////
 
 	void setNextTile(const std::set<char>::iterator& it);
 
@@ -37,7 +40,7 @@ public:
 
 	void die();
 
-	// Getters and Setters
+	//////////////////////// Getters & Setters ////////////////////////
 public:
 
 	int getLevel() {

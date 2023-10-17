@@ -24,9 +24,10 @@ PlayerController::PlayerController() :
 	_timerKeyBuffer.start();
 }
 
+// Get what keys the player pressed on the keyboard and put them in _pressedKeys.
+// If the delay between two inputs is too short (see _minDelayBetweenRepetitiveKeys) : doesn't do anything.
 void PlayerController::registerPressedKeys()
 {
-	// TODO : make a buffer to allow player to easily input 2 keys at once
 	_pressedKeys.clear();
 
 	// Check if the delay between each key registering is passed or not
@@ -71,18 +72,4 @@ void PlayerController::registerPressedKeys()
 	};
 }
 
-std::set<char> PlayerController::getPressedKeys()
-{
-	return _pressedKeys;
-}
-
-bool PlayerController::getIsCtrlHeld()
-{
-	return _isCtrlHeld;
-}
-
-bool PlayerController::getIsShiftHeld()
-{
-	return _isShiftHeld;
-}
 

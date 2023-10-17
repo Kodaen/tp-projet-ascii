@@ -12,7 +12,7 @@
 
 class BufferHandler
 {
-	// Constructor
+	//////////////////////// Constructors ////////////////////////
 private:
 	BufferHandler();
 	void initialize();
@@ -20,7 +20,7 @@ public:
 	~BufferHandler();
 
 
-	// Attributes
+	//////////////////////// Attributes ////////////////////////
 private:
 
 	HANDLE _hOutput;
@@ -32,7 +32,7 @@ private:
 
 	static BufferHandler* _bufferHandlerInstance;
 
-	// Methods
+	//////////////////////// Methods ////////////////////////
 public:
 
 	static BufferHandler& Instance();
@@ -52,6 +52,8 @@ public:
 	inline bool areDefaultColorsNeeded(const std::map<std::wstring, WORD>& colors);
 
 	bool isTileWalkable(const COORD& coordinates);
+
+	//////////////////////// Getters and Setters ////////////////////////
 
 	inline bool isGround(const WCHAR& wchar);
 

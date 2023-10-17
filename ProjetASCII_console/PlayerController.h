@@ -6,12 +6,12 @@
 
 class PlayerController
 {
-	// Constructor
+	//////////////////////// Constructors ////////////////////////
 public:
 
 	PlayerController();
 
-	// Attributes
+	//////////////////////// Attributes ////////////////////////
 private:
 	bool _isCtrlHeld;
 	bool _isShiftHeld;
@@ -27,18 +27,28 @@ private:
 	int _minDelayBetweenKeys = 100;
 	int _bufferDuration = 25;
 
-	// Functions
+	//////////////////////// Methods ////////////////////////
 public:
 	void registerPressedKeys();
 
 
-	// Getters and Setters
+	//////////////////////// Getters & Setters //////////////////////// 
 public:
 
-	std::set<char> getPressedKeys();
+	std::set<char> getPressedKeys()
+	{
+		return _pressedKeys;
+	}
 
-	bool getIsCtrlHeld();
+	bool getIsCtrlHeld()
+	{
+		return _isCtrlHeld;
+	}
 
-	bool getIsShiftHeld();
+	bool getIsShiftHeld()
+	{
+		return _isShiftHeld;
+	}
+
 };
 

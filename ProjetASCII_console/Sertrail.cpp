@@ -25,6 +25,9 @@ Sertrail::Sertrail(const COORD& pos, const DIRECTION& lookingDirection) : Sertra
 	_displayedColor = _lookingDirection + _originalSpriteColor;
 }
 
+// Update player's behavoir; called every frame.
+// Every call, the Sertrail will try to move forward and attack in front of him
+// if it encounters a wall, it turns arround
 void Sertrail::update() {
 	// Attack and go forward
 	// until it hits a wall or the player.
@@ -51,6 +54,7 @@ void Sertrail::update() {
 	}
 }
 
+// Changes the looking direction to the one on it's right by 90°
 void Sertrail::turnToRight()
 {
 	switch (_lookingDirection)

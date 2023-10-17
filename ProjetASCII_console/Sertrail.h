@@ -4,17 +4,17 @@
 //#include "Entity.h"
 class Sertrail :public Entity
 {
-	// Constructors
+	//////////////////////// Constructors //////////////////////// 
 public:
 	Sertrail();
 	Sertrail(const COORD& pos, const DIRECTION& lookingDirection);
 
-	// Attributes
+	//////////////////////// Attributes //////////////////////// 
 private:
 	short _currentStep = 0;
 	bool changedTrajectory = false;
 
-	// Functions
+	//////////////////////// Methods //////////////////////// 
 public:
 	virtual void update();
 

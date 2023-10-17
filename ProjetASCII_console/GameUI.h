@@ -8,13 +8,15 @@
 
 class GameUI
 {
-	// Constructor
+	//////////////////////// Constructors ////////////////////////
 public:
 	GameUI();
 	~GameUI();
 
 
 	static GameUI& Instance();
+
+	//////////////////////// Methods ////////////////////////
 
 	void displayUI();
 
@@ -34,6 +36,7 @@ public:
 
 	void appendToActionsLog(std::wstring action);
 
+	//////////////////////// Attributes ////////////////////////
 private:
 	short _selectedChoice;
 	std::wstring _choiceIndicator;

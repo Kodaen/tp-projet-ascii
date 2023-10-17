@@ -45,14 +45,19 @@ Entity::Entity(COORD pos, DIRECTION lookingDirection) : Entity()
 	refreshDisplayedColor();
 }
 
+// Updates the behavoir of the Entity
 void Entity::update() {
 }
 
+// Refresh the displayed color by calculating it with the looking direction color and the original sprite color
 void Entity::refreshDisplayedColor()
 {
 	_displayedColor = _lookingDirection + _originalSpriteColor;
 }
 
+// Allows the entity to move diagonally on the map, updates the looking direction depending on which direction
+// the entity is moving
+// Return false if it couldn't move at all
 bool Entity::moveDiagonaly(const short& valX, const short& valY) {
 	//returns if character could move or not as a bool
 
@@ -93,6 +98,10 @@ bool Entity::moveDiagonaly(const short& valX, const short& valY) {
 
 }
 
+// Allows the entity to move horizontally on the map, updates the looking direction depending on which direction
+// the entity is moving
+// Return false if it couldn't move at all
+// 1 means right, -1 means left
 bool Entity::moveRight(const short& val) {
 	//val can take either 1 or -1
 	//1 means go to right
@@ -121,6 +130,10 @@ bool Entity::moveRight(const short& val) {
 	}
 }
 
+// Allows the entity to move vertically on the map, updates the looking direction depending on which direction
+// the entity is moving
+// Return false if it couldn't move at all
+// 1 means down, -1 means right
 bool Entity::moveDown(const short& val) {
 	//val can take either 1 or -1
 	//1 means go down
@@ -150,6 +163,8 @@ bool Entity::moveDown(const short& val) {
 
 }
 
+// Move the entity by 1 tile on the map depending on which the entity is looking at
+// Return false if it couldn't move at all
 bool Entity::moveForward() {
 	// Move to its looking direction
 
@@ -187,12 +202,14 @@ bool Entity::moveForward() {
 	}
 }
 
+// Changes looking direction and update direction sprite
 void Entity::turnToDirection(const DIRECTION& newDirection) {
 	_lookingDirection = newDirection;
 
 	refreshDisplayedColor();
 }
 
+// Attacks the GameObject in front of the Entity
 void Entity::attack() {
 	// TODO : playsound when player attacks
 
@@ -251,6 +268,7 @@ void Entity::attack() {
 
 };
 
+// Lowers hp by damages. If hp reach 0 or less, the entity dies (see die()).
 void Entity::recieveDamage(const int& damage) {
 	_hp -= damage;
 	// TODO : Playsound when players gets damaged
@@ -260,6 +278,9 @@ void Entity::recieveDamage(const int& damage) {
 	}
 };
 
+// Set the attribute _pendingDestruction to true. 
+// Before the next update the game instance will check if the
+// the ennemy is _pendingDestruction, if yes it will destroy it
 void Entity::die() {
 	_pendingDestruction = true;
 	_originalSpriteColor = 0x08;

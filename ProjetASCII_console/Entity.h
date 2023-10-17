@@ -7,33 +7,33 @@
 class Entity : public GameObject
 {
 public:
-	//Constructors
+	//////////////////////// Constructors ////////////////////////
 	Entity();
 
-	Entity(COORD pos,DIRECTION lookingDirection);
+	Entity(COORD pos, DIRECTION lookingDirection);
 
-	// Attributes
+	//////////////////////// Attributes ////////////////////////
 protected:
 	int _hp;
 	int _damage;
-	
+
 	// Direction the character is looking (ENUM)
 	DIRECTION _lookingDirection;
 
-	// Functions
+	//////////////////////// Methods ////////////////////////
 public:
 	virtual void update();
 	void refreshDisplayedColor();
 
 	// Moving functions
 	bool moveDiagonaly(const short& valX, const short& valY);
-	bool moveRight(const short &val);
-	bool moveDown(const short &val);
+	bool moveRight(const short& val);
+	bool moveDown(const short& val);
 
 	bool moveForward();
 
 	// Direction functions
-	void turnToDirection(const DIRECTION &newDirection);
+	void turnToDirection(const DIRECTION& newDirection);
 
 	// Attack and recieve damage functions
 	void attack();
@@ -41,7 +41,7 @@ public:
 
 	virtual void die();
 
-	// Getters and Setters
+	//////////////////////// Getters & Setters ////////////////////////
 public:
 	int getHP() {
 		return _hp;

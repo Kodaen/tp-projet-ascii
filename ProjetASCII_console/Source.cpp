@@ -96,10 +96,6 @@ LONG_PTR setConsoleWindowStyle(INT n_index, LONG_PTR new_style)
 
 	HWND hwnd_console = GetConsoleWindow();
 
-	// TODO : Set window's WIDTH and HEIGHT, for HEIGHT >= 29 or Width >= 114, no noticeable changes
-	//SMALL_RECT windowRect = { 0, 0, static_cast<SHORT>(114 - 1), static_cast<SHORT>(30 - 1)};
-	//SetConsoleWindowInfo(GetStdHandle(STD_OUTPUT_HANDLE), TRUE, &windowRect);
-
 	LONG_PTR style_ptr = SetWindowLongPtr(hwnd_console, n_index, new_style);
 	SetWindowPos(hwnd_console, 0, 0, 0, 0, 0, SWP_NOZORDER | SWP_NOMOVE | SWP_NOSIZE | SWP_NOACTIVATE | SWP_DRAWFRAME);
 

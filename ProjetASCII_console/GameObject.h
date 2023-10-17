@@ -4,11 +4,11 @@
 
 class GameObject
 {
-	//Constructors
+	//////////////////////// Constructors ////////////////////////
 public:
 	GameObject();
 
-	// Attributes
+	//////////////////////// Attributes ////////////////////////
 protected:
 	bool _pendingDestruction;
 	COORD _pos;
@@ -17,15 +17,16 @@ protected:
 	WORD _displayedColor;
 	WCHAR _displayedSprite;
 
-	// Functions
+	//////////////////////// Methods ////////////////////////
 public:
 	virtual void update() = 0;
+	virtual void draw();
 	virtual void die();
 	virtual void recieveDamage(const int& damage);
 
 	virtual void refreshDisplayedColor();
 
-	// Getters & Setters
+	//////////////////////// Getters & Setters ////////////////////////
 public:
 	COORD getPos() {
 		return _pos;

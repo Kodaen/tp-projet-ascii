@@ -35,12 +35,15 @@ Projectile::Projectile(const COORD& pos, const COORD& movingDirection) : Project
 	_pos = pos;
 }
 
+// Moves the projection according int its movingDirection ; called every frame
 void Projectile::update() {
 	moveToDirection();
 }
 
+// Moves the projection according int its movingDirection
 void Projectile::moveToDirection()
 {
+	// NOTE : projectiles can destroy each other, this is a desired behavior
 	if (_movingDirection.X > 1 || _movingDirection.Y > 1)
 	{
 		for (short x = 0; x < _movingDirection.X; x++)
@@ -65,15 +68,14 @@ void Projectile::moveToDirection()
 	_pos.Y += _movingDirection.Y;
 }
 
+// Attacs the entity (player or ennemy) at given position
 void Projectile::attackAtPos(const COORD& pos) {
-	// TODO : optimisation
 	PlayerCharacter& playerCharacter = GameInstance::Instance().getPlayerCharacter();
 	std::vector<Entity*>& entities = GameInstance::Instance().getEntites();
 
 	if (pos.X == playerCharacter.getPos().X && pos.Y == playerCharacter.getPos().Y) {
 		playerCharacter.recieveDamage(_damage);
 	}
-	// TODO : projectiles kill each other, is this a desired behavior ?
 	else {
 		for (short i = 0; i < entities.size(); i++)
 		{
@@ -86,6 +88,7 @@ void Projectile::attackAtPos(const COORD& pos) {
 	delete& entities;
 }
 
+// Kills the projectile (see GameObject::die())
 void Projectile::recieveDamage(const int& damage) {
 	die();
 }

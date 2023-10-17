@@ -4,16 +4,16 @@
 
 class Cabulosaurus : public Entity
 {
-	// Constructors
+	//////////////////////// Constructors //////////////////////// 
 public:
 	Cabulosaurus();
 	Cabulosaurus(const COORD& pos, const DIRECTION& lookingDirection);
 
-	// Attributes
+	//////////////////////// Attributes //////////////////////// 
 private:
 	short _currentStep = 0;
 
-	// Functions
+	//////////////////////// Methods //////////////////////// 
 public:
 	virtual void update();
 

@@ -5,17 +5,17 @@
 class Projectile : public GameObject
 {
 public:
-	//Constructors 
+	//////////////////////// Constructors //////////////////////// 
 	Projectile();
 	Projectile(const COORD& pos, const COORD& movingDirection);
 
-	//Attributes
+	//////////////////////// Attributes //////////////////////// 
 protected:
 	COORD _movingDirection;
 
 	int _damage;
 
-	//Functions
+	//////////////////////// Methods //////////////////////// 
 protected:
 	virtual void update();
 	void attackAtPos(const COORD& pos);
@@ -24,7 +24,7 @@ public:
 	void moveToDirection();
 	void recieveDamage(const int& damage);
 
-	// Getters and Setters
+	//////////////////////// Getters & Setters //////////////////////// 
 public:
 	COORD getMovingDirection() {
 		return _movingDirection;

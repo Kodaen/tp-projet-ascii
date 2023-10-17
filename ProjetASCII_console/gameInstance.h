@@ -9,7 +9,7 @@
 
 class GameInstance
 {
-	// Constructor and Destructor
+	//////////////////////// Constructors ////////////////////////
 private:
 	GameInstance();
 
@@ -20,7 +20,7 @@ public:
 
 	static GameInstance& Instance();
 
-	// Attributes
+	//////////////////////// Attributes ////////////////////////
 
 private:
 
@@ -37,7 +37,7 @@ private:
 public:
 	static GameInstance* _gameInstance;
 
-	// Functions
+	//////////////////////// Methods ////////////////////////
 public:
 	void update();
 
@@ -55,9 +55,8 @@ private:
 	void tryToSpawnEntityFromLevel(short x, short y);
 	void changeFloorIfNeeded();
 
-	// Getters and Setters
+	//////////////////////// Getters and Setters ////////////////////////
 public:
-	// TODO : Camelcase
 	// TODO : make a function getCurrentLevelRef
 	inline Level& getCurrentLevel() {
 		return _currentLevel;

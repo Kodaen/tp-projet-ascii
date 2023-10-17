@@ -20,7 +20,7 @@
 #include "PlayerCharacter.h"
 #include "GameInstance.h"
 
-
+// Constructor, takes the level of a number then read the file named "level<levelNumber>.txt"
 Level::Level(const int& levelNumber)
 {
 	_levelNumber = levelNumber;
@@ -28,6 +28,10 @@ Level::Level(const int& levelNumber)
 	readFile(levelFileName, levelNumber);
 }
 
+// Tries to read given file and parse the colors mentionned in it (used for
+// coloring the level and GameObjects).
+// If the levelNumber is greater than 1 and the function couldn't find or read
+// any file. Then we trigger the end of the game.
 void Level::readFile(const std::string& fileName, const int& levelNumber)
 {
 	// To read Unicode characters.
@@ -81,11 +85,14 @@ void Level::readFile(const std::string& fileName, const int& levelNumber)
 	}
 }
 
+// Push given line in the _level attribute
 void Level::readLine(std::wstring line)
 {
 	_level.push_back(line);
 }
 
+// Parses colors in given line and put them in a map. 
+// This map is the one used for coloring the level and the Game Objects.
 void Level::parseColors(const std::wstring& line, std::vector<std::wstring>& colorsKeys, std::vector<WORD>& colorsValues) {
 	std::wstring pair;
 	std::wstring item;
@@ -110,12 +117,16 @@ void Level::parseColors(const std::wstring& line, std::vector<std::wstring>& col
 	}
 }
 
+// Checks if given tile is ground or if there is a GameObject on it
+// if there is not the tile is walkable : returns true
 bool Level::isTileWalkable(const COORD& coordinates)
 {
 	BufferHandler& bufferHandler = BufferHandler::Instance();
 	return !isEnemyOnTile(coordinates) && bufferHandler.isTileWalkable(coordinates);
 }
 
+// Checks if there is an Entity (a.k.a ennemy) on the given tile.
+// Returns true if there is.
 bool Level::isEnemyOnTile(const COORD& coordinates)
 {
 	// TODO: Not optimal but required as the enemies update after the player.
@@ -135,6 +146,8 @@ bool Level::isEnemyOnTile(const COORD& coordinates)
 	return enemyOnTile;
 }
 
+// Replace every spawner character contained in the buffer by the ground character.
+// Making them disapear from the map.
 void Level::hideSpawners()
 {
 	for (size_t x = 0; x < _level.size(); x++)
@@ -153,6 +166,8 @@ void Level::hideSpawners()
 	}
 }
 
+// Replace spawner character contained in the buffer at give coordinates by the ground character.
+// Making it disapear from the map.
 void Level::hideSpawner(const COORD& coordinates)
 {
 	_level[coordinates.X][coordinates.Y] = L'.';

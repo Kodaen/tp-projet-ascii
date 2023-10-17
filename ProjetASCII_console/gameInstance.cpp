@@ -32,6 +32,7 @@
 
 GameInstance* GameInstance::_gameInstance = 0;
 
+// Constructor, spawn all enemies on the map
 GameInstance::GameInstance() : _currentLevel(1), _gameEnd(false), _pause(false) {
 	PlayerCharacter* playerCharacter = new PlayerCharacter();
 	_playerCharacter = *playerCharacter;
@@ -57,16 +58,14 @@ GameInstance& GameInstance::Instance()
 	return *_gameInstance;
 }
 
+// Update Player and all GameObjects and put them in buffer
 void GameInstance::update() {
+	BufferHandler& bufferHandler = BufferHandler::Instance();
+
 	// Update player
 	_playerCharacter.update();
 
-	BufferHandler& bufferHandler = BufferHandler::Instance();
-
-	// Update buffer to display player
-	bufferHandler.drawAtCoordinate(_playerCharacter.getSprite(),
-		_playerCharacter.getDisplayedSpriteColor(),
-		{ _playerCharacter.getPos().X, _playerCharacter.getPos().Y });
+	_playerCharacter.draw();
 
 	// Update all gameObjects
 	for (short i = 0; i < _gameObjects.size(); i++)
@@ -97,10 +96,7 @@ void GameInstance::update() {
 			_gameObjects[i]->update();
 		}
 
-		// Update buffer to display gameObject
-		bufferHandler.drawAtCoordinate(_gameObjects[i]->getSprite(),
-			_gameObjects[i]->getDisplayedSpriteColor(),
-			{ _gameObjects[i]->getPos().X, _gameObjects[i]->getPos().Y });
+		_gameObjects[i]->draw();
 	}
 
 	changeFloorIfNeeded();
@@ -116,6 +112,7 @@ void GameInstance::changeFloorIfNeeded() {
 	}
 }
 
+// Restart the game from level, create a new Player
 void GameInstance::restartGame()
 {
 	for (size_t i = 0; i < _gameObjects.size(); i++)
@@ -148,6 +145,7 @@ void GameInstance::resetLevel()
 	// TODO: gameObjects colors.
 }
 
+// Shows the end Game Screen for victory
 void GameInstance::endOfGame()
 {
 	_playerCharacter.setPendingDestruction(true);
@@ -155,6 +153,7 @@ void GameInstance::endOfGame()
 	GameUI::Instance().activateUIWindow(VICTORY);
 }
 
+// Spawn the enemies on the level depending on the spawners placed on the levelX.txt
 void GameInstance::spawnLevelEnemies()
 {
 	std::function<void(GameInstance*, short, short)> ptrTryToSpawnEntityFromLevel;
@@ -183,11 +182,14 @@ void GameInstance::spawnLevelEnemies()
 	setGameObjectsColors();
 }
 
-// We use a template to avoid writting multiple functions doing the same thing
-// Plus it's quicker to change what ennemies we want for the level with this method
+// Checks if there is a spawner on this tile, if there is spawns an ennemy.
+// The ennemy will look in the direction the spawner is indicating (i.e : a = TOP_LEFT)
 template <typename standardEnnemy, typename bossEnnemy>
 void GameInstance::tryToSpawnEntityFromLevel(short x, short y)
 {
+	// We use a template to avoid writting multiple functions doing the same thing
+	// Plus it's quicker to change what ennemies we want for the level with this method
+
 	GameObject* c;
 
 	// Each letter corresponds to the direction the ennemy is going to look at
@@ -302,12 +304,14 @@ void GameInstance::tryToSpawnEntityFromLevel(short x, short y)
 	}
 }
 
+// Set player's foreground and background color
 void GameInstance::setPlayerColors() {
 	std::map<std::wstring, WORD> colors = _currentLevel.getColors();
 	_playerCharacter.setOriginalSpriteColor(colors[L"player"] | colors[L"groundBg"]); // TODO: Or default.
 	_playerCharacter.setDisplayedSpriteColor(colors[L"player"] | colors[L"groundBg"]);
 }
 
+// Set all GameObjects' foreground and background color
 void GameInstance::setGameObjectsColors() {
 	std::map<std::wstring, WORD> colors = getCurrentLevel().getColors();
 

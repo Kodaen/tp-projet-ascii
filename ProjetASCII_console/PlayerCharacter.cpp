@@ -40,6 +40,9 @@ PlayerCharacter::PlayerCharacter()
 	_nextTile = _pos;
 }
 
+// Update player's behavoir; called every frame.
+// It receives inputs from the player and act accordingly (move/attack).
+// If the game is paused or the player is pendingDestruction : doesn't do anything.
 void PlayerCharacter::update() {
 	if (_pendingDestruction ||
 		GameInstance::Instance().isGamePaused())
@@ -98,6 +101,7 @@ void PlayerCharacter::update() {
 	}
 }
 
+// Set what the nextTile the player is going to move to during the frame
 void PlayerCharacter::setNextTile(const std::set<char>::iterator& it) {
 	switch (*it)
 	{
@@ -118,6 +122,8 @@ void PlayerCharacter::setNextTile(const std::set<char>::iterator& it) {
 	}
 }
 
+// Set the attribute _pendingDestruction to true. 
+// End the game and display the game over menu window.
 void PlayerCharacter::die() {
 	_pendingDestruction = true;
 	GameInstance::Instance().pauseGame(true);

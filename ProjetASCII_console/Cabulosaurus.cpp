@@ -37,6 +37,8 @@ Cabulosaurus::Cabulosaurus(const COORD& pos, const DIRECTION& lookingDirection) 
 	_displayedColor = _lookingDirection + _originalSpriteColor;
 }
 
+// Update player's behavoir; called every frame.
+// Every 6 update call, the Cabulausorus shoot bubles (see shootBubles()).
 void Cabulosaurus::update()
 {
 	switch (_currentStep)
@@ -53,7 +55,7 @@ void Cabulosaurus::update()
 	_currentStep = (1 + _currentStep) % 6;
 }
 
-// Shoot a basic projectile in front of the Cabulosaurus
+// Shoot 3 basic projectiles in front of the Cabulosaurus
 void Cabulosaurus::shootBubles()
 {
 

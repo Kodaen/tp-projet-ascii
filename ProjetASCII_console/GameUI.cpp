@@ -36,6 +36,7 @@ GameUI::~GameUI()
 {
 }
 
+// Returns singleton instance
 GameUI& GameUI::Instance()
 {
 	if (!_gameUIInstance)
@@ -58,6 +59,7 @@ void GameUI::displayUI() {
 
 }
 
+// Puts stats line into the buffer (but doesn't display on screen : see printBuffer())
 void GameUI::displayStats()
 {
 	BufferHandler& bufferHandler = BufferHandler::Instance();
@@ -66,12 +68,14 @@ void GameUI::displayStats()
 	bufferHandler.drawMapRow(_stats, 29);
 }
 
+// Puts action log line into the buffer (but doesn't display on screen : see printBuffer())
 void GameUI::displayActionsLog()
 {
 	BufferHandler& bufferHandler = BufferHandler::Instance();
 	bufferHandler.drawMapRow(_actionsLog.back(), 0);
 }
 
+// Puts UIWindow into the buffer (but doesn't display on screen : see printBuffer())
 void GameUI::displayUIWindow() {
 	BufferHandler& bufferHandler = BufferHandler::Instance();
 
@@ -81,6 +85,8 @@ void GameUI::displayUIWindow() {
 	}
 }
 
+// Updates selected button by the player according to if he pressed Z or S
+// Returns true if the player tried to select a choice (i.e : if pressed Z or S)
 bool GameUI::updateSelectedChoice()
 {
 	_playercontroller.registerPressedKeys();
@@ -112,6 +118,7 @@ bool GameUI::updateSelectedChoice()
 	return false;
 }
 
+// Create the stats line and put player's attribute values in it
 void GameUI::createStats()
 {
 	_stats = L"";
@@ -131,12 +138,15 @@ void GameUI::createStats()
 	_stats += std::wstring(WIDTH - _stats.size(), L' ');
 }
 
+// Put a text in the action log
 void GameUI::appendToActionsLog(std::wstring action)
 {
 	action += std::wstring(WIDTH - action.size(), L' ');
 	_actionsLog.push_back(action);
 }
 
+// Create the menu window for either start of the game, lose screen or victory screen
+// according to the current UI Window
 void GameUI::createMenuGameScreen()
 {
 	_menuScreen.clear();
@@ -271,11 +281,13 @@ void GameUI::createMenuGameScreen()
 	}
 }
 
+// Disables the menu window
 void GameUI::deactivateUIWindow()
 {
 	_showGameOverScreen = false;
 }
 
+// Activates given UI Window (menu window)
 void GameUI::activateUIWindow(const UIWINDOW& newUIWindow)
 {
 	_currentUIWindow = newUIWindow;
@@ -283,6 +295,7 @@ void GameUI::activateUIWindow(const UIWINDOW& newUIWindow)
 	createMenuGameScreen();
 }
 
+// Executes the code associated with the selected button on the menu window
 void GameUI::confirmButtonChoice() {
 	std::set<char> inputKeys = _playercontroller.getPressedKeys();
 	if (inputKeys.size() > 0) {
