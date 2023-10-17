@@ -27,7 +27,7 @@
 
 GameInstance* GameInstance::_gameInstance = 0;
 
-GameInstance::GameInstance(PlayerCharacter mainChar) : _currentLevel(1), _playerCharacter(mainChar), _gameEnd(false) {
+GameInstance::GameInstance(PlayerCharacter mainChar) : _currentLevel(1), _playerCharacter(mainChar), _gameEnd(false), _pause(false) {
 	_gameObjects = std::vector<GameObject*>();
 }
 
@@ -74,7 +74,7 @@ void GameInstance::update() {
 
 		// Only update gameObject if player acted (i.e. moved/attacked)
 		// since it's a turn based game
-		if (_playerCharacter.hasPlayerActed()) {
+		if (_playerCharacter.hasPlayerActed() && !isGamePaused()) {
 			_gameObjects[i]->update();
 		}
 
@@ -103,13 +103,20 @@ void GameInstance::restartGame()
 
 	_currentLevel = Level(1);
 
+	std::map<std::wstring, WORD> colors = getcurrentLevel().getColors();
+	_playerCharacter.setOriginalSpriteColor(colors[L"player"] | colors[L"groundBg"]);
+	_playerCharacter.setDisplayedSpriteColor(colors[L"player"] | colors[L"groundBg"]);
+	GameUI::Instance().appendToActionsLog(L"Vous devriez essayer de trouver la sortie");
+
 	GameUI::Instance().deactivateUIWindow();
 
+	pauseGame(false);
 }
 
 void GameInstance::endOfGame()
 {
 	_playerCharacter.setPendingDestruction(true);
+	pauseGame(true);
 	GameUI::Instance().activateUIWindow(VICTORY);
 }
 
@@ -120,8 +127,6 @@ void GameInstance::resetLevel()
 		_gameObjects[i]->setPendingDestruction(true);
 	}
 
-	std::map<std::wstring, WORD> colors = getcurrentLevel().getColors();
-	_playerCharacter.setOriginalSpriteColor(colors[L"player"] | colors[L"groundBg"]);
-	_playerCharacter.setDisplayedSpriteColor(colors[L"player"] | colors[L"groundBg"]);
+	pauseGame(false);
 	// TODO: gameObjects colors.
 }

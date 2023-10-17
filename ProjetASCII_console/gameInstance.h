@@ -31,6 +31,8 @@ private:
 
 	bool _gameEnd;
 
+	bool _pause;
+
 public:
 	static GameInstance* _gameInstance;
 
@@ -89,5 +91,13 @@ public:
 
 	bool isGameFinished() {
 		return _gameEnd;
+	}
+
+	void pauseGame(bool boolean) {
+		_pause = boolean;
+	}
+
+	bool isGamePaused() {
+		return _pause;
 	}
 };

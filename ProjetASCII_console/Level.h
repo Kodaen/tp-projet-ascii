@@ -9,7 +9,7 @@ class Level
 public:
 	Level(int levelNumber);
 
-	std::vector<std::wstring> getLevel() {
+	std::vector<std::wstring> &getLevel() {
 		return _level;
 	}
 
@@ -17,7 +17,7 @@ public:
 		return _levelNumber;
 	}
 
-	std::map<std::wstring, WORD> getColors() {
+	std::map<std::wstring, WORD> &getColors() {
 		return _levelColors;
 	}
 

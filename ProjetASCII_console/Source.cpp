@@ -57,8 +57,8 @@ int main()
 	gameInstance->setGameObjects(gameObjects);
 
 	// Prepare resources for the map.
-	std::vector<std::wstring> map = gameInstance->getcurrentLevel().getLevel();
-	std::map<std::wstring, WORD> colors = gameInstance->getcurrentLevel().getColors();
+	std::vector<std::wstring> &map = gameInstance->getcurrentLevel().getLevel();
+	std::map<std::wstring, WORD> &colors = gameInstance->getcurrentLevel().getColors();
 	PlayerCharacter& player = gameInstance->getPlayerCharacter();
 	player.setOriginalSpriteColor(colors[L"player"] | colors[L"groundBg"]); // TODO: Or default.
 	player.setDisplayedSpriteColor(colors[L"player"] | colors[L"groundBg"]);
@@ -68,6 +68,14 @@ int main()
 
 	NYTimer nyTimer;
 
+	//Create title screen and pause game
+
+	// Estelle : if you still want to test stuff with the basic projectile and the entity
+	// Just comment these two lines
+	// vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+	gameUI->activateUIWindow(TITLE_SCREEN);
+	gameInstance->pauseGame(true);
+
 	// Game loop
 	while (!gameInstance->isGameFinished()) {
 		// Start timer to calculate the frame's duration
@@ -75,16 +83,12 @@ int main()
 
 		// Has to come before drawing the map.
 		if (gameInstance->getPlayerCharacter().isOnStairs()) {
-			map = gameInstance->getcurrentLevel().getLevel();
-			colors = gameInstance->getcurrentLevel().getColors();
 
 			gameInstance->getPlayerCharacter().setIsOnStairs(false);
 			gameInstance->resetLevel();			
 		}
 
 		// Put the map into the buffer
-		// TODO : unstead of using map variable, get the current map
-		// of the game instance : gameInstance->getcurrentLevel()
 		bufferHandler->DrawMap(map, colors);
 
 		gameInstance->update();
