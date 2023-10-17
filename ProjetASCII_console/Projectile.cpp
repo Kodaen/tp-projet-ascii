@@ -32,9 +32,10 @@ Projectile::Projectile() : _movingDirection({ 1,0 }), GameObject() {
 }
 
 
-Projectile::Projectile(const COORD& pos, const COORD& movingDirection) : Projectile() {
+Projectile::Projectile(const COORD& pos, const COORD& movingDirection, int damage) : Projectile() {
 	_movingDirection = movingDirection;
 	_pos = pos;
+	_damage = damage;
 }
 
 // Moves the projection according int its movingDirection ; called every frame

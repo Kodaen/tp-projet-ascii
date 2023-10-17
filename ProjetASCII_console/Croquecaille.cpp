@@ -96,7 +96,7 @@ void Croquecaille::shootBuble()
 		return;
 	}
 
-	Projectile* p = new Projectile({ _pos.X, _pos.Y }, direction);
+	Projectile* p = new Projectile({ _pos.X, _pos.Y }, direction, 50);
 
 	//Spawn projectile
 	GameInstance::Instance().getGameObject().push_back(p);

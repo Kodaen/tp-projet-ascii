@@ -7,7 +7,7 @@ class Projectile : public GameObject
 public:
 	//////////////////////// Constructors //////////////////////// 
 	Projectile();
-	Projectile(const COORD& pos, const COORD& movingDirection);
+	Projectile(const COORD& pos, const COORD& movingDirection, int damage);
 
 	//////////////////////// Attributes //////////////////////// 
 protected:

@@ -30,7 +30,7 @@ PlayerCharacter::PlayerCharacter()
 	_level = 1;
 	//_xp = 0.0f;
 	_originalSpriteColor = 0x02;
-	_hp = 1;
+	_hp = 100;
 	_damage = 1;
 	_lookingDirection = BOTTOM_LEFT;
 	_displayedSprite = 0x40; // The @ character. It is reserved for the player.

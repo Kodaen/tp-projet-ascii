@@ -15,6 +15,8 @@ Sertrail::Sertrail() : _currentStep(0), Entity()
 
 
 	_displayedColor = _lookingDirection + _originalSpriteColor;
+
+	_damage = 25;
 }
 
 Sertrail::Sertrail(const COORD& pos, const DIRECTION& lookingDirection) : Sertrail()

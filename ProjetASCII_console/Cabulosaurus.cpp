@@ -103,9 +103,9 @@ void Cabulosaurus::shootBubles()
 	perpendicularDirection.X = -direction.Y;
 	perpendicularDirection.Y = direction.X;
 
-	Projectile* p1 = new Projectile({ (_pos.X + perpendicularDirection.X), (_pos.Y + perpendicularDirection.Y) }, direction);
-	Projectile* p2 = new Projectile({ _pos.X, _pos.Y }, direction);
-	Projectile* p3 = new Projectile({ (_pos.X - perpendicularDirection.X), (_pos.Y - perpendicularDirection.Y) }, direction);
+	Projectile* p1 = new Projectile({ (_pos.X + perpendicularDirection.X), (_pos.Y + perpendicularDirection.Y) }, direction, 75);
+	Projectile* p2 = new Projectile({ _pos.X, _pos.Y }, direction, 75);
+	Projectile* p3 = new Projectile({ (_pos.X - perpendicularDirection.X), (_pos.Y - perpendicularDirection.Y) }, direction, 75);
 
 	//Spawn projectile
 	GameInstance::Instance().getGameObject().push_back(p1);
