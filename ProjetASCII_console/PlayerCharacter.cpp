@@ -26,7 +26,7 @@
 
 PlayerCharacter::PlayerCharacter()
 {
-	_pos = { 10,10 };
+	_pos = { 19,101 };
 	_level = 1;
 	//_xp = 0.0f;
 	_originalSpriteColor = 0x02;
