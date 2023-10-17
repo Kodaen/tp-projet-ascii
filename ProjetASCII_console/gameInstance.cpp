@@ -161,6 +161,10 @@ void GameInstance::spawnLevelEnemies()
 	case 2:
 		ptrTryToSpawnEntityFromLevel = std::mem_fn(&GameInstance::tryToSpawnEntityFromLevel<Croquecaille, Cabulosaurus>);
 		break;
+	case 3:
+		// TODO: Replace Sertrail with level 1 boss.
+		ptrTryToSpawnEntityFromLevel = std::mem_fn(&GameInstance::tryToSpawnEntityFromLevel<Sertrail, Cabulosaurus>);
+		break;
 	default:
 		ptrTryToSpawnEntityFromLevel = std::mem_fn(&GameInstance::tryToSpawnEntityFromLevel<Entity, Entity>);
 		break;
