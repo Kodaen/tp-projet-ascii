@@ -37,7 +37,7 @@ public:
 
 	// Attack and recieve damage functions
 	void attack();
-	void recieveDamage(const int& Damage);
+	void recieveDamage(const int& Damage, WCHAR opponent = L' ');
 
 	virtual void die();
 

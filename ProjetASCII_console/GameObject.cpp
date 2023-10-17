@@ -35,7 +35,7 @@ void GameObject::die() {
 // Inherited functions for child classes.
 // Generally allow them to die when recieving a certain amount
 // of damages
-void GameObject::recieveDamage(const int& damage) {
+void GameObject::recieveDamage(const int& damage, WCHAR opponent) {
 	return;
 };
 

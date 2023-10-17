@@ -28,6 +28,7 @@
 #include "Cabulosaurus.h"
 
 #include <functional>
+#include "Sertrail.h"
 
 
 GameInstance* GameInstance::_gameInstance = 0;
@@ -115,10 +116,6 @@ void GameInstance::changeFloorIfNeeded() {
 // Restart the game from level, create a new Player
 void GameInstance::restartGame()
 {
-	for (size_t i = 0; i < _gameObjects.size(); i++)
-	{
-		_gameObjects[i]->setPendingDestruction(true);
-	}
 	_playerCharacter = PlayerCharacter();
 
 	_currentLevel = Level(1);
@@ -127,10 +124,7 @@ void GameInstance::restartGame()
 
 	GameUI::Instance().deactivateUIWindow();
 
-	spawnLevelEnemies();
-
-	setPlayerColors();
-	pauseGame(false);
+	resetLevel();
 }
 
 void GameInstance::resetLevel()
@@ -139,10 +133,9 @@ void GameInstance::resetLevel()
 	{
 		_gameObjects[i]->setPendingDestruction(true);
 	}
+	spawnLevelEnemies();
 	setPlayerColors();
-
 	pauseGame(false);
-	// TODO: gameObjects colors.
 }
 
 // Shows the end Game Screen for victory
@@ -162,7 +155,15 @@ void GameInstance::spawnLevelEnemies()
 	switch (_currentLevel.getNumber())
 	{
 	case 1:
+		// TODO: Change boss enemy when created.
+		ptrTryToSpawnEntityFromLevel = std::mem_fn(&GameInstance::tryToSpawnEntityFromLevel<Sertrail, Sertrail>);
+		break;
+	case 2:
 		ptrTryToSpawnEntityFromLevel = std::mem_fn(&GameInstance::tryToSpawnEntityFromLevel<Croquecaille, Cabulosaurus>);
+		break;
+	case 3:
+		// TODO: Replace Sertrail with level 1 boss.
+		ptrTryToSpawnEntityFromLevel = std::mem_fn(&GameInstance::tryToSpawnEntityFromLevel<Sertrail, Cabulosaurus>);
 		break;
 	default:
 		ptrTryToSpawnEntityFromLevel = std::mem_fn(&GameInstance::tryToSpawnEntityFromLevel<Entity, Entity>);
