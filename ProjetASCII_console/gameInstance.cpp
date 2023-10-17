@@ -107,6 +107,7 @@ void GameInstance::update() {
 		int currentLevelNumber = _currentLevel.getNumber();
 		currentLevelNumber++;
 		_currentLevel = Level(currentLevelNumber);
+		setPlayerColors();
 		GameUI::Instance().appendToActionsLog(L"Vous prenez l'escalier");
 	}
 }
