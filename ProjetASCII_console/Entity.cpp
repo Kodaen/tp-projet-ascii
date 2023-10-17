@@ -274,8 +274,14 @@ void Entity::attack() {
 // Lowers hp by damages. If hp reach 0 or less, the entity dies (see die()).
 void Entity::recieveDamage(const int& damage, WCHAR opponent) {
 	_hp -= damage;
+
+	// Negative health is not a valid value.
+	if (_hp < 0) {
+		_hp = 0;
+	}
+
 	// TODO : Playsound when players gets damaged
-	if (_hp <= 0)
+	if (_hp == 0)
 	{
 		if (opponent == L'@') {
 			switch (_displayedSprite) {
