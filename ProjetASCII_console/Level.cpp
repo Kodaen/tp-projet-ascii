@@ -134,3 +134,29 @@ bool Level::isEnemyOnTile(COORD coordinates)
 
 	return enemyOnTile;
 }
+
+void Level::hideSpawners()
+{
+	for (size_t x = 0; x < _level.size(); x++)
+	{
+		for (size_t y = 0; y < _level[x].size(); y++)
+		{
+			if (_level[x][y] == L'a' || _level[x][y] == L'q' || _level[x][y] == L'w' ||
+				_level[x][y] == L'x' || _level[x][y] == L'c' || _level[x][y] == L'd' ||
+				_level[x][y] == L'e' || _level[x][y] == L'z' || _level[x][y] == L'A' ||
+				_level[x][y] == L'Q' || _level[x][y] == L'W' || _level[x][y] == L'X' ||
+				_level[x][y] == L'C' || _level[x][y] == L'D' || _level[x][y] == L'E' ||
+				_level[x][y] == L'Z') {
+				_level[x][y] = L'.';
+			}
+		}
+	}
+}
+
+void Level::hideSpawner(COORD coordinates)
+{
+	_level[coordinates.X][coordinates.Y] = L'.';
+}
+
+
+

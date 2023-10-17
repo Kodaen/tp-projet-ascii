@@ -3,6 +3,7 @@
 //#include <vector>
 //#include <string>
 //#include <windows.h>
+//#include <map>
 
 class Level
 {
@@ -22,6 +23,10 @@ public:
 	}
 
 	bool isTileWalkable(COORD coordinates);
+
+	void hideSpawners();
+
+	void hideSpawner(COORD coordinates);
 
 private:
 	std::vector<std::wstring> _level;
