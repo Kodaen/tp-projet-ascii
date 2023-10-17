@@ -132,8 +132,8 @@ void GameUI::createStats()
 	wstats << gameInstance.getPlayerCharacter().getHP();
 	wstats << " Dégâts : ";
 	wstats << gameInstance.getPlayerCharacter().getDamage();
-	wstats << " Niveau : ";
-	wstats << gameInstance.getPlayerCharacter().getDamage();
+	//wstats << " Niveau : ";
+	//wstats << gameInstance.getPlayerCharacter().getDamage();
 	_stats.append(wstats.str());
 	_stats += std::wstring(WIDTH - _stats.size(), L' ');
 }
