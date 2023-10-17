@@ -108,7 +108,6 @@ void GameInstance::update() {
 		int currentLevelNumber = _currentLevel.getNumber();
 		currentLevelNumber++;
 		_currentLevel = Level(currentLevelNumber);
-		setPlayerColors();
 		GameUI::Instance().appendToActionsLog(L"Vous prenez l'escalier");
 	}
 }
@@ -123,9 +122,6 @@ void GameInstance::restartGame()
 
 	_currentLevel = Level(1);
 
-	std::map<std::wstring, WORD> colors = getCurrentLevel().getColors();
-	_playerCharacter.setOriginalSpriteColor(colors[L"player"] | colors[L"groundBg"]);
-	_playerCharacter.setDisplayedSpriteColor(colors[L"player"] | colors[L"groundBg"]);
 	GameUI::Instance().appendToActionsLog(L"Vous devriez essayer de trouver la sortie");
 
 	GameUI::Instance().deactivateUIWindow();
@@ -315,3 +311,15 @@ void GameInstance::tryToSpawnEntityFromLevel(short x, short y)
 		gameObject->refreshDisplayedColor();
 	}
 }
+
+ void GameInstance::resetLevel()
+ {
+	 for (size_t i = 0; i < _gameObjects.size(); i++)
+	 {
+		 _gameObjects[i]->setPendingDestruction(true);
+	 }
+	 setPlayerColors();
+
+	 pauseGame(false);
+	 // TODO: gameObjects colors.
+ }
