@@ -22,7 +22,7 @@ public:
 	virtual void update() = 0;
 	virtual void draw();
 	virtual void die();
-	virtual void recieveDamage(const int& damage);
+	virtual void recieveDamage(const int& damage, WCHAR opponent = L' ');
 
 	virtual void refreshDisplayedColor();
 

@@ -16,6 +16,8 @@
 #include "gameInstance.h"
 
 #include "Projectile.h"
+#include "UIWindow.h"
+#include "GameUI.h"
 
 Projectile::Projectile() : _movingDirection({ 1,0 }), GameObject() {
 	_pos = { 7,10 };
@@ -74,6 +76,7 @@ void Projectile::attackAtPos(const COORD& pos) {
 	std::vector<Entity*>& entities = GameInstance::Instance().getEntites();
 
 	if (pos.X == playerCharacter.getPos().X && pos.Y == playerCharacter.getPos().Y) {
+		GameUI::Instance().appendToActionsLog(L"Un projectile vous heurte");
 		playerCharacter.recieveDamage(_damage);
 	}
 	else {
@@ -89,6 +92,9 @@ void Projectile::attackAtPos(const COORD& pos) {
 }
 
 // Kills the projectile (see GameObject::die())
-void Projectile::recieveDamage(const int& damage) {
+void Projectile::recieveDamage(const int& damage, WCHAR opponent) {
+	if (opponent == L'@') {
+		GameUI::Instance().appendToActionsLog(L"Vous détruisez le projectile");
+	}
 	die();
 }

@@ -22,7 +22,7 @@ protected:
 
 public:
 	void moveToDirection();
-	void recieveDamage(const int& damage);
+	void recieveDamage(const int& damage, WCHAR opponent = L' ');
 
 	//////////////////////// Getters & Setters //////////////////////// 
 public:

@@ -21,6 +21,8 @@
 #include "GameObject.h"
 
 #include "GameInstance.h"
+#include "UIWindow.h"
+#include "GameUI.h"
 #pragma comment(lib,"winmm.lib")
 
 Entity::Entity() : GameObject()
@@ -255,25 +257,43 @@ void Entity::attack() {
 	std::vector<GameObject*>& gameObjects = GameInstance::Instance().getGameObject();
 
 	if (playerCharacter.getPos().Y == tileInFront.Y && playerCharacter.getPos().X == tileInFront.X) {
+		GameUI::Instance().appendToActionsLog(L"L'attaque au corps à corps vous heurte");
 		playerCharacter.recieveDamage(_damage);
 	}
 
 	for (short i = 0; i < gameObjects.size(); i++)
 	{
 		if (gameObjects[i]->getPos().Y == tileInFront.Y && gameObjects[i]->getPos().X == tileInFront.X) {
-			gameObjects[i]->recieveDamage(_damage);
+			gameObjects[i]->recieveDamage(_damage, _displayedSprite);
 			return;
 		}
 	}
 
-};
+}
 
 // Lowers hp by damages. If hp reach 0 or less, the entity dies (see die()).
-void Entity::recieveDamage(const int& damage) {
+void Entity::recieveDamage(const int& damage, WCHAR opponent) {
 	_hp -= damage;
 	// TODO : Playsound when players gets damaged
 	if (_hp <= 0)
 	{
+		if (opponent == L'@') {
+			switch (_displayedSprite) {
+			case L'B':
+				GameUI::Instance().appendToActionsLog(L"Vous tuez le Cabulosaurus");
+				break;
+			case L'C':
+				GameUI::Instance().appendToActionsLog(L"Vous tuez le Croquecaille");
+				break;
+			case L'S':
+				GameUI::Instance().appendToActionsLog(L"Vous tuez le Sertrail");
+				break;
+			default:
+				GameUI::Instance().appendToActionsLog(L"Vous détruisez le projectile");
+				break;
+			}
+		}
+
 		die();
 	}
 };
