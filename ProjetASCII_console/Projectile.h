@@ -7,10 +7,10 @@ class Projectile : public GameObject
 public:
 	//Constructors 
 	Projectile();
-	Projectile(COORD pos, COORD movingDirection);
+	Projectile(const COORD& pos, const COORD& movingDirection);
 
 	//Attributes
-protected :
+protected:
 	COORD _movingDirection;
 
 	int _damage;
@@ -18,14 +18,14 @@ protected :
 	//Functions
 protected:
 	virtual void update();
-	void attackAtPos(COORD pos);
+	void attackAtPos(const COORD& pos);
 
-public :
+public:
 	void moveToDirection();
-	void recieveDamage(int damage);
+	void recieveDamage(const int& damage);
 
 	// Getters and Setters
-public :
+public:
 	COORD getMovingDirection() {
 		return _movingDirection;
 	}

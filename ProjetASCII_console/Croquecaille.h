@@ -7,14 +7,14 @@ class Croquecaille : public Entity
 	// Constructors
 public:
 	Croquecaille();
-	Croquecaille(COORD pos, DIRECTION lookingDirection);
+	Croquecaille(const COORD& pos, const DIRECTION& lookingDirection);
 
 	// Attributes
-private :
+private:
 	short _currentStep = 0;
 
 	// Functions
-public :
+public:
 	virtual void update();
 
 protected:

@@ -18,20 +18,20 @@ protected:
 	WCHAR _displayedSprite;
 
 	// Functions
-public :
+public:
 	virtual void update() = 0;
 	virtual void die();
-	virtual void recieveDamage(int damage);
+	virtual void recieveDamage(const int& damage);
 
 	virtual void refreshDisplayedColor();
 
 	// Getters & Setters
-public :
+public:
 	COORD getPos() {
 		return _pos;
 	}
 
-	void setPos(COORD newPos) {
+	void setPos(const COORD& newPos) {
 		_pos = newPos;
 	}
 
@@ -39,7 +39,7 @@ public :
 		return _displayedSprite;
 	}
 
-	void setSprite(int newSprite) {
+	void setSprite(const int& newSprite) {
 		_displayedSprite = newSprite;
 	}
 
@@ -47,7 +47,7 @@ public :
 		return _originalSpriteColor;
 	}
 
-	void setOriginalSpriteColor(WORD newSpriteColor) {
+	void setOriginalSpriteColor(const WORD& newSpriteColor) {
 		_originalSpriteColor = newSpriteColor;
 	}
 
@@ -55,7 +55,7 @@ public :
 		return _displayedColor;
 	}
 
-	void setDisplayedSpriteColor(WORD newDisplayedColor) {
+	void setDisplayedSpriteColor(const WORD& newDisplayedColor) {
 		_displayedColor = newDisplayedColor;
 	}
 
@@ -63,7 +63,7 @@ public :
 		return _pendingDestruction;
 	}
 
-	void setPendingDestruction(bool boolean) {
+	void setPendingDestruction(const bool& boolean) {
 		_pendingDestruction = boolean;
 	}
 

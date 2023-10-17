@@ -16,7 +16,7 @@ void GameObject::die() {
 	_pendingDestruction = true;
 }
 
-void GameObject::recieveDamage(int damage) {
+void GameObject::recieveDamage(const int& damage) {
 	return;
 };
 

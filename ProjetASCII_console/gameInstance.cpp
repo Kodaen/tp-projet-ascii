@@ -29,6 +29,7 @@
 
 #include <functional>
 
+
 GameInstance* GameInstance::_gameInstance = 0;
 
 GameInstance::GameInstance() : _currentLevel(1), _gameEnd(false), _pause(false) {
@@ -122,7 +123,7 @@ void GameInstance::restartGame()
 
 	_currentLevel = Level(1);
 
-	std::map<std::wstring, WORD> colors = getcurrentLevel().getColors();
+	std::map<std::wstring, WORD> colors = getCurrentLevel().getColors();
 	_playerCharacter.setOriginalSpriteColor(colors[L"player"] | colors[L"groundBg"]);
 	_playerCharacter.setDisplayedSpriteColor(colors[L"player"] | colors[L"groundBg"]);
 	GameUI::Instance().appendToActionsLog(L"Vous devriez essayer de trouver la sortie");
@@ -135,10 +136,15 @@ void GameInstance::restartGame()
 	pauseGame(false);
 }
 
-void GameInstance::setPlayerColors() {
-	std::map<std::wstring, WORD> colors = _currentLevel.getColors();
-	_playerCharacter.setOriginalSpriteColor(colors[L"player"] | colors[L"groundBg"]); // TODO: Or default.
-	_playerCharacter.setDisplayedSpriteColor(colors[L"player"] | colors[L"groundBg"]);
+ void GameInstance::resetLevel()
+{
+	for (size_t i = 0; i < _gameObjects.size(); i++)
+	{
+		_gameObjects[i]->setPendingDestruction(true);
+	}
+
+	pauseGame(false);
+	// TODO: gameObjects colors.
 }
 
 void GameInstance::endOfGame()
@@ -173,11 +179,7 @@ void GameInstance::spawnLevelEnemies()
 	}
 
 	// Update ennemy's color to match the level
-	std::map<std::wstring, WORD> colors = getcurrentLevel().getColors();
-	for (auto gameObject : _gameObjects) {
-		gameObject->setOriginalSpriteColor(colors[L"gameObjects"] | colors[L"groundBg"]);
-		gameObject->refreshDisplayedColor();
-	}
+	setGameObjectsColors();
 }
 
 // We use a template to avoid writting multiple functions doing the same thing
@@ -299,13 +301,17 @@ void GameInstance::tryToSpawnEntityFromLevel(short x, short y)
 	}
 }
 
-void GameInstance::resetLevel()
-{
-	for (size_t i = 0; i < _gameObjects.size(); i++)
-	{
-		_gameObjects[i]->setPendingDestruction(true);
-	}
+ void GameInstance::setPlayerColors() {
+	std::map<std::wstring, WORD> colors = _currentLevel.getColors();
+	_playerCharacter.setOriginalSpriteColor(colors[L"player"] | colors[L"groundBg"]); // TODO: Or default.
+	_playerCharacter.setDisplayedSpriteColor(colors[L"player"] | colors[L"groundBg"]);
+}
 
-	pauseGame(false);
-	// TODO: gameObjects colors.
+ void GameInstance::setGameObjectsColors() {
+	std::map<std::wstring, WORD> colors = getCurrentLevel().getColors();
+
+	for (auto gameObject : _gameObjects) {
+		gameObject->setOriginalSpriteColor(colors[L"gameObjects"] | colors[L"groundBg"]);
+		gameObject->refreshDisplayedColor();
+	}
 }

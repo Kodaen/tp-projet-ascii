@@ -47,6 +47,7 @@ GameUI& GameUI::Instance()
 
 void GameUI::displayUI() {
 	displayStats();
+	displayActionsLog();
 
 	if (_showGameOverScreen)
 	{
@@ -62,13 +63,13 @@ void GameUI::displayStats()
 	BufferHandler& bufferHandler = BufferHandler::Instance();
 	// Hard coded value because HEIGHT can't be used now that it's greater than the console's height.
 	// TODO: find how to retrieve it instead.
-	bufferHandler.DrawMapRow(_stats, 29);
+	bufferHandler.drawMapRow(_stats, 29);
 }
 
 void GameUI::displayActionsLog()
 {
 	BufferHandler& bufferHandler = BufferHandler::Instance();
-	bufferHandler.DrawMapRow(_actionsLog.back(), 0);
+	bufferHandler.drawMapRow(_actionsLog.back(), 0);
 }
 
 void GameUI::displayUIWindow() {
@@ -76,7 +77,7 @@ void GameUI::displayUIWindow() {
 
 	for (size_t i = 0; i < _menuScreen.size(); i++)
 	{
-		bufferHandler.DrawMapRow(_menuScreen[i], 7 + i);
+		bufferHandler.drawMapRow(_menuScreen[i], 7 + i);
 	}
 }
 
@@ -117,7 +118,7 @@ void GameUI::createStats()
 	GameInstance& gameInstance = GameInstance::Instance();
 	std::wstringstream wstats;
 	wstats << "Étage : ";
-	wstats << gameInstance.getcurrentLevel().getNumber();
+	wstats << gameInstance.getCurrentLevel().getNumber();
 
 	wstats << "            -- Joueur --";
 	wstats << " Pv : ";
@@ -275,7 +276,7 @@ void GameUI::deactivateUIWindow()
 	_showGameOverScreen = false;
 }
 
-void GameUI::activateUIWindow(UIWINDOW newUIWindow)
+void GameUI::activateUIWindow(const UIWINDOW& newUIWindow)
 {
 	_currentUIWindow = newUIWindow;
 	_showGameOverScreen = true;

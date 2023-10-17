@@ -29,7 +29,7 @@ Cabulosaurus::Cabulosaurus() : _currentStep(0), Entity()
 	_displayedColor = _lookingDirection + _originalSpriteColor;
 }
 
-Cabulosaurus::Cabulosaurus(COORD pos, DIRECTION lookingDirection) : Cabulosaurus()
+Cabulosaurus::Cabulosaurus(const COORD& pos, const DIRECTION& lookingDirection) : Cabulosaurus()
 {
 	_pos = pos;
 	_lookingDirection = lookingDirection;
@@ -97,12 +97,11 @@ void Cabulosaurus::shootBubles()
 	// Make a perpendicular vector to the one where the Cabulausorus is looking
 	// This way we can spawn 3 projectiles next to each others in his looking
 	// direction
-	COORD perpendicularDirection = {0,0};
+	COORD perpendicularDirection = { 0,0 };
 	perpendicularDirection.X = -direction.Y;
 	perpendicularDirection.Y = direction.X;
 
-	// TODO : using new but delete is never called
-	Projectile* p1 = new Projectile({ (_pos.X + perpendicularDirection.X), (_pos.Y + perpendicularDirection.Y)}, direction);
+	Projectile* p1 = new Projectile({ (_pos.X + perpendicularDirection.X), (_pos.Y + perpendicularDirection.Y) }, direction);
 	Projectile* p2 = new Projectile({ _pos.X, _pos.Y }, direction);
 	Projectile* p3 = new Projectile({ (_pos.X - perpendicularDirection.X), (_pos.Y - perpendicularDirection.Y) }, direction);
 

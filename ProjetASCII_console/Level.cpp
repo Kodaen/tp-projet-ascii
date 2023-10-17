@@ -21,14 +21,14 @@
 #include "GameInstance.h"
 
 
-Level::Level(int levelNumber)
+Level::Level(const int& levelNumber)
 {
 	_levelNumber = levelNumber;
 	std::string levelFileName = "levels/level" + std::to_string(levelNumber) + ".txt";
 	readFile(levelFileName, levelNumber);
 }
 
-void Level::readFile(std::string fileName, int levelNumber)
+void Level::readFile(const std::string& fileName, const int& levelNumber)
 {
 	// To read Unicode characters.
 	// Source: https://stackoverflow.com/a/9903304.
@@ -65,7 +65,7 @@ void Level::readFile(std::string fileName, int levelNumber)
 		}
 	}
 	else
-	{	
+	{
 		//std::cout << "Unable to open file";
 
 		// If we couldn't open the file and it wasn't the first file.
@@ -75,7 +75,7 @@ void Level::readFile(std::string fileName, int levelNumber)
 		if (levelNumber > 1)
 		{
 			GameInstance::Instance().endOfGame();
-			std::string levelFileName = "levels/level" + std::to_string(levelNumber-1) + ".txt";
+			std::string levelFileName = "levels/level" + std::to_string(levelNumber - 1) + ".txt";
 			readFile(levelFileName, levelNumber);
 		}
 	}
@@ -86,7 +86,7 @@ void Level::readLine(std::wstring line)
 	_level.push_back(line);
 }
 
-void Level::parseColors(std::wstring line, std::vector<std::wstring>& colorsKeys, std::vector<WORD>& colorsValues) {
+void Level::parseColors(const std::wstring& line, std::vector<std::wstring>& colorsKeys, std::vector<WORD>& colorsValues) {
 	std::wstring pair;
 	std::wstring item;
 	std::wstringstream lineStream(line);
@@ -110,13 +110,13 @@ void Level::parseColors(std::wstring line, std::vector<std::wstring>& colorsKeys
 	}
 }
 
-bool Level::isTileWalkable(COORD coordinates)
+bool Level::isTileWalkable(const COORD& coordinates)
 {
 	BufferHandler& bufferHandler = BufferHandler::Instance();
 	return !isEnemyOnTile(coordinates) && bufferHandler.isTileWalkable(coordinates);
 }
 
-bool Level::isEnemyOnTile(COORD coordinates)
+bool Level::isEnemyOnTile(const COORD& coordinates)
 {
 	// TODO: Not optimal but required as the enemies update after the player.
 
@@ -131,7 +131,7 @@ bool Level::isEnemyOnTile(COORD coordinates)
 			break;
 		}
 	}
-
+	delete& entites;
 	return enemyOnTile;
 }
 
@@ -153,7 +153,7 @@ void Level::hideSpawners()
 	}
 }
 
-void Level::hideSpawner(COORD coordinates)
+void Level::hideSpawner(const COORD& coordinates)
 {
 	_level[coordinates.X][coordinates.Y] = L'.';
 }

@@ -53,15 +53,15 @@ void Entity::refreshDisplayedColor()
 	_displayedColor = _lookingDirection + _originalSpriteColor;
 }
 
-bool Entity::moveDiagonaly(short valX, short valY) {
+bool Entity::moveDiagonaly(const short& valX, const short& valY) {
 	//returns if character could move or not as a bool
 
 	if (valX == 0 && valY == 0) {
 		return false;
 	}
-	
-	 bool entityMoved = moveRight(valY) ;
-	 entityMoved = moveDown(valX) || entityMoved;
+
+	bool entityMoved = moveRight(valY);
+	entityMoved = moveDown(valX) || entityMoved;
 
 	if (!(valX == 0 && valY == 0)) {
 		if (_lookingDirection == TOP) {
@@ -90,10 +90,10 @@ bool Entity::moveDiagonaly(short valX, short valY) {
 	else {
 		return false;
 	}
-	
+
 }
 
-bool Entity::moveRight(short val) {
+bool Entity::moveRight(const short& val) {
 	//val can take either 1 or -1
 	//1 means go to right
 	//-1 means go to left
@@ -111,7 +111,7 @@ bool Entity::moveRight(short val) {
 		turnToDirection(LEFT);
 	}
 
-	if (GameInstance::Instance().getcurrentLevel().isTileWalkable({ _pos.X ,val + _pos.Y }))
+	if (GameInstance::Instance().getCurrentLevel().isTileWalkable({ _pos.X ,val + _pos.Y }))
 	{
 		_pos.Y += val;
 		return true;
@@ -121,7 +121,7 @@ bool Entity::moveRight(short val) {
 	}
 }
 
-bool Entity::moveDown(short val) {
+bool Entity::moveDown(const short& val) {
 	//val can take either 1 or -1
 	//1 means go down
 	//-1 means go up
@@ -129,7 +129,7 @@ bool Entity::moveDown(short val) {
 	//returns if character could move or not as a bool
 
 	if (val == 0) {
-		return false ;
+		return false;
 	}
 
 	if (val == 1) {
@@ -139,7 +139,7 @@ bool Entity::moveDown(short val) {
 		turnToDirection(TOP);
 	}
 
-	if (GameInstance::Instance().getcurrentLevel().isTileWalkable({ val + _pos.X ,_pos.Y }))
+	if (GameInstance::Instance().getCurrentLevel().isTileWalkable({ val + _pos.X ,_pos.Y }))
 	{
 		_pos.X += val;
 		return true;
@@ -147,7 +147,7 @@ bool Entity::moveDown(short val) {
 	else {
 		return false;
 	}
-	
+
 }
 
 bool Entity::moveForward() {
@@ -182,11 +182,12 @@ bool Entity::moveForward() {
 		return moveDiagonaly(-1, -1);
 		break;
 	default:
+		return false;
 		break;
 	}
 }
 
-void Entity::turnToDirection(DIRECTION newDirection) {
+void Entity::turnToDirection(const DIRECTION& newDirection) {
 	_lookingDirection = newDirection;
 
 	refreshDisplayedColor();
@@ -231,7 +232,7 @@ void Entity::attack() {
 		return;
 	}
 
-	PlayerCharacter &playerCharacter = GameInstance::Instance().getPlayerCharacter();
+	PlayerCharacter& playerCharacter = GameInstance::Instance().getPlayerCharacter();
 
 	// Search among all gameObjects which one is on the tile (if there is one)
 	std::vector<GameObject*>& gameObjects = GameInstance::Instance().getGameObject();
@@ -250,7 +251,7 @@ void Entity::attack() {
 
 };
 
-void Entity::recieveDamage(int damage) {
+void Entity::recieveDamage(const int& damage) {
 	_hp -= damage;
 	// TODO : Playsound when players gets damaged
 	if (_hp <= 0)
@@ -259,7 +260,7 @@ void Entity::recieveDamage(int damage) {
 	}
 };
 
-void Entity::die(){
+void Entity::die() {
 	_pendingDestruction = true;
 	_originalSpriteColor = 0x08;
 }

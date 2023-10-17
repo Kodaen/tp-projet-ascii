@@ -7,7 +7,7 @@ class Cabulosaurus : public Entity
 	// Constructors
 public:
 	Cabulosaurus();
-	Cabulosaurus(COORD pos, DIRECTION lookingDirection);
+	Cabulosaurus(const COORD& pos, const DIRECTION& lookingDirection);
 
 	// Attributes
 private:

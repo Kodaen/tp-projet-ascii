@@ -22,7 +22,7 @@ public:
 		QueryPerformanceCounter(&lastUpdateTime);
 	}
 
-	float getElapsedSeconds(bool restart = false)
+	float getElapsedSeconds(const bool& restart = false)
 	{
 		LARGE_INTEGER timeNow;
 		QueryPerformanceCounter(&timeNow);
@@ -37,7 +37,7 @@ public:
 		return elapsed;
 	}
 
-	unsigned long getElapsedMs(bool restart = false)
+	unsigned long getElapsedMs(const bool& restart = false)
 	{
 		LARGE_INTEGER timeNow;
 		QueryPerformanceCounter(&timeNow);

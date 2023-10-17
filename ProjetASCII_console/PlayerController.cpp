@@ -16,7 +16,8 @@ PlayerController::PlayerController() :
 	_timerKeyBuffer(),
 	_minDelayBetweenKeys(50),
 	_minDelayBetweenRepetitiveKeys(250),
-	_bufferDuration(25)
+	_bufferDuration(25),
+	_isShiftHeld(false)
 {
 	_timerBetweenKeys.start();
 	_timerBetweenRepetitiveKeys.start();
@@ -59,13 +60,13 @@ void PlayerController::registerPressedKeys()
 		if (_timerBetweenRepetitiveKeys.getElapsedMs() < _minDelayBetweenRepetitiveKeys / (1.5 * _isShiftHeld + 1)) {
 			_pressedKeys.clear();
 			return;
-		}		
+		}
 	}
 
 	// We reset the timers for the next frame if any key were input
 	_oldPressedKeys = _pressedKeys;
-	if (_pressedKeys.size() != 0) { 
-		_timerBetweenKeys.start(); 
+	if (_pressedKeys.size() != 0) {
+		_timerBetweenKeys.start();
 		_timerBetweenRepetitiveKeys.start();
 	};
 }

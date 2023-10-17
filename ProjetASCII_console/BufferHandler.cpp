@@ -43,7 +43,7 @@ void BufferHandler::initialize() {
 
 }
 
-void BufferHandler::printBuffer() {
+ void BufferHandler::printBuffer() {
 	WriteConsoleOutputW(_hOutput, (CHAR_INFO*)_buffer, _dwBufferSize,
 		_dwBufferCoord, &_rcRegion);
 }
@@ -52,7 +52,7 @@ void BufferHandler::emptyBuffer() {
 	fillBuffer(' ');
 }
 
-void BufferHandler::fillBuffer(WCHAR character, WORD color) {
+void BufferHandler::fillBuffer(const WCHAR& character, const WORD& color) {
 	for (short x = 0; x < WIDTH; x++)
 	{
 		for (short y = 0; y < HEIGHT; y++)
@@ -62,13 +62,13 @@ void BufferHandler::fillBuffer(WCHAR character, WORD color) {
 	}
 }
 
-void BufferHandler::drawAtCoordinate(WCHAR character, WORD color, COORD coordinate)
+ void BufferHandler::drawAtCoordinate(const WCHAR& character, const WORD& color, const COORD& coordinate)
 {
 	_buffer[coordinate.X][coordinate.Y].Char.UnicodeChar = character;
 	_buffer[coordinate.X][coordinate.Y].Attributes = color;
 }
 
-void BufferHandler::DrawMap(std::vector<std::wstring> map, std::map<std::wstring, WORD> colors)
+void BufferHandler::drawMap(const std::vector<std::wstring>& map, std::map<std::wstring, WORD> colors)
 {
 	// Right part of the background.
 	if (!areDefaultColorsNeeded(colors)) {
@@ -77,11 +77,11 @@ void BufferHandler::DrawMap(std::vector<std::wstring> map, std::map<std::wstring
 
 	for (short i = 0; i < map.size(); i++)
 	{
-		DrawMapRow(map[i], i, colors);
+		drawMapRow(map[i], i, colors);
 	}
 }
 
-void BufferHandler::DrawMapRow(std::wstring row, short x, std::map<std::wstring, WORD> colors)
+void BufferHandler::drawMapRow(const std::wstring& row, const short& x, std::map<std::wstring, WORD> colors)
 {
 	if (areDefaultColorsNeeded(colors)) {
 		// Apply default black and white theme.
@@ -105,14 +105,14 @@ void BufferHandler::DrawMapRow(std::wstring row, short x, std::map<std::wstring,
 		}
 		else if (isWater(row[y])) {
 			// makes checkerboard pattern
-			if ((y+x)%2 == 0)
+			if ((y + x) % 2 == 0)
 			{
 				drawAtCoordinate(row[y], colors[L"liquidBg"] | colors[L"liquidFg"], { x, y });
 			}
 			else {
-				drawAtCoordinate(L' ', colors[L"liquidBg"] | colors[L"liquidFg"], {x, y});
+				drawAtCoordinate(L' ', colors[L"liquidBg"] | colors[L"liquidFg"], { x, y });
 			}
-			
+
 		}
 		else {
 			// Draw UI, always white on black for now.
@@ -121,48 +121,44 @@ void BufferHandler::DrawMapRow(std::wstring row, short x, std::map<std::wstring,
 	}
 }
 
-bool BufferHandler::areDefaultColorsNeeded(std::map<std::wstring, WORD> colors) {
+ bool BufferHandler::areDefaultColorsNeeded(const std::map<std::wstring, WORD>& colors) {
 	return (colors.size() == 0 || (colors.count(L"walls") == 0 || colors.count(L"groundBg") == 0 || colors.count(L"groundFg") == 0
 		|| colors.count(L"background") == 0));
 }
 
-bool BufferHandler::isTileWalkable(COORD coordinates) {
+bool BufferHandler::isTileWalkable(const COORD& coordinates) {
 	bool isTileWalkable = false;
 	isTileWalkable = isGround(getCharacterAtCoordinate(coordinates)) || isStair(getCharacterAtCoordinate(coordinates));
 	return  isTileWalkable;
 }
 
-bool BufferHandler::isGround(WCHAR wchar) {
+ bool BufferHandler::isGround(const WCHAR& wchar) {
 	return wchar == L'.' || wchar == L','; // ,  is unused for now. TODO: Delete?
 }
 
-bool BufferHandler::isWall(WCHAR wchar) {
+ bool BufferHandler::isWall(const WCHAR& wchar) {
 	return wchar == L'█';
 }
 
-bool BufferHandler::isBackground(WCHAR wchar) {
+ bool BufferHandler::isBackground(const WCHAR& wchar) {
 	return wchar == L'§';
 }
 
-bool BufferHandler::isStair(WCHAR wchar) {
+ bool BufferHandler::isStair(const WCHAR& wchar) {
 	return wchar == L'#';
 }
 
-bool BufferHandler::isWater(WCHAR wchar)
+ bool BufferHandler::isWater(const WCHAR& wchar)
 {
 	return wchar == L'~';
 }
 
-void BufferHandler::changeColorAtCoordinate(WORD color, COORD coordinates)
-{
-}
-
-WCHAR& BufferHandler::getCharacterAtCoordinate(COORD coordinates)
+ WCHAR& BufferHandler::getCharacterAtCoordinate(const COORD& coordinates)
 {
 	return _buffer[coordinates.X][coordinates.Y].Char.UnicodeChar;
 }
 
-WORD& BufferHandler::getColorAtCoordinate(COORD coordinates)
+ WORD& BufferHandler::getColorAtCoordinate(const COORD& coordinates)
 {
 	return _buffer[coordinates.X][coordinates.Y].Attributes;
 }

@@ -8,15 +8,11 @@
 class PlayerCharacter : public Entity
 {
 public:
-	//Constructor (for loading save)
-	PlayerCharacter(COORD pos, int level, int hp, int damage);
-
 	//Default constructor
 	PlayerCharacter();
 
 private:
 	int _level;
-	//float _xp;
 
 	COORD _nextTile;
 
@@ -26,13 +22,10 @@ private:
 	bool _isOnStairs;
 
 
-	void setNextTile(std::set<char>::iterator& it);
+	void setNextTile(const std::set<char>::iterator& it);
 
 public:
 	void update();
-
-	// void levelUp();
-	// void recieveXp(float xp);
 
 	bool isOnStairs() {
 		return _isOnStairs;
@@ -51,7 +44,7 @@ public:
 		return _level;
 	}
 
-	int setLevel(int newLevel) {
+	int setLevel(const int& newLevel) {
 		_level = newLevel;
 	}
 
@@ -59,11 +52,4 @@ public:
 		return _playerActed;
 	}
 
-	//float getXP() {
-	//	return _xp;
-	//}
-
-	//void setXP(float newXp) {
-	//	_xp = newXp;
-	//}
 };

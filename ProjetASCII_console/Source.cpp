@@ -24,9 +24,6 @@
 #include "GameUI.h"
 #include "gameInstance.h"
 
-
-
-
 #include "Projectile.h"
 
 #pragma comment(lib,"winmm.lib")
@@ -40,23 +37,19 @@ int main()
 	LONG_PTR new_style = WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU | WS_MINIMIZEBOX;
 	setConsoleWindowStyle(GWL_STYLE, new_style);
 
+	// Initialisation
 	BufferHandler* bufferHandler = &BufferHandler::Instance();
 	GameInstance* gameInstance = &GameInstance::Instance();
 	GameUI* gameUI = &GameUI::Instance();
+	NYTimer nyTimer;
 
 	// Prepare resources for the map.
-	std::vector<std::wstring> &map = gameInstance->getcurrentLevel().getLevel();
-	std::map<std::wstring, WORD> &colors = gameInstance->getcurrentLevel().getColors();
+	std::vector<std::wstring>& map = gameInstance->getCurrentLevel().getLevel();
+	std::map<std::wstring, WORD>& colors = gameInstance->getCurrentLevel().getColors();
 
 	gameInstance->setPlayerColors();
 
-	NYTimer nyTimer;
-
 	//Create title screen and pause game
-
-	// Estelle : if you still want to test stuff with the basic projectile and the entity
-	// Just comment these two lines
-	// vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
 	gameUI->activateUIWindow(TITLE_SCREEN);
 	gameInstance->pauseGame(true);
 
@@ -73,17 +66,16 @@ int main()
 		}
 
 		// Put the map into the buffer
-		bufferHandler->DrawMap(map, colors);
+		bufferHandler->drawMap(map, colors);
 
 		gameInstance->update();
 
 		// To keep stats updated in real time like HP and floor.
 		gameUI->createStats();
 		gameUI->displayUI();
-		gameUI->displayActionsLog();
 
-		// Print the buffer on the screen
 		bufferHandler->printBuffer();
+
 		// Use timer to cap to 60 fps
 		Sleep(max((16 - (long)nyTimer.getElapsedMs()), 0));
 	}
@@ -105,7 +97,7 @@ LONG_PTR setConsoleWindowStyle(INT n_index, LONG_PTR new_style)
 	HWND hwnd_console = GetConsoleWindow();
 
 	// TODO : Set window's WIDTH and HEIGHT, for HEIGHT >= 29 or Width >= 114, no noticeable changes
-	//SMALL_RECT windowRect = { 0, 0, static_cast<SHORT>(114 - 1), static_cast<SHORT>(30 - 1) };
+	//SMALL_RECT windowRect = { 0, 0, static_cast<SHORT>(114 - 1), static_cast<SHORT>(30 - 1)};
 	//SetConsoleWindowInfo(GetStdHandle(STD_OUTPUT_HANDLE), TRUE, &windowRect);
 
 	LONG_PTR style_ptr = SetWindowLongPtr(hwnd_console, n_index, new_style);

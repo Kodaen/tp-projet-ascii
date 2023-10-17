@@ -37,35 +37,33 @@ public:
 
 	static BufferHandler& Instance();
 
-	void fillBuffer(WCHAR character, WORD color = FOREGROUND_RED);
+	void fillBuffer(const WCHAR& character, const WORD& color = FOREGROUND_RED);
 
 	void emptyBuffer();
 
 	void printBuffer();
 
-	void drawAtCoordinate(WCHAR character, WORD color, COORD coordinates);
+	inline void drawAtCoordinate(const WCHAR& character, const WORD& color, const COORD& coordinates);
 
-	void changeColorAtCoordinate(WORD color, COORD coordinates);
+	void drawMap(const std::vector<std::wstring>& map, std::map<std::wstring, WORD> colors = {});
 
-	void DrawMap(std::vector<std::wstring> map, std::map<std::wstring, WORD> colors = {});
+	void drawMapRow(const std::wstring& row, const short& x, std::map<std::wstring, WORD> colors = {});
 
-	void DrawMapRow(std::wstring row, short x, std::map<std::wstring, WORD> colors = {});
+	inline bool areDefaultColorsNeeded(const std::map<std::wstring, WORD>& colors);
 
-	bool areDefaultColorsNeeded(std::map<std::wstring, WORD> colors);
+	bool isTileWalkable(const COORD& coordinates);
 
-	bool isTileWalkable(COORD coordinates);
+	inline bool isGround(const WCHAR& wchar);
 
-	bool isGround(WCHAR wchar);
+	inline bool isWall(const WCHAR& wchar);
 
-	bool isWall(WCHAR wchar);
+	inline bool isBackground(const WCHAR& wchar);
 
-	bool isBackground(WCHAR wchar);
+	inline bool isStair(const WCHAR& wchar);
 
-	bool isStair(WCHAR wchar);
+	inline bool isWater(const WCHAR& wchar);
 
-	bool isWater(WCHAR wchar);
+	inline WCHAR& getCharacterAtCoordinate(const COORD& coordinates);
 
-	WCHAR& getCharacterAtCoordinate(COORD coordinates);
-
-	WORD& getColorAtCoordinate(COORD coordinates);
+	inline WORD& getColorAtCoordinate(const COORD& coordinates);
 };

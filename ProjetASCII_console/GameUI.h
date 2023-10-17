@@ -28,7 +28,7 @@ public:
 	void confirmButtonChoice();
 
 	void deactivateUIWindow();
-	void activateUIWindow(UIWINDOW test);
+	void activateUIWindow(const UIWINDOW& test);
 
 	void createStats();
 

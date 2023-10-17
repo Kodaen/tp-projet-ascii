@@ -25,11 +25,10 @@ Croquecaille::Croquecaille() : _currentStep(0), Entity()
 	_displayedSprite = 0x43; // Letter C, matches Croquecaille
 	_originalSpriteColor = 0x0C; // Pink
 
-
 	_displayedColor = _lookingDirection + _originalSpriteColor;
 }
 
-Croquecaille::Croquecaille(COORD pos, DIRECTION lookingDirection) : Croquecaille()
+Croquecaille::Croquecaille(const COORD& pos, const DIRECTION& lookingDirection) : Croquecaille()
 {
 	_pos = pos;
 	_lookingDirection = lookingDirection;
@@ -56,10 +55,10 @@ void Croquecaille::update()
 // Shoot a basic projectile in front of the Croquecaille
 void Croquecaille::shootBuble()
 {
-	
+
 	// Calculate the moving direction of the projectile using the looking
 	// direction on the croquecaille
-	COORD direction = {0,0};
+	COORD direction = { 0,0 };
 	switch (_lookingDirection)
 	{
 	case TOP:
@@ -96,7 +95,7 @@ void Croquecaille::shootBuble()
 	}
 
 	Projectile* p = new Projectile({ _pos.X, _pos.Y }, direction);
-	
+
 	//Spawn projectile
 	GameInstance::Instance().getGameObject().push_back(p);
 }

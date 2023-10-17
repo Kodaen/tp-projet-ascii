@@ -41,7 +41,7 @@ PlayerCharacter::PlayerCharacter()
 }
 
 void PlayerCharacter::update() {
-	if (_pendingDestruction || 
+	if (_pendingDestruction ||
 		GameInstance::Instance().isGamePaused())
 	{
 		return;
@@ -98,7 +98,7 @@ void PlayerCharacter::update() {
 	}
 }
 
-void PlayerCharacter::setNextTile(std::set<char>::iterator& it) {
+void PlayerCharacter::setNextTile(const std::set<char>::iterator& it) {
 	switch (*it)
 	{
 	case 'd':

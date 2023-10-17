@@ -10,8 +10,9 @@ public:
 	//Constructors
 	Entity();
 
-	Entity(COORD pos, DIRECTION lookingDirection);
+	Entity(COORD pos,DIRECTION lookingDirection);
 
+	// Attributes
 protected:
 	int _hp;
 	int _damage;
@@ -19,22 +20,24 @@ protected:
 	// Direction the character is looking (ENUM)
 	DIRECTION _lookingDirection;
 
+	// Functions
 public:
 	virtual void update();
 	void refreshDisplayedColor();
 
 	// Moving functions
-	bool moveRight(short val);
-	bool moveDown(short val);
-	bool moveDiagonaly(short valX, short valY);
+	bool moveDiagonaly(const short& valX, const short& valY);
+	bool moveRight(const short &val);
+	bool moveDown(const short &val);
+
 	bool moveForward();
 
 	// Direction functions
-	void turnToDirection(DIRECTION newDirection);
+	void turnToDirection(const DIRECTION &newDirection);
 
 	// Attack and recieve damage functions
 	void attack();
-	void recieveDamage(int Damage);
+	void recieveDamage(const int& Damage);
 
 	virtual void die();
 
@@ -44,7 +47,7 @@ public:
 		return _hp;
 	}
 
-	void setHP(int newHp) {
+	void setHP(const int& newHp) {
 		_hp = newHp;
 	}
 
@@ -52,7 +55,7 @@ public:
 		return _damage;
 	}
 
-	void setDamage(int newDamage) {
+	void setDamage(const int& newDamage) {
 		_damage = newDamage;
 	}
 };

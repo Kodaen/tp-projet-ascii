@@ -13,7 +13,7 @@ class GameInstance
 private:
 	GameInstance();
 
-public :
+public:
 	~GameInstance();
 
 	// Get Instance
@@ -40,32 +40,38 @@ public:
 	// Functions
 public:
 	void update();
+
 	void restartGame();
-	void setPlayerColors();
 	void resetLevel();
 	void endOfGame();
 
-private :
+	inline void setPlayerColors();
+	inline void setGameObjectsColors();
+
+private:
 	void spawnLevelEnemies();
 
 	template <typename standardEnnemy, typename bossEnnemy>
 	void tryToSpawnEntityFromLevel(short x, short y);
 
 	// Getters and Setters
-public :
-	Level& getcurrentLevel() {
+public:
+	// TODO : Camelcase
+	// TODO : make a function getCurrentLevelRef
+	inline Level& getCurrentLevel() {
 		return _currentLevel;
 	};
 
-	void setCurrentLevel(Level &newCurrentLevel) {
+	inline void setCurrentLevel(Level& newCurrentLevel) {
 		_currentLevel = newCurrentLevel;
 	};
 
-	PlayerCharacter& getPlayerCharacter() {
+	// TODO : make a function getPlayerCharacterRef
+	inline PlayerCharacter& getPlayerCharacter() {
 		return _playerCharacter;
 	};
 
-	void setPlayerCharacter(PlayerCharacter &newPlayerCharacter) {
+	inline void setPlayerCharacter(const PlayerCharacter& newPlayerCharacter) {
 		_playerCharacter = newPlayerCharacter;
 	};
 
@@ -74,7 +80,7 @@ public :
 	}
 
 	std::vector<Entity*>& getEntites() {
-		std::vector<Entity*> *entities = new std::vector<Entity*>();
+		std::vector<Entity*>* entities = new std::vector<Entity*>();
 
 		for (size_t i = 0; i < _gameObjects.size(); i++)
 		{
@@ -87,23 +93,23 @@ public :
 		return *(entities);
 	}
 
-	void setGameObjects(std::vector<GameObject*> newGameObjects){
+	inline void setGameObjects(const std::vector<GameObject*>& newGameObjects) {
 		_gameObjects = newGameObjects;
 	}
 
-	void finishGame() {
+	inline void finishGame() {
 		_gameEnd = true;
 	}
 
-	bool isGameFinished() {
+	inline bool isGameFinished() {
 		return _gameEnd;
 	}
 
-	void pauseGame(bool boolean) {
+	inline void pauseGame(const bool& boolean) {
 		_pause = boolean;
 	}
 
-	bool isGamePaused() {
+	inline bool isGamePaused() {
 		return _pause;
 	}
 };

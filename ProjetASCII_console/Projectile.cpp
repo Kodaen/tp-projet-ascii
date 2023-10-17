@@ -24,13 +24,13 @@ Projectile::Projectile() : _movingDirection({ 1,0 }), GameObject() {
 	_displayedColor = 0x0C;
 	_damage = 1;
 
-	std::map<std::wstring, WORD> colors = GameInstance::Instance().getcurrentLevel().getColors();
+	std::map<std::wstring, WORD> colors = GameInstance::Instance().getCurrentLevel().getColors();
 	_displayedColor = _displayedColor | colors[L"groundBg"];
 	_originalSpriteColor = _originalSpriteColor | colors[L"groundBg"];
 }
 
 
-Projectile::Projectile(COORD pos, COORD movingDirection) : Projectile() {
+Projectile::Projectile(const COORD& pos, const COORD& movingDirection) : Projectile() {
 	_movingDirection = movingDirection;
 	_pos = pos;
 }
@@ -47,7 +47,7 @@ void Projectile::moveToDirection()
 		{
 			for (short y = 0; y < _movingDirection.Y; y++)
 			{
-				if (!GameInstance::Instance().getcurrentLevel().isTileWalkable({ _pos.X + x,  _pos.Y + y })) {
+				if (!GameInstance::Instance().getCurrentLevel().isTileWalkable({ _pos.X + x,  _pos.Y + y })) {
 					attackAtPos({ _pos.X + x, _pos.Y + y });
 					die();
 					return;
@@ -56,7 +56,7 @@ void Projectile::moveToDirection()
 
 		}
 	}
-	else if (!GameInstance::Instance().getcurrentLevel().isTileWalkable({ _pos.X + _movingDirection.X,  _pos.Y + _movingDirection.Y })) {
+	else if (!GameInstance::Instance().getCurrentLevel().isTileWalkable({ _pos.X + _movingDirection.X,  _pos.Y + _movingDirection.Y })) {
 		attackAtPos({ _pos.X + _movingDirection.X, _pos.Y + _movingDirection.Y });
 		die();
 		return;
@@ -65,7 +65,7 @@ void Projectile::moveToDirection()
 	_pos.Y += _movingDirection.Y;
 }
 
-void Projectile::attackAtPos(COORD pos) {
+void Projectile::attackAtPos(const COORD& pos) {
 	// TODO : optimisation
 	PlayerCharacter& playerCharacter = GameInstance::Instance().getPlayerCharacter();
 	std::vector<Entity*>& entities = GameInstance::Instance().getEntites();
@@ -83,9 +83,9 @@ void Projectile::attackAtPos(COORD pos) {
 			}
 		}
 	}
-		
+	delete& entities;
 }
 
-void Projectile::recieveDamage(int damage) {
+void Projectile::recieveDamage(const int& damage) {
 	die();
 }
