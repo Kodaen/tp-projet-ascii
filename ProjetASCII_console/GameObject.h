@@ -23,6 +23,8 @@ public :
 	virtual void die();
 	virtual void recieveDamage(int damage);
 
+	virtual void refreshDisplayedColor();
+
 	// Getters & Setters
 public :
 	COORD getPos() {

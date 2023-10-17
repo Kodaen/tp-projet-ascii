@@ -44,27 +44,11 @@ int main()
 	GameInstance* gameInstance = &GameInstance::Instance();
 	GameUI* gameUI = &GameUI::Instance();
 
-	// Spawn a basic entity and a basic projectile
-	std::vector<GameObject*> gameObjects;
-	Entity* e = new Entity();
-	e->setPos({ 13,10 });
-	Projectile* p = new Projectile();
-
-	gameObjects.push_back(e);
-	gameObjects.push_back(p);
-
-
-	gameInstance->setGameObjects(gameObjects);
-
 	// Prepare resources for the map.
 	std::vector<std::wstring> &map = gameInstance->getcurrentLevel().getLevel();
 	std::map<std::wstring, WORD> &colors = gameInstance->getcurrentLevel().getColors();
-	PlayerCharacter& player = gameInstance->getPlayerCharacter();
-	player.setOriginalSpriteColor(colors[L"player"] | colors[L"groundBg"]); // TODO: Or default.
-	player.setDisplayedSpriteColor(colors[L"player"] | colors[L"groundBg"]);
-	for (auto gameObject : gameObjects) {
-		gameObject->setDisplayedSpriteColor(colors[L"gameObjects"] | colors[L"groundBg"]);
-	}
+
+	gameInstance->setPlayerColors();
 
 	NYTimer nyTimer;
 
@@ -85,7 +69,7 @@ int main()
 		if (gameInstance->getPlayerCharacter().isOnStairs()) {
 
 			gameInstance->getPlayerCharacter().setIsOnStairs(false);
-			gameInstance->resetLevel();			
+			gameInstance->resetLevel();
 		}
 
 		// Put the map into the buffer

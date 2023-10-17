@@ -13,8 +13,11 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Levels">
-      <UniqueIdentifier>{b137bdec-a5c4-4adf-bfab-29e148bb8944}</UniqueIdentifier>
+    <Filter Include="Fichiers sources\Enemy">
+      <UniqueIdentifier>{2a7b950a-ba48-4b85-adf5-3c883864fd74}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\Enemy">
+      <UniqueIdentifier>{8a943008-bb3f-49d8-a84c-89f6a03af788}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -51,6 +54,15 @@
     <ClCompile Include="Projectile.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
+    <ClCompile Include="Croquecaille.cpp">
+      <Filter>Fichiers sources\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Cabulosaurus.cpp">
+      <Filter>Fichiers sources\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Sertrail.cpp">
+      <Filter>Fichiers sources\Enemy</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="NYTimer.h">
@@ -71,13 +83,13 @@
     <ClInclude Include="Entity.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
+    <ClInclude Include="Direction.h">
+      <Filter>Fichiers sources</Filter>
+    </ClInclude>
     <ClInclude Include="PlayerController.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
     <ClInclude Include="GameUI.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="Direction.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
     <ClInclude Include="GameObject.h">
@@ -86,14 +98,19 @@
     <ClInclude Include="Projectile.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
+    <ClInclude Include="Croquecaille.h">
+      <Filter>Fichiers d%27en-tête\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Cabulosaurus.h">
+      <Filter>Fichiers d%27en-tête\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Sertrail.h">
+      <Filter>Fichiers d%27en-tête\Enemy</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="levels\level1.txt">
-      <Filter>Levels</Filter>
-    </Text>
-    <Text Include="levels\level2.txt">
-      <Filter>Levels</Filter>
-    </Text>
+    <Text Include="levels\level1.txt" />
+    <Text Include="levels\level2.txt" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />
