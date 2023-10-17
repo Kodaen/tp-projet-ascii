@@ -295,12 +295,28 @@ void Entity::recieveDamage(const int& damage, WCHAR opponent) {
 				GameUI::Instance().appendToActionsLog(L"Vous tuez le Sertrail");
 				break;
 			default:
-				GameUI::Instance().appendToActionsLog(L"Vous détruisez le projectile");
 				break;
 			}
 		}
 
 		die();
+	}
+	else {
+		if (opponent == L'@') {
+			switch (_displayedSprite) {
+			case L'B':
+				GameUI::Instance().appendToActionsLog(L"Vous blessez le Cabulosaurus");
+				break;
+			case L'C':
+				GameUI::Instance().appendToActionsLog(L"Vous blessez le Croquecaille");
+				break;
+			case L'S':
+				GameUI::Instance().appendToActionsLog(L"Vous blessez le Sertrail");
+				break;
+			default:
+				break;
+			}
+		}
 	}
 };
 
