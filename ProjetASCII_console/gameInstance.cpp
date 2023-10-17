@@ -116,10 +116,6 @@ void GameInstance::changeFloorIfNeeded() {
 // Restart the game from level, create a new Player
 void GameInstance::restartGame()
 {
-	for (size_t i = 0; i < _gameObjects.size(); i++)
-	{
-		_gameObjects[i]->setPendingDestruction(true);
-	}
 	_playerCharacter = PlayerCharacter();
 
 	_currentLevel = Level(1);
@@ -128,10 +124,7 @@ void GameInstance::restartGame()
 
 	GameUI::Instance().deactivateUIWindow();
 
-	spawnLevelEnemies();
-
-	setPlayerColors();
-	pauseGame(false);
+	resetLevel();
 }
 
 void GameInstance::resetLevel()
@@ -140,10 +133,9 @@ void GameInstance::resetLevel()
 	{
 		_gameObjects[i]->setPendingDestruction(true);
 	}
+	spawnLevelEnemies();
 	setPlayerColors();
-
 	pauseGame(false);
-	// TODO: gameObjects colors.
 }
 
 // Shows the end Game Screen for victory
