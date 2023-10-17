@@ -27,6 +27,8 @@ Cabulosaurus::Cabulosaurus() : _currentStep(0), Entity()
 
 
 	_displayedColor = _lookingDirection + _originalSpriteColor;
+
+	_hp = 150;
 }
 
 Cabulosaurus::Cabulosaurus(const COORD& pos, const DIRECTION& lookingDirection) : Cabulosaurus()

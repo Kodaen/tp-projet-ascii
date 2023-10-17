@@ -26,6 +26,8 @@ Croquecaille::Croquecaille() : _currentStep(0), Entity()
 	_originalSpriteColor = 0x0C; // Pink
 
 	_displayedColor = _lookingDirection + _originalSpriteColor;
+
+	_hp = 100;
 }
 
 Croquecaille::Croquecaille(const COORD& pos, const DIRECTION& lookingDirection) : Croquecaille()
