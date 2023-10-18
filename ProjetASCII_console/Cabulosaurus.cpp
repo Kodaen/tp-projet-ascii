@@ -39,7 +39,7 @@ Cabulosaurus::Cabulosaurus(const COORD& pos, const DIRECTION& lookingDirection) 
 	_displayedColor = _lookingDirection + _originalSpriteColor;
 }
 
-// Update player's behavoir; called every frame.
+// Update Cabulosaurus's behavoir; called every frame.
 // Every 6 update call, the Cabulausorus shoot bubles (see shootBubles()).
 void Cabulosaurus::update()
 {

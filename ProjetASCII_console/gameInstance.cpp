@@ -28,9 +28,12 @@
 #include "gameInstance.h"
 #include "Croquecaille.h"
 #include "Cabulosaurus.h"
+#include "Vipralisque.h"
+
 
 #include <functional>
 #include "Sertrail.h"
+
 
 
 GameInstance* GameInstance::_gameInstance = 0;
@@ -158,7 +161,7 @@ void GameInstance::spawnLevelEnemies()
 	{
 	case 1:
 		// TODO: Change boss enemy when created.
-		ptrTryToSpawnEntityFromLevel = std::mem_fn(&GameInstance::tryToSpawnEntityFromLevel<Sertrail, Sertrail>);
+		ptrTryToSpawnEntityFromLevel = std::mem_fn(&GameInstance::tryToSpawnEntityFromLevel<Sertrail, Vipralisque>);
 		break;
 	case 2:
 		ptrTryToSpawnEntityFromLevel = std::mem_fn(&GameInstance::tryToSpawnEntityFromLevel<Croquecaille, Cabulosaurus>);

@@ -38,7 +38,7 @@ Croquecaille::Croquecaille(const COORD& pos, const DIRECTION& lookingDirection) 
 	_displayedColor = _lookingDirection + _originalSpriteColor;
 }
 
-// Update player's behavoir; called every frame.
+// Update Croquecaille's behavoir; called every frame.
 // Every 3 update call, the Croquecaille shoots a buble (see shootBuble()).
 void Croquecaille::update()
 {

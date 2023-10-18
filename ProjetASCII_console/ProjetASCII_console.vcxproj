@@ -142,6 +142,7 @@
     <ClCompile Include="Cabulosaurus.cpp" />
     <ClCompile Include="Croquecaille.cpp" />
     <ClCompile Include="Entity.cpp" />
+    <ClCompile Include="ExplosiverVenom.cpp" />
     <ClCompile Include="gameInstance.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameUI.cpp" />
@@ -153,12 +154,15 @@
     <ClCompile Include="Sertrail.cpp" />
     <ClCompile Include="Source.cpp" />
     <ClCompile Include="Projectile.cpp" />
+    <ClCompile Include="VenomSplash.cpp" />
+    <ClCompile Include="Vipralisque.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Cabulosaurus.h" />
     <ClInclude Include="Croquecaille.h" />
     <ClInclude Include="Direction.h" />
     <ClInclude Include="Entity.h" />
+    <ClInclude Include="ExplosiverVenom.h" />
     <ClInclude Include="gameInstance.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameUI.h" />
@@ -170,6 +174,8 @@
     <ClInclude Include="Projectile.h" />
     <ClInclude Include="UIWindow.h" />
     <ClInclude Include="Sertrail.h" />
+    <ClInclude Include="VenomSplash.h" />
+    <ClInclude Include="Vipralisque.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="levels\level1.txt" />
