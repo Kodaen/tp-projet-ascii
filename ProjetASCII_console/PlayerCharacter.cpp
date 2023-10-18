@@ -122,6 +122,18 @@ void PlayerCharacter::setNextTile(const std::set<char>::iterator& it) {
 	}
 }
 
+void PlayerCharacter::attack()
+{
+	PlaySound(TEXT("SFX/Normal-Attack2.wav"), NULL, SND_FILENAME | SND_ASYNC);
+	Entity::attack();
+}
+
+void PlayerCharacter::recieveDamage(const int& Damage, WCHAR opponent)
+{
+	PlaySound(TEXT("SFX/Player-Receive-Damage.wav"), NULL, SND_FILENAME | SND_ASYNC);
+	Entity::recieveDamage(Damage, opponent);
+}
+
 // Set the attribute _pendingDestruction to true. 
 // End the game and display the game over menu window.
 void PlayerCharacter::die() {

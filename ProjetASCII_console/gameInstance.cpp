@@ -141,6 +141,7 @@ void GameInstance::resetLevel()
 	spawnLevelEnemies();
 	setPlayerColors();
 	pauseGame(false);
+	PlaySound(TEXT("SFX/Stairs.wav"), NULL, SND_FILENAME | SND_ASYNC);
 }
 
 // Shows the end Game Screen for victory
@@ -149,6 +150,7 @@ void GameInstance::endOfGame()
 	_playerCharacter.setPendingDestruction(true);
 	pauseGame(true);
 	GameUI::Instance().activateUIWindow(VICTORY);
+	PlaySound(TEXT("SFX/Victory.wav"), NULL, SND_FILENAME | SND_ASYNC);
 }
 
 // Spawn the enemies on the level depending on the spawners placed on the levelX.txt

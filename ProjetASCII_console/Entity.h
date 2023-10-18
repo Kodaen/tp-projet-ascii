@@ -38,8 +38,8 @@ public:
 	void turnToDirection(const DIRECTION& newDirection);
 
 	// Attack and recieve damage functions
-	void attack();
-	void recieveDamage(const int& Damage, WCHAR opponent = L' ');
+	virtual void attack();
+	virtual void recieveDamage(const int& Damage, WCHAR opponent = L' ');
 
 	virtual void die();
 

@@ -40,6 +40,10 @@ public:
 		_isOnStairs = isOnStairs;
 	}
 
+	// Attack and recieve damage functions
+	virtual void attack();
+	virtual void recieveDamage(const int& Damage, WCHAR opponent = L' ');
+
 	void die();
 
 	//////////////////////// Getters & Setters ////////////////////////
