@@ -65,6 +65,10 @@ public:
 
 	inline bool isWater(const WCHAR& wchar);
 
+	bool isHealthPositive(const WCHAR& wchar);
+
+	bool isHealthNegative(const WCHAR& wchar);
+
 	inline WCHAR& getCharacterAtCoordinate(const COORD& coordinates);
 
 	inline WORD& getColorAtCoordinate(const COORD& coordinates);

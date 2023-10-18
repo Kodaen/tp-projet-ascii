@@ -65,7 +65,9 @@ void GameUI::displayStats()
 	BufferHandler& bufferHandler = BufferHandler::Instance();
 	// Hard coded value because HEIGHT can't be used now that it's greater than the console's height.
 	// TODO: find how to retrieve it instead.
-	bufferHandler.drawMapRow(_stats, 29);
+	bufferHandler.drawMapRow(std::wstring(WIDTH, L'▀'), 28);
+	std::map<std::wstring, WORD> colors = { {L"healthPos", 0x0A}, { L"healthNeg", 0x0C } };
+	bufferHandler.drawMapRow(_stats, 29, colors);
 }
 
 // Puts action log line into the buffer (but doesn't display on screen : see printBuffer())
@@ -142,7 +144,7 @@ void GameUI::createStats()
 	else if (hp >= 25) {
 		wstats << L"▒▒▒▒▒▒░░░░░░░░░░░░░░░░░░░░░░░░";
 	}
-	else if (hp  == 0) {
+	else if (hp == 0) {
 		wstats << L"░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░";
 	}
 	wstats << "(" << gameInstance.getPlayerCharacter().getHP() << ")";
