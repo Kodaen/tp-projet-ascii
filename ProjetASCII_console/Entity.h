@@ -3,6 +3,8 @@
 //#include <wincontypes.h>
 //#include "Direction.h"
 //#include "GameObject.h"
+//#include <string>
+//#include <vector>
 
 class Entity : public GameObject
 {
@@ -40,6 +42,11 @@ public:
 	void recieveDamage(const int& Damage, WCHAR opponent = L' ');
 
 	virtual void die();
+
+private:
+	std::wstring getRandomVerb(const std::vector<std::wstring>& verbs);
+
+	void setRandomSentence(const std::vector<std::wstring>& verbs);
 
 	//////////////////////// Getters & Setters ////////////////////////
 public:

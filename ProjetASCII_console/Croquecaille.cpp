@@ -3,6 +3,8 @@
 #include <wincontypes.h>
 #include "Direction.h"
 #include "GameObject.h"
+#include <string>
+#include <vector>
 #include "Entity.h"
 
 #include "Croquecaille.h"
@@ -11,8 +13,6 @@
 #include "NYTimer.h"
 #include "PlayerController.h"
 #include "PlayerCharacter.h"
-#include <vector>
-#include <string>
 #include <map>
 #include "Level.h"
 #include "gameInstance.h"
@@ -26,6 +26,8 @@ Croquecaille::Croquecaille() : _currentStep(0), Entity()
 	_originalSpriteColor = 0x0C; // Pink
 
 	_displayedColor = _lookingDirection + _originalSpriteColor;
+
+	_hp = 100;
 }
 
 Croquecaille::Croquecaille(const COORD& pos, const DIRECTION& lookingDirection) : Croquecaille()
@@ -96,7 +98,7 @@ void Croquecaille::shootBuble()
 		return;
 	}
 
-	Projectile* p = new Projectile({ _pos.X, _pos.Y }, direction);
+	Projectile* p = new Projectile({ _pos.X, _pos.Y }, direction, 50);
 
 	//Spawn projectile
 	GameInstance::Instance().getGameObject().push_back(p);

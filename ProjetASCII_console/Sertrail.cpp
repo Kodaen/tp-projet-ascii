@@ -3,6 +3,8 @@
 #include <wincontypes.h>
 #include "Direction.h"
 #include "GameObject.h"
+#include <string>
+#include <vector>
 #include "Entity.h"
 #include "Sertrail.h"
 
@@ -15,6 +17,9 @@ Sertrail::Sertrail() : _currentStep(0), Entity()
 
 
 	_displayedColor = _lookingDirection + _originalSpriteColor;
+
+	_damage = 25;
+	_hp = 50;
 }
 
 Sertrail::Sertrail(const COORD& pos, const DIRECTION& lookingDirection) : Sertrail()

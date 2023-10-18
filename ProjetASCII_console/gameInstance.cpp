@@ -8,6 +8,8 @@
 #include "Direction.h"
 #include <wincontypes.h>
 #include "GameObject.h"
+#include <string>
+#include <vector>
 #include "Entity.h"
 
 

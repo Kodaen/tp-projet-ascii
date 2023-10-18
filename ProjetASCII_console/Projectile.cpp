@@ -2,6 +2,8 @@
 #include <wincontypes.h>
 #include "Direction.h"
 #include "GameObject.h"
+#include <string>
+#include <vector>
 #include "Entity.h"
 
 
@@ -9,8 +11,6 @@
 #include "NYTimer.h"
 #include "PlayerController.h"
 #include "PlayerCharacter.h"
-#include "vector"
-#include <string>
 #include <map>
 #include "Level.h"
 #include "gameInstance.h"
@@ -32,9 +32,10 @@ Projectile::Projectile() : _movingDirection({ 1,0 }), GameObject() {
 }
 
 
-Projectile::Projectile(const COORD& pos, const COORD& movingDirection) : Projectile() {
+Projectile::Projectile(const COORD& pos, const COORD& movingDirection, int damage) : Projectile() {
 	_movingDirection = movingDirection;
 	_pos = pos;
+	_damage = damage;
 }
 
 // Moves the projection according int its movingDirection ; called every frame

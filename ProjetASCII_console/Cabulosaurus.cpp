@@ -1,5 +1,7 @@
 #include <windows.h>
 
+#include <string>
+#include <vector>
 #include <wincontypes.h>
 #include "Direction.h"
 #include "GameObject.h"
@@ -11,8 +13,6 @@
 #include "NYTimer.h"
 #include "PlayerController.h"
 #include "PlayerCharacter.h"
-#include <vector>
-#include <string>
 #include <map>
 #include "Level.h"
 #include "gameInstance.h"
@@ -27,6 +27,8 @@ Cabulosaurus::Cabulosaurus() : _currentStep(0), Entity()
 
 
 	_displayedColor = _lookingDirection + _originalSpriteColor;
+
+	_hp = 150;
 }
 
 Cabulosaurus::Cabulosaurus(const COORD& pos, const DIRECTION& lookingDirection) : Cabulosaurus()
@@ -103,9 +105,9 @@ void Cabulosaurus::shootBubles()
 	perpendicularDirection.X = -direction.Y;
 	perpendicularDirection.Y = direction.X;
 
-	Projectile* p1 = new Projectile({ (_pos.X + perpendicularDirection.X), (_pos.Y + perpendicularDirection.Y) }, direction);
-	Projectile* p2 = new Projectile({ _pos.X, _pos.Y }, direction);
-	Projectile* p3 = new Projectile({ (_pos.X - perpendicularDirection.X), (_pos.Y - perpendicularDirection.Y) }, direction);
+	Projectile* p1 = new Projectile({ (_pos.X + perpendicularDirection.X), (_pos.Y + perpendicularDirection.Y) }, direction, 75);
+	Projectile* p2 = new Projectile({ _pos.X, _pos.Y }, direction, 75);
+	Projectile* p3 = new Projectile({ (_pos.X - perpendicularDirection.X), (_pos.Y - perpendicularDirection.Y) }, direction, 75);
 
 	//Spawn projectile
 	GameInstance::Instance().getGameObject().push_back(p1);
