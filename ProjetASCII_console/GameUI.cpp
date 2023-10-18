@@ -127,10 +127,26 @@ void GameUI::createStats()
 	wstats << "Étage : ";
 	wstats << gameInstance.getCurrentLevel().getNumber();
 
-	wstats << "            -- Joueur --";
+	wstats << L"            -- Joueur ►";
+	int hp = gameInstance.getPlayerCharacter().getHP();
 	wstats << " Pv : ";
-	wstats << gameInstance.getPlayerCharacter().getHP();
-	wstats << " Dégâts : ";
+	if (hp == 100) {
+		wstats << L"▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒";
+	}
+	else if (hp >= 75) {
+		wstats << L"▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒░░░░░░░░░";
+	}
+	else if (hp >= 50) {
+		wstats << L"▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒░░░░░░░░░░░░░░░";
+	}
+	else if (hp >= 25) {
+		wstats << L"▒▒▒▒▒▒░░░░░░░░░░░░░░░░░░░░░░░░";
+	}
+	else if (hp  == 0) {
+		wstats << L"░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░";
+	}
+	wstats << "(" << gameInstance.getPlayerCharacter().getHP() << ")";
+	wstats << L" ► Dégâts : ";
 	wstats << gameInstance.getPlayerCharacter().getDamage();
 	//wstats << " Niveau : ";
 	//wstats << gameInstance.getPlayerCharacter().getDamage();
