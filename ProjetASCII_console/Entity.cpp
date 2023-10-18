@@ -307,6 +307,9 @@ void Entity::setRandomSentence(const std::vector<std::wstring>& verbs) {
 	stream << getRandomVerb(verbs);
 
 	switch (_displayedSprite) {
+	case L'V':
+		stream << " le Vipralisque";
+		break;
 	case L'B':
 		stream << " le Cabulosaurus";
 		break;
