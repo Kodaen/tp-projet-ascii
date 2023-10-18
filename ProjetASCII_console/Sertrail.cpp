@@ -3,6 +3,8 @@
 #include <wincontypes.h>
 #include "Direction.h"
 #include "GameObject.h"
+#include <string>
+#include <vector>
 #include "Entity.h"
 #include "Sertrail.h"
 

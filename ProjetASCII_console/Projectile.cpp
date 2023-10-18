@@ -2,6 +2,8 @@
 #include <wincontypes.h>
 #include "Direction.h"
 #include "GameObject.h"
+#include <string>
+#include <vector>
 #include "Entity.h"
 
 
@@ -9,8 +11,6 @@
 #include "NYTimer.h"
 #include "PlayerController.h"
 #include "PlayerCharacter.h"
-#include "vector"
-#include <string>
 #include <map>
 #include "Level.h"
 #include "gameInstance.h"

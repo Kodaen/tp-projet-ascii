@@ -3,10 +3,10 @@
 #include <windows.h>
 #include "Direction.h"
 #include "GameObject.h"
-#include "Entity.h"
-
 #include <vector>
 #include <string>
+#include "Entity.h"
+
 #include <map>
 #include "BufferHandler.h"
 

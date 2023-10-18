@@ -1,5 +1,7 @@
 #include <windows.h>
 
+#include <string>
+#include <vector>
 #include <wincontypes.h>
 #include "Direction.h"
 #include "GameObject.h"
@@ -11,8 +13,6 @@
 #include "NYTimer.h"
 #include "PlayerController.h"
 #include "PlayerCharacter.h"
-#include <vector>
-#include <string>
 #include <map>
 #include "Level.h"
 #include "gameInstance.h"

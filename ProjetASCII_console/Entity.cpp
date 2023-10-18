@@ -3,10 +3,10 @@
 #include "Direction.h"
 #include <wincontypes.h>
 #include "GameObject.h"
-#include "Entity.h"
-
 #include <vector>
 #include <string>
+#include "Entity.h"
+
 #include <map>
 #include "BufferHandler.h"
 
@@ -23,6 +23,8 @@
 #include "GameInstance.h"
 #include "UIWindow.h"
 #include "GameUI.h"
+#include <time.h>
+#include <sstream>
 #pragma comment(lib,"winmm.lib")
 
 Entity::Entity() : GameObject()
@@ -284,41 +286,50 @@ void Entity::recieveDamage(const int& damage, WCHAR opponent) {
 	if (_hp == 0)
 	{
 		if (opponent == L'@') {
-			switch (_displayedSprite) {
-			case L'B':
-				GameUI::Instance().appendToActionsLog(L"Vous tuez le Cabulosaurus");
-				break;
-			case L'C':
-				GameUI::Instance().appendToActionsLog(L"Vous tuez le Croquecaille");
-				break;
-			case L'S':
-				GameUI::Instance().appendToActionsLog(L"Vous tuez le Sertrail");
-				break;
-			default:
-				break;
-			}
+			std::vector<std::wstring> verbs = { L"abattez", L"achevez", L"tuez" };
+			setRandomSentence(verbs);
 		}
 
 		die();
 	}
 	else {
 		if (opponent == L'@') {
-			switch (_displayedSprite) {
-			case L'B':
-				GameUI::Instance().appendToActionsLog(L"Vous blessez le Cabulosaurus");
-				break;
-			case L'C':
-				GameUI::Instance().appendToActionsLog(L"Vous blessez le Croquecaille");
-				break;
-			case L'S':
-				GameUI::Instance().appendToActionsLog(L"Vous blessez le Sertrail");
-				break;
-			default:
-				break;
-			}
+			std::vector<std::wstring> verbs = { L"estropiez", L"frappez", L"blessez" };
+			setRandomSentence(verbs);
 		}
 	}
 };
+
+void Entity::setRandomSentence(const std::vector<std::wstring>& verbs) {
+	std::wstring message;
+	std::wstringstream stream;
+	stream << "Vous ";
+	stream << getRandomVerb(verbs);
+
+	switch (_displayedSprite) {
+	case L'B':
+		stream << " le Cabulosaurus";
+		break;
+	case L'C':
+		stream << " le Croquecaille";
+		break;
+	case L'S':
+		stream << " le Sertrail";
+		break;
+	default:
+		break;
+	}
+
+	message.append(stream.str());
+	GameUI::Instance().appendToActionsLog(message);
+}
+
+std::wstring Entity::getRandomVerb(const std::vector<std::wstring>& verbs) {
+	srand(time(nullptr));
+	int wordPos = rand() % verbs.size();
+
+	return verbs[wordPos];
+}
 
 // Set the attribute _pendingDestruction to true. 
 // Before the next update the game instance will check if the
